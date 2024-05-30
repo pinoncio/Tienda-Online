@@ -16,7 +16,10 @@ const express_1 = __importDefault(require("express"));
 const cors_1 = __importDefault(require("cors"));
 const user_1 = require("./user");
 const rol_1 = require("./rol");
+const categoria_1 = require("./categoria");
 const user_2 = __importDefault(require("../routes/user"));
+const rol_2 = __importDefault(require("../routes/rol"));
+const categoria_2 = __importDefault(require("../routes/categoria"));
 class Server {
     constructor() {
         this.app = (0, express_1.default)();
@@ -34,6 +37,8 @@ class Server {
     }
     routes() {
         this.app.use('/api/users', user_2.default);
+        this.app.use('/api/rol', rol_2.default);
+        this.app.use('/api/categoria', categoria_2.default);
     }
     midlewares() {
         this.app.use(express_1.default.json());
@@ -44,6 +49,7 @@ class Server {
             try {
                 yield user_1.User.sync();
                 yield rol_1.Rol.sync();
+                yield categoria_1.Categorias.sync();
             }
             catch (error) {
                 console.error('No se ha podido conectar a la base de datos');
