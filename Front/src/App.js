@@ -20,16 +20,16 @@ function App() {
             <h1>Creaciones con Amor</h1>
           </div>
           <nav>
-            <ul>
-              <li><a href="/">Inicio</a></li>
-              <li><a href="#catalogo">Catálogo</a></li>
-              <li><a href="#nosotros">Nosotros</a></li>
-              <li><a href="#contacto">Contacto</a></li>
-              <li className="login"><a href="#crear-cuenta">Crear Cuenta</a></li>
-              <li className="login"><a href="#iniciar-sesion">Iniciar Sesión</a></li>
-              <li><a href="#carrito"><i className="fas fa-shopping-cart"></i></a></li>
-            </ul>
-          </nav>
+          <ul>
+            <li><a href="/">Inicio</a></li>
+            <li><a href="#catalogo">Catálogo</a></li>
+            <li><a href="#contacto">Contacto</a></li>
+            <li className="login"><a href="#crear-cuenta">Crear Cuenta</a></li>
+            <li className="login"><a href="#iniciar-sesion">Iniciar Sesión</a></li>
+            <li><a href="#carrito"><i className="fas fa-shopping-cart"></i></a></li>
+            <li><a href="#perfil"><i className="fas fa-user"></i></a></li>
+          </ul>
+        </nav>
         </header>
         <Routes>
           <Route path="/" element={<Inicio />} />
@@ -41,8 +41,19 @@ function App() {
           <Route path="/carrito" element={<Carrito />} />
         </Routes>
         <footer>
-          <p>&copy; 2024 Creaciones con Amor. Todos los derechos reservados.</p>
-        </footer>
+        <p>&copy; 2024 Creaciones con Amor. Todos los derechos reservados.</p>
+        <div className="social-icons">
+          <a href="https://wa.me/+56975409834" target="_blank" rel="noopener noreferrer">
+            <i className="fab fa-whatsapp"></i>
+          </a>
+          <a href="https://www.instagram.com/tu-cuenta-de-instagram" target="_blank" rel="noopener noreferrer">
+            <i className="fab fa-instagram"></i>
+          </a>
+          <a href="https://www.facebook.com/tu-cuenta-de-facebook" target="_blank" rel="noopener noreferrer">
+            <i className="fab fa-facebook"></i>
+          </a>
+        </div>
+      </footer>
       </div>
     </HashRouter>
   );
