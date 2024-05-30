@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import './crearcuenta.css';
+import '../styles/crearcuenta.css';
 
 const CrearCuenta = () => {
   const [errors, setErrors] = useState({

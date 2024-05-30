@@ -4,7 +4,7 @@ import logo from '../image/logo1.png';
 import product1 from '../image/1.jpeg';
 import product2 from '../image/2.jpeg';
 import product3 from '../image/3.jpeg';
-import './inicio.css';
+import '../styles/inicio.css';
 
 function Inicio() {
   return (

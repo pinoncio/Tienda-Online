@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import './iniciarsesion.css';
+import '../styles/iniciarsesion.css';
 
 const IniciarSesion = () => {
   const [errors, setErrors] = useState({
