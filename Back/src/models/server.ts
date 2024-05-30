@@ -2,8 +2,10 @@ import express, { Application } from 'express';
 import cors from 'cors';
 import { User } from './user';
 import { Rol } from './rol';
+import { Categorias } from './categoria';
 import routesUsers from '../routes/user';
 import routesRol from '../routes/rol';
+import routesCategoria from '../routes/categoria';
  
 
 class Server {
@@ -33,6 +35,7 @@ class Server {
     routes() {
         this.app.use('/api/users', routesUsers);
         this.app.use('/api/rol', routesRol);
+        this.app.use('/api/categoria',  routesCategoria);
     }
 
     midlewares() {
@@ -45,6 +48,7 @@ class Server {
         try {
             await User.sync()
             await Rol.sync()
+            await Categorias.sync()
 
         } catch (error) {
             console.error('No se ha podido conectar a la base de datos');
