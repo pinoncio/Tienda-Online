@@ -46,10 +46,10 @@ function App() {
           <a href="https://wa.me/+56975409834" target="_blank" rel="noopener noreferrer">
             <i className="fab fa-whatsapp"></i>
           </a>
-          <a href="https://www.instagram.com/tu-cuenta-de-instagram" target="_blank" rel="noopener noreferrer">
+          <a href="https://www.instagram.com/diegopino.sm" target="_blank" rel="noopener noreferrer">
             <i className="fab fa-instagram"></i>
           </a>
-          <a href="https://www.facebook.com/tu-cuenta-de-facebook" target="_blank" rel="noopener noreferrer">
+          <a href="https://www.facebook.com/Diego Alexis Pino" target="_blank" rel="noopener noreferrer">
             <i className="fab fa-facebook"></i>
           </a>
         </div>
