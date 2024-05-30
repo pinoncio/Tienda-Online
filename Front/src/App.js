@@ -3,6 +3,7 @@ import { HashRouter, Route, Routes } from 'react-router-dom';
 import "./styles.css";
 import logo from "./image/logo1.png";
 import { Inicio } from './pages/Inicio';
+import { Admin } from  './pages/admin';
 import { Catalogo } from './pages/Catalogo';
 import { Nosotros } from './pages/Nosotros';
 import { Contacto } from './pages/Contacto';
@@ -23,6 +24,7 @@ function App() {
           <ul>
             <li><a href="/">Inicio</a></li>
             <li><a href="#catalogo">Catálogo</a></li>
+            <li><a href="#admin">admin</a></li>
             <li><a href="#contacto">Contacto</a></li>
             <li className="login"><a href="#crear-cuenta">Crear Cuenta</a></li>
             <li className="login"><a href="#iniciar-sesion">Iniciar Sesión</a></li>
@@ -34,6 +36,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Inicio />} />
           <Route path="/catalogo" element={<Catalogo />} />
+          <Route path="/admin" element={<Admin />} />
           <Route path="/nosotros" element={<Nosotros />} />
           <Route path="/contacto" element={<Contacto />} />
           <Route path="/crear-cuenta" element={<CrearCuenta />} />

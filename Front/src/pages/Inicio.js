@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link as ScrollLink, animateScroll as scroll } from 'react-scroll';
+import { Link as ScrollLink } from 'react-scroll';
 import logo from '../image/logo1.png';
 import product1 from '../image/1.jpeg';
 import product2 from '../image/2.jpeg';
