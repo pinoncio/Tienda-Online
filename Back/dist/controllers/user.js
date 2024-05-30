@@ -19,7 +19,7 @@ const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 const rol_1 = require("../models/rol");
 const sequelize_1 = __importDefault(require("sequelize"));
 const newUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const { rut_usuario, contrasena, nombre_usuario, apellido1_usuario, apellido2_usuario, direccion, id_rol } = req.body;
+    const { rut_usuario, contrasena, nombre_usuario, apellido1_usuario, apellido2_usuario, direccion, correo, id_rol } = req.body;
     const usuario = yield user_1.User.findOne({ where: { rut_usuario: rut_usuario } });
     if (usuario) {
         return res.status(400).json({
@@ -35,6 +35,7 @@ const newUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
             "apellido1_usuario": apellido1_usuario,
             "apellido2_usuario": apellido2_usuario,
             "direccion": direccion,
+            "correo": correo,
             "id_rol": id_rol
         });
         return res.status(201).json({
@@ -53,12 +54,14 @@ const getUsers = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const listUsers = yield user_1.User.findAll({
             attributes: [
+                'id_usuario',
                 'rut_usuario',
                 'nombre_usuario',
                 'apellido1_usuario',
                 'apellido2_usuario',
                 'direccion',
                 'contrasena',
+                'correo',
                 'id_rol',
                 [sequelize_1.default.col('rol.nombre_rol'), 'nombre_rol']
             ],
@@ -101,26 +104,28 @@ const loginUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
 });
 exports.loginUser = loginUser;
 const getUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const { rut_usuario } = req.params;
+    const { id_usuario } = req.params;
     const idUser = yield user_1.User.findOne({
         attributes: [
+            'id_usuario',
             'rut_usuario',
             'nombre_usuario',
             'apellido1_usuario',
             'apellido2_usuario',
             'direccion',
             'contrasena',
+            'correo',
             'id_rol',
             [sequelize_1.default.col('rol.nombre_rol'), 'nombre_rol']
         ],
         include: {
             model: rol_1.Rol,
             attributes: []
-        }, where: { rut_usuario: rut_usuario }
+        }, where: { id_usuario: id_usuario }
     });
     if (!idUser) {
         return res.status(404).json({
-            msg: "El rut de usuario indicado no existe"
+            msg: "El id de usuario indicado no existe"
         });
     }
     try {
@@ -135,37 +140,37 @@ const getUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
 });
 exports.getUser = getUser;
 const deleteUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const { rut_usuario } = req.params;
-    const idUser = yield user_1.User.findOne({ where: { rut_usuario: rut_usuario } });
+    const { id_usuario } = req.params;
+    const idUser = yield user_1.User.findOne({ where: { id_usuario: id_usuario } });
     if (!idUser) {
         return res.status(404).json({
-            msg: "El rut " + rut_usuario + " de usuario no existe"
+            msg: "El id " + id_usuario + " de usuario no existe"
         });
     }
     try {
-        yield user_1.User.destroy({ where: { rut_usuario: rut_usuario } });
+        yield user_1.User.destroy({ where: { id_usuario: id_usuario } });
         res.json({
-            msg: "Se ha eliminado al usuario: " + rut_usuario
+            msg: "Se ha eliminado al usuario: " + id_usuario
         });
     }
     catch (error) {
         res.status(400).json({
-            msg: "No se ha podido eliminar el usuario con rut: " + rut_usuario,
+            msg: "No se ha podido eliminar el usuario con id: " + id_usuario,
             error
         });
     }
 });
 exports.deleteUser = deleteUser;
 const updateUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const { rut_usuario } = req.params;
-    const idUser = yield user_1.User.findOne({ where: { rut_usuario: rut_usuario } });
+    const { id_usuario } = req.params;
+    const idUser = yield user_1.User.findOne({ where: { id_usuario: id_usuario } });
     if (!idUser) {
         return res.status(404).json({
-            msg: "El rut " + rut_usuario + " de usuario no existe"
+            msg: "El rut " + id_usuario + " de usuario no existe"
         });
     }
     try {
-        const { nombre_usuario, apellido1_usuario, apellido2_usuario, contrasena, direccion, id_rol } = req.body;
+        const { nombre_usuario, apellido1_usuario, apellido2_usuario, contrasena, direccion, correo, id_rol } = req.body;
         if (contrasena != null) {
             const hashedpassword = yield bcrypt_1.default.hash(contrasena, 10);
             yield user_1.User.update({
@@ -174,11 +179,12 @@ const updateUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
                 apellido2_usuario: apellido2_usuario,
                 contrasena: hashedpassword,
                 direccion: direccion,
+                correo: correo,
                 id_rol: id_rol
-            }, { where: { rut_usuario: rut_usuario }
+            }, { where: { id_usuario: id_usuario }
             });
             res.json({
-                msg: "Se ha actualizado al usuario: " + rut_usuario
+                msg: "Se ha actualizado al usuario: " + id_usuario
             });
         }
         else {
@@ -187,17 +193,18 @@ const updateUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
                 apellido1_usuario: apellido1_usuario,
                 apellido2_usuario: apellido2_usuario,
                 direccion: direccion,
+                correo: correo,
                 id_rol: id_rol
-            }, { where: { rut_usuario: rut_usuario }
+            }, { where: { id_usuario: id_usuario }
             });
             res.json({
-                msg: "Se ha actualizado al usuario: " + rut_usuario
+                msg: "Se ha actualizado al usuario: " + id_usuario
             });
         }
     }
     catch (error) {
         res.status(400).json({
-            msg: "No se ha podido actualizar el usuario con rut: " + rut_usuario,
+            msg: "No se ha podido actualizar el usuario con id: " + id_usuario,
             error
         });
     }

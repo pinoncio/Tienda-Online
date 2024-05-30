@@ -2,7 +2,8 @@ import express, { Application } from 'express';
 import cors from 'cors';
 import { User } from './user';
 import { Rol } from './rol';
-import routesUsers from '../routes/user'
+import routesUsers from '../routes/user';
+import routesRol from '../routes/rol';
  
 
 class Server {
@@ -31,6 +32,7 @@ class Server {
 
     routes() {
         this.app.use('/api/users', routesUsers);
+        this.app.use('/api/rol', routesRol);
     }
 
     midlewares() {

@@ -17,6 +17,7 @@ const cors_1 = __importDefault(require("cors"));
 const user_1 = require("./user");
 const rol_1 = require("./rol");
 const user_2 = __importDefault(require("../routes/user"));
+const rol_2 = __importDefault(require("../routes/rol"));
 class Server {
     constructor() {
         this.app = (0, express_1.default)();
@@ -34,6 +35,7 @@ class Server {
     }
     routes() {
         this.app.use('/api/users', user_2.default);
+        this.app.use('/api/rol', rol_2.default);
     }
     midlewares() {
         this.app.use(express_1.default.json());
