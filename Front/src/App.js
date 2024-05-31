@@ -2,7 +2,7 @@
 import React from "react";
 import { HashRouter, Route, Routes } from 'react-router-dom';
 import "./styles.css";
-import logo from "./image/logo1.png";
+import logo from "./image/logo2.png";
 import { Inicio } from './pages/Inicio';
 import { Admin } from './pages/admin';
 import { Catalogo } from './pages/Catalogo';
@@ -20,7 +20,7 @@ function App() {
         <header>
           <div className="logo">
             <img src={logo} alt=""/>
-            <h1>Creaciones con Amor</h1>
+            <h1></h1>
           </div>
           <nav>
             <ul>
@@ -52,12 +52,9 @@ function App() {
             <a href="https://wa.me/+56975409834" target="_blank" rel="noopener noreferrer">
               <i className="fab fa-whatsapp"></i>
             </a>
-            <a href="https://www.instagram.com/diegopino.sm" target="_blank" rel="noopener noreferrer">
-              <i className="fab fa-instagram"></i>
-            </a>
-            <a href="https://www.facebook.com/DiegoAlexisPino" target="_blank" rel="noopener noreferrer">
-              <i className="fab fa-facebook"></i>
-            </a>
+            <a href="https://www.instagram.com/creaciones.con.amoor/" target="_blank" rel="noopener noreferrer">
+            <i className="fab fa-instagram"></i>
+          </a>
           </div>
         </footer>
       </div>
