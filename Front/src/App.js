@@ -13,6 +13,7 @@ import { IniciarSesion } from './pages/IniciarSesion';
 import { Carrito } from './pages/Carrito';
 import Users from './pages/user';
 import Roles from './pages/rol'
+import Categoria from "./pages/categoria";
 
 function App() {
   return (
@@ -21,7 +22,6 @@ function App() {
         <header>
           <div className="logo">
             <img src={logo} alt=""/>
-            <h1></h1>
           </div>
           <nav>
             <ul>
@@ -47,6 +47,7 @@ function App() {
           <Route path="/carrito" element={<Carrito />} />
           <Route path="/users" element={<Users />} />
           <Route path="/roles" element={<Roles />} />
+          <Route path="/categoria" element={<Categoria />} />
         </Routes>
         <footer>
           <p>&copy; 2024 Creaciones con Amor. Todos los derechos reservados.</p>

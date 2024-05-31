@@ -34,7 +34,7 @@ function Admin() {
               <FontAwesomeIcon icon={faClipboardList} size="3x" />
               <p>Pedidos</p>
             </div>
-            <div className="admin-card" onClick={() => handleNavigation('/categories')}>
+            <div className="admin-card" onClick={() => handleNavigation('/categoria')}>
               <FontAwesomeIcon icon={faTags} size="3x" />
               <p>Categorías</p>
             </div>
