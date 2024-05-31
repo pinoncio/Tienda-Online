@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import { Productos } from "../models/producto";
 import { Categorias } from "../models/categoria";
-import sequelize, { INTEGER } from "sequelize";
+import sequelize from "sequelize";
 
 
 export const newProducto = async(req: Request, res: Response) =>{
