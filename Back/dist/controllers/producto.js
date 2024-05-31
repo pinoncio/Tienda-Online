@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getProductos = exports.getProducto = exports.newProducto = void 0;
+exports.updateProducto = exports.deleteProducto = exports.getProductos = exports.getProducto = exports.newProducto = void 0;
 const producto_1 = require("../models/producto");
 const categoria_1 = require("../models/categoria");
 const sequelize_1 = __importDefault(require("sequelize"));
@@ -85,3 +85,53 @@ const getProductos = (req, res) => __awaiter(void 0, void 0, void 0, function* (
     }
 });
 exports.getProductos = getProductos;
+const deleteProducto = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const { cod_producto } = req.params;
+    const idProducto = yield producto_1.Productos.findOne({ where: { cod_producto: cod_producto } });
+    if (!idProducto) {
+        return res.status(404).json({
+            msg: "El codigo: " + cod_producto + " de producto no existe"
+        });
+    }
+    try {
+        yield producto_1.Productos.destroy({ where: { cod_producto: cod_producto } });
+        return res.json({
+            msg: 'Producto ' + cod_producto + ' borrado correctamente'
+        });
+    }
+    catch (error) {
+        return res.status(400).json({
+            msg: 'Ha ocurrido un error al eliminar el producto con codigo: ' + cod_producto,
+            error
+        });
+    }
+});
+exports.deleteProducto = deleteProducto;
+const updateProducto = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const { cod_producto } = req.params;
+    const { nombre_producto, precio_producto, descripcion_producto, categoria_producto } = req.body;
+    const idProducto = yield producto_1.Productos.findOne({ where: { cod_producto: cod_producto } });
+    if (!idProducto) {
+        return res.status(404).json({
+            msg: "El codigo del producto no existe"
+        });
+    }
+    try {
+        yield producto_1.Productos.update({
+            nombre_producto: nombre_producto,
+            precio_producto: precio_producto,
+            descripcion_producto: descripcion_producto,
+            categoria_producto: categoria_producto
+        }, { where: { cod_producto: cod_producto } });
+        return res.json({
+            msg: 'Producto ' + cod_producto + ' actualizado correctamente'
+        });
+    }
+    catch (error) {
+        return res.status(400).json({
+            msg: 'Ha ocurrido un error al actualizar el producto: ' + cod_producto,
+            error
+        });
+    }
+});
+exports.updateProducto = updateProducto;
