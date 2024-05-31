@@ -16,7 +16,7 @@ function Admin() {
       <div className="admin-page">
         <h3>Administracion</h3>
         
-        <div className="admin-container"> {/* Nuevo contenedor */}
+        <div className="admin-container"> 
           <div className="admin-options">
             <div className="admin-card" onClick={() => handleNavigation('/users')}>
               <FontAwesomeIcon icon={faUsers} size="3x" />
