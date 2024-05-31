@@ -7,19 +7,21 @@ import dotenv from 'dotenv';
 dotenv.config();
 
 const transporter = nodemailer.createTransport({
-  host: 'smtp.office365.com',
-  port: 587,
+  host: process.env.SMTP_HOST,
+  port: parseInt(process.env.SMTP_PORT || '587', 10),
   secure: false,
   auth: {
-    user: 'nicolas.pa.vez@hotmail.com',
-    pass: 'lqlwbgejjlmadris',
+    user: process.env.SMPT_USER,
+    pass: process.env.SMPT_PASS,
   },
 });
 
 export const sendMail = async (to: string, subject: string, text: string, html?: string) => {
   try {
+    const fromAddress = process.env.SMPT_USER;
+    console.log(fromAddress)
     const info = await transporter.sendMail({
-      from: `"Nicolas" <nicolas.pa.vez@hotmail.com>`,
+      from: `"Creaciones con amor ${fromAddress}`,
       to,
       subject,
       text,

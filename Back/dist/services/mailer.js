@@ -17,18 +17,20 @@ const nodemailer_1 = __importDefault(require("nodemailer"));
 const dotenv_1 = __importDefault(require("dotenv"));
 dotenv_1.default.config();
 const transporter = nodemailer_1.default.createTransport({
-    host: 'smtp.office365.com',
-    port: 587,
+    host: process.env.SMTP_HOST,
+    port: parseInt(process.env.SMTP_PORT || '587', 10),
     secure: false,
     auth: {
-        user: 'nicolas.pa.vez@hotmail.com',
-        pass: 'lqlwbgejjlmadris',
+        user: process.env.SMPT_USER,
+        pass: process.env.SMPT_PASS,
     },
 });
 const sendMail = (to, subject, text, html) => __awaiter(void 0, void 0, void 0, function* () {
     try {
+        const fromAddress = process.env.SMPT_USER;
+        console.log(fromAddress);
         const info = yield transporter.sendMail({
-            from: `"Nicolas" <nicolas.pa.vez@hotmail.com>`,
+            from: `"Creaciones con amor ${fromAddress}`,
             to,
             subject,
             text,
