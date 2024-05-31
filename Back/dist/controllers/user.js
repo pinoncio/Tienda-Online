@@ -194,7 +194,6 @@ const updateUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
                 apellido1_usuario: apellido1_usuario,
                 apellido2_usuario: apellido2_usuario,
                 direccion: direccion,
-                contrasena: contrasena,
                 correo: correo,
                 id_rol: id_rol
             }, { where: { id_usuario: id_usuario }

@@ -15,10 +15,10 @@ const sendEmail = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { to, subject, text, html } = req.body;
     try {
         const info = yield (0, mailer_1.sendMail)(to, subject, text, html);
-        res.status(200).json({ message: 'Email sent successfully', info });
+        res.status(200).json({ message: 'Mail enviado correctamente', info });
     }
     catch (error) {
-        res.status(500).json({ message: 'Failed to send email', error });
+        res.status(500).json({ message: 'Error al mandar el mail', error });
     }
 });
 exports.sendEmail = sendEmail;
