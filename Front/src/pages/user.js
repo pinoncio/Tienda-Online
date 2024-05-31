@@ -1,140 +1,156 @@
 import React, { useState, useEffect } from 'react';
-import { getUsers, createUser, updateUser, deleteUser } from '../services/user';
-import FormularioUsuario from '../components/FormularioUsuario';
+import { loadUsers, loadRoles, deleteUserHandler, updateUserHandler } from '../components/createusers'; 
 import '../styles/user.css';
 
-const Users = () => {
+const User = () => {
   const [users, setUsers] = useState([]);
-  const [form, setForm] = useState({
+  const [roles, setRoles] = useState([]);
+  const [editMode, setEditMode] = useState(false);
+  const [editedUser, setEditedUser] = useState({
+    id_usuario: '',
     rut_usuario: '',
-    contrasena: '',
     nombre_usuario: '',
     apellido1_usuario: '',
     apellido2_usuario: '',
     direccion: '',
+    correo: '',
+    contrasena: '', 
     id_rol: ''
   });
-  const [isEditing, setIsEditing] = useState(false);
-  const [searchTerm] = useState('');
-  const [showCreateForm, setShowCreateForm] = useState(false);
+  const [createMode, setCreateMode] = useState(false); 
 
   useEffect(() => {
-    fetchUsers();
+    loadUsers(setUsers);
+    loadRoles(setRoles);
   }, []);
 
-  const fetchUsers = () => {
-    getUsers().then(response => {
-      setUsers(response.data);
-    }).catch(error => {
-      console.error('Error fetching users:', error);
-    });
-  };
-
-  const handleChange = (e) => {
-    setForm({ ...form, [e.target.name]: e.target.value });
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    if (isEditing) {
-      updateUser(form.rut_usuario, form).then(response => {
-        console.log('Usuario actualizado:', response.data);
-        fetchUsers();
-        resetForm();
-      }).catch(error => {
-        console.error('Error actualizando usuario:', error);
-      });
-    } else {
-      createUser(form).then(response => {
-        console.log('Usuario creado:', response.data);
-        fetchUsers();
-        resetForm();
-      }).catch(error => {
-        console.error('Error creando usuario:', error);
-      });
-    }
+  const handleDelete = async (id_usuario) => {
+    await deleteUserHandler(id_usuario, () => loadUsers(setUsers));
   };
 
   const handleEdit = (user) => {
-    setForm(user);
-    setIsEditing(true);
-    setShowCreateForm(true);
+    setEditMode(true);
+    setEditedUser(user);
   };
 
-  const handleDelete = (rut_usuario) => {
-    deleteUser(rut_usuario).then(response => {
-      console.log('Usuario eliminado:', response.data);
-      fetchUsers();
-    }).catch(error => {
-      console.error('Error eliminando usuario:', error);
-    });
-  };
-
-  const resetForm = () => {
-    setForm({
+  const handleCreate = () => {
+    setCreateMode(true);
+    setEditedUser({
+      id_usuario: '',
       rut_usuario: '',
-      contrasena: '',
       nombre_usuario: '',
       apellido1_usuario: '',
       apellido2_usuario: '',
       direccion: '',
+      correo: '',
+      contrasena: '', 
       id_rol: ''
     });
-    setIsEditing(false);
-    setShowCreateForm(false);
   };
 
-  const handleCancel = () => {
-    resetForm();
-    setShowCreateForm(false);
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    console.log("Datos enviados:", editedUser);
+    await updateUserHandler(editedUser, editMode, createMode, () => loadUsers(setUsers), setEditMode, setCreateMode);
   };
 
-  // Filtrar usuarios por término de búsqueda
-  const filteredUsers = users.filter(user =>
-  (user.nombre_usuario && user.nombre_usuario.toLowerCase().includes(searchTerm.toLowerCase())) ||
-  (user.apellido1_usuario && user.apellido1_usuario.toLowerCase().includes(searchTerm.toLowerCase())) ||
-  (user.apellido2_usuario && user.apellido2_usuario.toLowerCase().includes(searchTerm.toLowerCase()))
-);
+  const handleChange = (event) => {
+    const { name, value } = event.target;
+    setEditedUser({
+      ...editedUser,
+      [name]: value
+    });
+  };
 
-return (
+  const getRolNombre = (id_rol) => {
+    const rol = roles.find((rol) => rol.id_rol === id_rol);
+    return rol ? rol.nombre_rol : 'Desconocido';
+  };
+
+  return (
     <div className="container">
-      <h1>Gestión de Usuarios</h1>
-      <button onClick={() => setShowCreateForm(true)}>Agregar nuevo usuario</button>
-      {showCreateForm && (
-        <FormularioUsuario
-          form={form}
-          handleChange={handleChange}
-          handleSubmit={handleSubmit}
-          isEditing={isEditing}
-          onCancel={handleCancel}
-        />
-      )}
-      <h2>Lista de Usuarios</h2>
+      <h1>Lista de Usuarios</h1>
       <table>
         <thead>
           <tr>
+            <th>RUT</th>
             <th>Nombre</th>
-            <th>Apellido Paterno</th>
-            <th>Apellido Materno</th>
+            <th>Apellidos</th>
+            <th>Dirección</th>
+            <th>Correo</th>
+            <th>Rol</th>
             <th>Acciones</th>
           </tr>
         </thead>
         <tbody>
-          {filteredUsers.map(user => (
-            <tr key={user.rut_usuario}>
+          {users.map((user) => (
+            <tr key={user.id_usuario}>
+              <td>{user.rut_usuario}</td>
               <td>{user.nombre_usuario}</td>
-              <td>{user.apellido1_usuario}</td>
-              <td>{user.apellido2_usuario}</td>
-              <td className="actions">
+              <td>{`${user.apellido1_usuario} ${user.apellido2_usuario}`}</td>
+              <td>{user.direccion}</td>
+              <td>{user.correo}</td>
+              <td>{getRolNombre(user.id_rol)}</td>
+              <td>
                 <button onClick={() => handleEdit(user)}>Editar</button>
-                <button onClick={() => handleDelete(user.rut_usuario)}>Eliminar</button>
+                <button className="delete-button" onClick={() => handleDelete(user.id_usuario)}>Eliminar</button>
               </td>
             </tr>
           ))}
         </tbody>
       </table>
+      <button className="create-button" onClick={handleCreate}>Crear</button>
+      {(editMode || createMode) && (
+        <form onSubmit={handleSubmit} className="edit-form">
+          <div className="form-section">
+            <div className="form-group">
+              <label>RUT</label>
+              <input type="text" name="rut_usuario" value={editedUser.rut_usuario} onChange={handleChange} />
+            </div>
+            <div className="form-group">
+              <label>Nombre</label>
+              <input type="text" name="nombre_usuario" value={editedUser.nombre_usuario} onChange={handleChange} />
+            </div>
+            <div className="form-group">
+              <label>Primer Apellido</label>
+              <input type="text" name="apellido1_usuario" value={editedUser.apellido1_usuario} onChange={handleChange} />
+            </div>
+            <div className="form-group">
+              <label>Segundo Apellido</label>
+              <input type="text" name="apellido2_usuario" value={editedUser.apellido2_usuario} onChange={handleChange} />
+            </div>
+          </div>
+          <div className="form-section">
+            <div className="form-group">
+              <label>Dirección</label>
+              <input type="text" name="direccion" value={editedUser.direccion} onChange={handleChange} />
+            </div>
+            <div className="form-group">
+              <label>Correo electrónico</label>
+              <input type="email" name="correo" value={editedUser.correo} onChange={handleChange} />
+            </div>
+            <div className="form-group">
+              <label>Contraseña</label>
+              <input type="password" name="contrasena" value={editedUser.contrasena} onChange={handleChange} />
+            </div>
+            <div className="form-group">
+              <label>Rol</label>
+              <select name="id_rol" value={editedUser.id_rol} onChange={handleChange}>
+                <option value="">Seleccione un rol</option>
+                {roles.map((rol) => (
+                  <option key={rol.id_rol} value={rol.id_rol}>
+                    {rol.nombre_rol}
+                  </option>
+                ))}
+              </select>
+            </div>
+          </div>
+          <button type="submit">{editMode ? "Guardar" : "Crear"}</button>
+        </form>
+      )}
     </div>
   );
 };
 
-export default Users;
+export default User;
+

@@ -193,6 +193,7 @@ export const updateUser = async(req: Request, res: Response)=>{
         } else{
             await User.update({
                 nombre_usuario: nombre_usuario,
+                contrasena: contrasena,
                 apellido1_usuario: apellido1_usuario,
                 apellido2_usuario: apellido2_usuario,
                 direccion: direccion,
