@@ -7,7 +7,7 @@ body {
 }
 
 header {
-    background-color: #ffccdd;
+    background-color: #ffffff;
     color: #333333;
     padding: 10px 20px;
     display: flex;
@@ -21,8 +21,10 @@ header .logo {
 }
 
 header .logo img {
-    max-height: 50px;
+    width: 400px;  
+    height: 100px;
     margin-right: 10px;
+    margin-left: 10px;
 }
 
 header h1 {
@@ -133,7 +135,12 @@ footer {
     position: fixed;
     bottom: 0;
     width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: baseline;
 }
+
+
 
 .logo img {
     width: 55px;
