@@ -3,9 +3,11 @@ import cors from 'cors';
 import { User } from './user';
 import { Rol } from './rol';
 import { Categorias } from './categoria';
+import { Productos } from './producto';
 import routesUsers from '../routes/user';
 import routesRol from '../routes/rol';
 import routesCategoria from '../routes/categoria';
+import routesProducto from '../routes/producto';
  
 
 class Server {
@@ -36,6 +38,7 @@ class Server {
         this.app.use('/api/users', routesUsers);
         this.app.use('/api/rol', routesRol);
         this.app.use('/api/categoria',  routesCategoria);
+        this.app.use('/api/producto', routesProducto);
     }
 
     midlewares() {
@@ -46,9 +49,10 @@ class Server {
 
     async dbConnect() {
         try {
-            await User.sync()
             await Rol.sync()
+            await User.sync()
             await Categorias.sync()
+            await Productos.sync()
 
         } catch (error) {
             console.error('No se ha podido conectar a la base de datos');
