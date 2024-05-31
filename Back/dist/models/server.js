@@ -22,6 +22,7 @@ const user_2 = __importDefault(require("../routes/user"));
 const rol_2 = __importDefault(require("../routes/rol"));
 const categoria_2 = __importDefault(require("../routes/categoria"));
 const producto_2 = __importDefault(require("../routes/producto"));
+const mailer_1 = __importDefault(require("../routes/mailer"));
 class Server {
     constructor() {
         this.app = (0, express_1.default)();
@@ -42,6 +43,7 @@ class Server {
         this.app.use('/api/rol', rol_2.default);
         this.app.use('/api/categoria', categoria_2.default);
         this.app.use('/api/producto', producto_2.default);
+        this.app.use('/api/mail', mailer_1.default);
     }
     midlewares() {
         this.app.use(express_1.default.json());
