@@ -27,10 +27,8 @@ const transporter = nodemailer_1.default.createTransport({
 });
 const sendMail = (to, subject, text, html) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const fromAddress = process.env.SMPT_USER;
-        console.log(fromAddress);
         const info = yield transporter.sendMail({
-            from: `"Creaciones con amor ${fromAddress}`,
+            from: `"Creaciones con amor ${process.env.SMPT_USER}`,
             to,
             subject,
             text,

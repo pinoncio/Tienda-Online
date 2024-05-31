@@ -18,10 +18,8 @@ const transporter = nodemailer.createTransport({
 
 export const sendMail = async (to: string, subject: string, text: string, html?: string) => {
   try {
-    const fromAddress = process.env.SMPT_USER;
-    console.log(fromAddress)
     const info = await transporter.sendMail({
-      from: `"Creaciones con amor ${fromAddress}`,
+      from: `"Creaciones con amor ${process.env.SMPT_USER}`,
       to,
       subject,
       text,
