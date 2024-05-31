@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { getUsers, deleteUser, updateUser, createUser } from '../services/user';
-import { getRoles } from '../services/rol';
+import { loadUsers, loadRoles, deleteUserHandler, updateUserHandler } from '../components/createusers'; 
 import '../styles/user.css';
 
 const User = () => {
@@ -18,38 +17,15 @@ const User = () => {
     contrasena: '', 
     id_rol: ''
   });
-  const [createMode, setCreateMode] = useState(false); // Nueva constante para manejar el modo de creación
+  const [createMode, setCreateMode] = useState(false); 
 
   useEffect(() => {
-    loadUsers();
-    loadRoles();
+    loadUsers(setUsers);
+    loadRoles(setRoles);
   }, []);
 
-  const loadUsers = async () => {
-    try {
-      const response = await getUsers();
-      setUsers(response.data);
-    } catch (error) {
-      console.error('Error fetching users:', error);
-    }
-  };
-
-  const loadRoles = async () => {
-    try {
-      const response = await getRoles();
-      setRoles(response.data);
-    } catch (error) {
-      console.error('Error fetching roles:', error);
-    }
-  };
-
   const handleDelete = async (id_usuario) => {
-    try {
-      await deleteUser(id_usuario);
-      loadUsers();
-    } catch (error) {
-      console.error('Error deleting user:', error);
-    }
+    await deleteUserHandler(id_usuario, () => loadUsers(setUsers));
   };
 
   const handleEdit = (user) => {
@@ -58,7 +34,7 @@ const User = () => {
   };
 
   const handleCreate = () => {
-    setCreateMode(true); // Establecer el modo de creación en true
+    setCreateMode(true);
     setEditedUser({
       id_usuario: '',
       rut_usuario: '',
@@ -75,18 +51,7 @@ const User = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
     console.log("Datos enviados:", editedUser);
-    try {
-      if (editMode) {
-        await updateUser(editedUser.id_usuario, editedUser);
-      } else if (createMode) { // Manejar el caso de creación
-        await createUser(editedUser);
-      }
-      loadUsers();
-      setEditMode(false);
-      setCreateMode(false); // Restablecer el modo de creación a false después de crear
-    } catch (error) {
-      console.error('Error updating/creating user:', error.response ? error.response.data : error.message);
-    }
+    await updateUserHandler(editedUser, editMode, createMode, () => loadUsers(setUsers), setEditMode, setCreateMode);
   };
 
   const handleChange = (event) => {
@@ -188,3 +153,4 @@ const User = () => {
 };
 
 export default User;
+
