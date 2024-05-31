@@ -12,6 +12,7 @@ import { CrearCuenta } from './pages/CrearCuenta';
 import { IniciarSesion } from './pages/IniciarSesion';
 import { Carrito } from './pages/Carrito';
 import Users from './pages/user';
+import Roles from './pages/rol'
 
 function App() {
   return (
@@ -45,6 +46,7 @@ function App() {
           <Route path="/iniciar-sesion" element={<IniciarSesion />} />
           <Route path="/carrito" element={<Carrito />} />
           <Route path="/users" element={<Users />} />
+          <Route path="/roles" element={<Roles />} />
         </Routes>
         <footer>
           <p>&copy; 2024 Creaciones con Amor. Todos los derechos reservados.</p>
