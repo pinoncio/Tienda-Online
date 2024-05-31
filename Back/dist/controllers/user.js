@@ -190,6 +190,7 @@ const updateUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
         else {
             yield user_1.User.update({
                 nombre_usuario: nombre_usuario,
+                contrasena: contrasena,
                 apellido1_usuario: apellido1_usuario,
                 apellido2_usuario: apellido2_usuario,
                 direccion: direccion,

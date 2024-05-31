@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { getUsers, deleteUser, updateUser } from '../services/user';
+import { getUsers, deleteUser, updateUser, createUser } from '../services/user';
 import { getRoles } from '../services/rol';
 import '../styles/user.css';
 
@@ -18,6 +18,7 @@ const User = () => {
     contrasena: '', 
     id_rol: ''
   });
+  const [createMode, setCreateMode] = useState(false); // Nueva constante para manejar el modo de creación
 
   useEffect(() => {
     loadUsers();
@@ -57,7 +58,7 @@ const User = () => {
   };
 
   const handleCreate = () => {
-    setEditMode(false);
+    setCreateMode(true); // Establecer el modo de creación en true
     setEditedUser({
       id_usuario: '',
       rut_usuario: '',
@@ -71,29 +72,30 @@ const User = () => {
     });
   };
 
-  const handleUpdate = async () => {
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    console.log("Datos enviados:", editedUser);
     try {
-      const { id_usuario, nombre_usuario, apellido1_usuario, apellido2_usuario, direccion, correo, contrasena, id_rol } = editedUser;
-      // Filtrar los campos que se enviarán en la solicitud de actualización
-      const updatedUserData = { nombre_usuario, apellido1_usuario, apellido2_usuario, direccion, correo, contrasena, id_rol };
-      await updateUser(id_usuario, updatedUserData);
+      if (editMode) {
+        await updateUser(editedUser.id_usuario, editedUser);
+      } else if (createMode) { // Manejar el caso de creación
+        await createUser(editedUser);
+      }
       loadUsers();
       setEditMode(false);
+      setCreateMode(false); // Restablecer el modo de creación a false después de crear
     } catch (error) {
-      console.error('Error updating user:', error.response ? error.response.data : error.message);
+      console.error('Error updating/creating user:', error.response ? error.response.data : error.message);
     }
   };
-  
-  
+
   const handleChange = (event) => {
     const { name, value } = event.target;
-    console.log("handleChange:", name, value); 
     setEditedUser({
       ...editedUser,
       [name]: value
     });
   };
-  
 
   const getRolNombre = (id_rol) => {
     const rol = roles.find((rol) => rol.id_rol === id_rol);
@@ -132,10 +134,14 @@ const User = () => {
           ))}
         </tbody>
       </table>
-      <button className="create-button" onClick={handleCreate}>Crear Usuario</button>
-      {editMode && (
-        <form onSubmit={handleUpdate} className="edit-form">
+      <button className="create-button" onClick={handleCreate}>Crear</button>
+      {(editMode || createMode) && (
+        <form onSubmit={handleSubmit} className="edit-form">
           <div className="form-section">
+            <div className="form-group">
+              <label>RUT</label>
+              <input type="text" name="rut_usuario" value={editedUser.rut_usuario} onChange={handleChange} />
+            </div>
             <div className="form-group">
               <label>Nombre</label>
               <input type="text" name="nombre_usuario" value={editedUser.nombre_usuario} onChange={handleChange} />
@@ -174,7 +180,7 @@ const User = () => {
               </select>
             </div>
           </div>
-          <button type="button" onClick={handleUpdate}>Guardar</button>
+          <button type="submit">{editMode ? "Guardar" : "Crear"}</button>
         </form>
       )}
     </div>
