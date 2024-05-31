@@ -1,0 +1,87 @@
+"use strict";
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.getProductos = exports.getProducto = exports.newProducto = void 0;
+const producto_1 = require("../models/producto");
+const categoria_1 = require("../models/categoria");
+const sequelize_1 = __importDefault(require("sequelize"));
+const newProducto = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const { nombre_producto, precio_producto, descripcion_producto, id_categoria } = req.body;
+    try {
+        yield producto_1.Productos.create({
+            "nombre_producto": nombre_producto,
+            "precio_producto": precio_producto,
+            "descripcion_producto": descripcion_producto,
+            "id_categoria": id_categoria
+        });
+        return res.status(201).json({
+            msg: "Producto creado correctamente"
+        });
+    }
+    catch (error) {
+        res.status(400).json({
+            msg: "Ocurrio un error al crear el nuevo producto"
+        });
+    }
+});
+exports.newProducto = newProducto;
+const getProducto = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const { cod_producto } = req.params;
+        const id_categoria = yield producto_1.Productos.findOne({ attributes: ['id_categoria'], where: { cod_producto: cod_producto } });
+        const num_categoria = id_categoria === null || id_categoria === void 0 ? void 0 : id_categoria.dataValues.id_categoria;
+        if (!id_categoria) {
+            return res.status(400).json({
+                msg: "el producto no existe"
+            });
+        }
+        const producto = yield producto_1.Productos.findOne({ attributes: ['cod_producto', 'nombre_producto', 'precio_producto', 'descripcion_producto', [sequelize_1.default.col('categoria.nombre_categoria'), 'nombre_categoria'], 'cantidad_disponible', 'imagen'],
+            include: [
+                {
+                    model: categoria_1.Categorias,
+                    attributes: [],
+                }
+            ],
+            where: {
+                cod_producto: cod_producto
+            }
+        });
+        res.json(producto);
+    }
+    catch (error) {
+        res.status(400).json({
+            msg: "Ha ocurrido un error al encontrar el producto"
+        });
+    }
+});
+exports.getProducto = getProducto;
+const getProductos = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const listaProductos = yield producto_1.Productos.findAll({ attributes: ['cod_producto', 'nombre_producto', 'precio_producto', 'descripcion_producto', [sequelize_1.default.col('categoria.nombre_categoria'), 'nombre_categoria'], 'cantidad_disponible', 'imagen'],
+            include: [
+                {
+                    model: categoria_1.Categorias,
+                    attributes: [],
+                }
+            ]
+        });
+        res.json(listaProductos);
+    }
+    catch (error) {
+        res.status(400).json({
+            msg: "ha ocurrido un error al obtener los productos"
+        });
+    }
+});
+exports.getProductos = getProductos;
