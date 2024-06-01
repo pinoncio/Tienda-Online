@@ -3,6 +3,8 @@ import React from "react";
 import { HashRouter, Route, Routes } from 'react-router-dom';
 import "./styles.css";
 import logo from "./image/logo2.png";
+import icono from "./image/insta.png";
+import iconow from "./image/wasap.png";
 import { Inicio } from './pages/Inicio';
 import { Admin } from './pages/admin';
 import { Catalogo } from './pages/Catalogo';
@@ -14,6 +16,8 @@ import { Carrito } from './pages/Carrito';
 import Users from './pages/user';
 import Roles from './pages/rol'
 import Categoria from "./pages/categoria";
+import Producto from "./pages/producto";
+import Venta from "./pages/venta";
 
 function App() {
   return (
@@ -48,16 +52,20 @@ function App() {
           <Route path="/users" element={<Users />} />
           <Route path="/roles" element={<Roles />} />
           <Route path="/categoria" element={<Categoria />} />
+          <Route path="/producto" element={<Producto />} />
+          <Route path="/venta" element={<Venta />} />
         </Routes>
         <footer>
           <p>&copy; 2024 Creaciones con Amor. Todos los derechos reservados.</p>
           <div className="social-icons">
-            <a href="https://wa.me/+56975409834" target="_blank" rel="noopener noreferrer">
-              <i className="fab fa-whatsapp"></i>
+          <a><img src={iconow} alt=""/></a>
+            <a href="https://wa.me/+56975409834" target="_blank" rel="noopener noreferrer" >
+            Contactanos al WhatsApp
             </a>
-            <a href="https://www.instagram.com/creaciones.con.amoor/" target="_blank" rel="noopener noreferrer">
-            <i className="fab fa-instagram"></i>
-          </a>
+            <a><img src={icono} alt=""/></a>
+            <a href="https://www.instagram.com/creaciones.con.amoor/" target="_blank" rel="noopener noreferrer" >
+            Siguenos en Instagram
+            </a>
           </div>
         </footer>
       </div>

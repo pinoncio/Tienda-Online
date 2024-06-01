@@ -12,9 +12,8 @@ function Inicio() {
       <section id="inicio">
         <h2>Bienvenidos a Creaciones con Amor</h2>
         <p>
-          Desde el año 2017 ofrecemos una experiencia única de compra en nuestra tienda local.
-          Hacemos las cosas un poco diferente en Creaciones con Amor por lo que te invitamos a
-          visitarnos y conocer nuestra amplia y grandiosa selección.
+        Descubre la magia del macramé en cada uno de nuestros productos confeccionados a mano. 
+        ¡Explora y encuentra el toque especial para tu hogar!
         </p>
         <ScrollLink to="sobre-nosotros" smooth={true} duration={1000}>
           <button>Más información</button>
@@ -49,15 +48,25 @@ function Inicio() {
         <div className="about-us-container">
           <img src={logo} alt="Imagen de nosotros" />
           <div className="about-us-text">
-            <p>
+          <p>
               En Creaciones con Amor, nos dedicamos a ofrecer productos únicos y de alta calidad hechos con el mayor cuidado y dedicación. Nuestra misión es brindarte una experiencia de compra excepcional y productos que encanten.
             </p>
             <p>
-              Fundamos Creaciones con Amor en el año 2017, con una misión: ser una tienda de artículos de productos para cumpleaños y papelería de alta calidad en Ciudad de Canelones. Nuestra pasión por la excelencia nos condujo a materializar esta misión, siendo ésta la parte fundamental que nos ha impulsado a seguir adelante.
+              Fundamos Creaciones con Amor en el año 2023. 
+              Te invitamos a conocer nuestra visión, misión y valores de nuestro emprendimiento.
+              Esta información está archivada con mucho amor y dedicación,ya que es parte de nuestra historia
             </p>
             <p>
-              Nos enorgullecemos de ofrecer una experiencia de compra superior y de las relaciones a largo plazo que hemos construido con nuestros clientes. Visítanos hoy mismo y descubre por qué somos la mejor opción para tus necesidades de cumpleaños y papelería.
+              Misión: proporcionar un servicio de calidad a los clientes en la eloaboración de productos hechos a mano en Macrame.
             </p>
+            <p>
+              Visión: convertirme en una reconocida emprendedora en creaciones con la tecnica del Macrame.
+               Confiable y recomendada gracias a la satisfacción del cliente y el amor y la dedicación que le dedico a cada creación.
+            </p>
+            <p>
+              Valores: respeto, honestidad y transparencia, profesionalismo y responsabilidad, servicio personalizado en el que cada cliente 
+              se sienta comodo y satisfecho de pedir y recibir su producto.
+            </p>          
           </div>
         </div>
       </section>

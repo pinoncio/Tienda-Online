@@ -4,6 +4,7 @@ body {
     color: #333333;
     margin: 0;
     padding: 0;
+    font-size: 16px;
 }
 
 header {
@@ -96,8 +97,10 @@ main {
     gap: 20px;
     justify-content: space-around;
     padding: 50px 20px;
+    margin-bottom: 50px;
 
 }
+
 
 .product {
     border: 1px solid #ffccdd;
@@ -125,6 +128,7 @@ main {
 
 .product p {
     margin: 10px 0;
+
 }
 
 footer {
@@ -138,6 +142,23 @@ footer {
     display: flex;
     justify-content: center;
     align-items: baseline;
+}
+
+footer p{
+    margin-right: 30px;
+}
+
+.social-icons a {
+    text-decoration: none;
+    color:#333333;
+    margin-right: 5px;
+    margin-left: 5px;
+    
+}
+
+.social-icons img{
+    width: 30px;
+    height: 30px;
 }
 
 
@@ -158,20 +179,19 @@ footer {
     border: none;
     cursor: pointer;
     margin-top: 10px;
-    width: 150px; 
+    width: 200px; 
     height: 30px;
     border-radius: 8px;
     box-shadow: 5px 5px 10px rgb(128, 0, 73);
     margin:10px;
-
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .product button:hover {
     background-color: #fc6998;
 }
-
-
-
 
 
 
