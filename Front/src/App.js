@@ -14,6 +14,7 @@ import { Carrito } from './pages/Carrito';
 import Users from './pages/user';
 import Roles from './pages/rol'
 import Categoria from "./pages/categoria";
+import Producto from "./pages/producto";
 
 function App() {
   return (
@@ -48,6 +49,7 @@ function App() {
           <Route path="/users" element={<Users />} />
           <Route path="/roles" element={<Roles />} />
           <Route path="/categoria" element={<Categoria />} />
+          <Route path="/producto" element={<Producto />} />
         </Routes>
         <footer>
           <p>&copy; 2024 Creaciones con Amor. Todos los derechos reservados.</p>
