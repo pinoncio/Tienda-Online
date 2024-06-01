@@ -124,3 +124,35 @@ export const updateProducto = async(req:Request, res: Response) =>{
 
         }
 }
+export const updateStock = async(req: Request, res: Response) =>{
+    const {cantidad, cod_producto} = req.body;
+
+
+    const idProducto = await Productos.findOne({where: {cod_producto: cod_producto}});
+    if(!idProducto){
+        return res.status(404).json({
+            msg: "El producto ingresado no existe"
+        })
+    }
+    try{
+
+        await Productos.update({
+            cantidad_total: cantidad,
+            cantidad_disponible: cantidad
+        },
+        {where: {cod_producto: cod_producto}});
+
+        return res.json({
+            msg: 'Stock del producto '+cod_producto+' actualizado correctamente'
+        });
+
+    }catch(error){
+        return res.status(400).json({
+            msg: 'Ha ocurrido un error al actualizar el stock del producto: '+cod_producto,
+            error
+        })
+
+    }
+
+
+}
