@@ -7,91 +7,31 @@ function Catalogo(){
     return <>
         
         <section id="catalogo">
+          <h1>Catalogo de productos</h1>
           <div className="catalog">
-           
             <div className="product">
               <h2>Mural Rame</h2>
-              <p>poco uso</p>
               <img src={product1} alt="" />
+              <p>descripcion</p>
               <p className="precio">$80.000</p> 
               <button className="add-carrito">Agregar al carrito</button>
             </div>
 
             <div className="product">
               <h2>Mural Mostasa</h2>
-              <p>Descripción breve del producto 2.</p>
-              <img src={product2} alt="" />  
+              <img src={product2} alt="" /> 
+              <p>descripcion</p> 
               <p className="precio">$precio</p>
               <button className="add-carrito">Agregar al carrito</button>
             </div>
 
             <div className="product">
               <h2>Mural Angel</h2>
-              <p>Descripción breve del producto 3.</p>
               <img src={product3} alt="" />   
+              <p>descripcion</p>
               <p className="precio">$precio</p>
               <button className="add-carrito">Agregar al carrito</button>
-            </div>
-
-            <div className="product">
-              <h2>Mural Hada</h2>
-              <p>Descripción breve del producto 3.</p>
-              <img src={product3} alt="" /> 
-              <p className="precio">$precio</p> 
-              <button className="add-carrito">Agregar al carrito</button>
-            </div>
-
-            <div className="product">
-              <h2>Mural Ballena</h2>
-              <p>Descripción breve del producto 3.</p>
-              <img src={product3} alt="" />   
-              <p className="precio">$precio</p>
-              <button className="add-carrito">Agregar al carrito</button>
-            </div>
-
-            <div className="product">
-              <h2>Árbol de la vida</h2>
-              <p>Descripción breve del producto 3.</p>
-              <img src={product3} alt="" />  
-              <p className="precio">$precio</p> 
-              <button className="add-carrito">Agregar al carrito</button>
-            </div>
-            
-
-            <div className="product">
-              <h2>Espejo</h2>
-              <p>Descripción breve del producto 3.</p>
-              <img src={product3} alt="" />  
-              <p className="precio">$precio</p>
-              <button className="add-carrito">Agregar al carrito</button> 
-            </div>
-
-            <div className="product">
-              <h2>Individual</h2>
-              <p>Descripción breve del producto 3.</p>
-              <img src={product3} alt="" />   
-              <p className="precio">$precio</p>
-              <button className="add-carrito">Agregar al carrito</button>
-            </div>
-
-            <div className="product">
-              <h2>Porta vaso</h2>
-              <p>Descripción breve del producto 3.</p>
-              <img src={product3} alt="" />   
-              <p className="precio">$precio</p>
-              <button className="add-carrito">Agregar al carrito</button>
-            </div>
-
-            <div className="product">
-              <h2>Porta Maceta</h2>
-              <p>Descripción breve del producto 3.</p>
-              <img src={product3} alt="" />   
-              <p className="precio">$precio</p>
-              <button className="add-carrito">Agregar al carrito</button>
-            </div>
-
-
-        
+            </div>       
             
           </div>
         </section>
