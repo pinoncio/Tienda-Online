@@ -8,6 +8,7 @@ import routesUsers from '../routes/user';
 import routesRol from '../routes/rol';
 import routesCategoria from '../routes/categoria';
 import routesProducto from '../routes/producto';
+import routesMail from '../routes/mailer';
  
 
 class Server {
@@ -39,6 +40,7 @@ class Server {
         this.app.use('/api/rol', routesRol);
         this.app.use('/api/categoria',  routesCategoria);
         this.app.use('/api/producto', routesProducto);
+        this.app.use('/api/mail',routesMail);
     }
 
     midlewares() {
