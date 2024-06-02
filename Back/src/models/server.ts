@@ -4,11 +4,15 @@ import { User } from './user';
 import { Rol } from './rol';
 import { Categorias } from './categoria';
 import { Productos } from './producto';
+import { Carrito_productos } from './carrito_productos';
+import { Carrito } from './carrito';
 import routesUsers from '../routes/user';
 import routesRol from '../routes/rol';
 import routesCategoria from '../routes/categoria';
 import routesProducto from '../routes/producto';
 import routesMail from '../routes/mailer';
+import routesCarritoProductos from '../routes/carrito_productos';
+import routesCarrito from '../routes/carrito';
  
 
 class Server {
@@ -41,6 +45,8 @@ class Server {
         this.app.use('/api/categoria',  routesCategoria);
         this.app.use('/api/producto', routesProducto);
         this.app.use('/api/mail',routesMail);
+        this.app.use('/api/carro_productos', routesCarritoProductos);
+        this.app.use('/api/carro', routesCarrito);
     }
 
     midlewares() {
@@ -55,6 +61,8 @@ class Server {
             await User.sync()
             await Categorias.sync()
             await Productos.sync()
+            await Carrito_productos.sync()
+            await Carrito.sync()
 
         } catch (error) {
             console.error('No se ha podido conectar a la base de datos');
