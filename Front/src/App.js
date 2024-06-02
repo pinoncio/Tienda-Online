@@ -58,15 +58,19 @@ function App() {
         <footer>
           <p>&copy; 2024 Creaciones con Amor. Todos los derechos reservados.</p>
           <div className="social-icons">
-          <a><img src={iconow} alt=""/></a>
-            <a href="https://wa.me/+56975409834" target="_blank" rel="noopener noreferrer" >
-            Contactanos al WhatsApp
-            </a>
-            <a><img src={icono} alt=""/></a>
-            <a href="https://www.instagram.com/creaciones.con.amoor/" target="_blank" rel="noopener noreferrer" >
-            Siguenos en Instagram
-            </a>
-          </div>
+          <a href="https://wa.me/+56975409834" target="_blank" rel="noopener noreferrer">
+            <img src={iconow} alt="Icono de WhatsApp" />
+          </a>
+          <a href="https://wa.me/+56975409834" target="_blank" rel="noopener noreferrer">
+            Contáctanos por WhatsApp
+          </a>
+          <a href="https://www.instagram.com/creaciones.con.amoor/" target="_blank" rel="noopener noreferrer">
+            <img src={icono} alt="Icono de Instagram" />
+          </a>
+          <a href="https://www.instagram.com/creaciones.con.amoor/" target="_blank" rel="noopener noreferrer">
+            Síguenos en Instagram
+          </a>
+        </div>
         </footer>
       </div>
     </HashRouter>

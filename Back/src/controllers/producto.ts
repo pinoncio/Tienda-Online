@@ -137,8 +137,8 @@ export const updateStock = async(req: Request, res: Response) =>{
     try{
 
         await Productos.update({
-            cantidad_total: cantidad,
-            cantidad_disponible: cantidad
+            cantidad_total: idProducto.dataValues.cantidad_disponible + cantidad,
+            cantidad_disponible: idProducto.dataValues.cantidad_disponible + cantidad
         },
         {where: {cod_producto: cod_producto}});
 
