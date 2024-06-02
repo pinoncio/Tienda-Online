@@ -18,11 +18,15 @@ const user_1 = require("./user");
 const rol_1 = require("./rol");
 const categoria_1 = require("./categoria");
 const producto_1 = require("./producto");
+const carrito_productos_1 = require("./carrito_productos");
+const carrito_1 = require("./carrito");
 const user_2 = __importDefault(require("../routes/user"));
 const rol_2 = __importDefault(require("../routes/rol"));
 const categoria_2 = __importDefault(require("../routes/categoria"));
 const producto_2 = __importDefault(require("../routes/producto"));
 const mailer_1 = __importDefault(require("../routes/mailer"));
+const carrito_productos_2 = __importDefault(require("../routes/carrito_productos"));
+const carrito_2 = __importDefault(require("../routes/carrito"));
 class Server {
     constructor() {
         this.app = (0, express_1.default)();
@@ -44,6 +48,8 @@ class Server {
         this.app.use('/api/categoria', categoria_2.default);
         this.app.use('/api/producto', producto_2.default);
         this.app.use('/api/mail', mailer_1.default);
+        this.app.use('/api/carro_productos', carrito_productos_2.default);
+        this.app.use('/api/carro', carrito_2.default);
     }
     midlewares() {
         this.app.use(express_1.default.json());
@@ -56,6 +62,8 @@ class Server {
                 yield user_1.User.sync();
                 yield categoria_1.Categorias.sync();
                 yield producto_1.Productos.sync();
+                yield carrito_1.Carrito.sync();
+                yield carrito_productos_1.Carrito_productos.sync();
             }
             catch (error) {
                 console.error('No se ha podido conectar a la base de datos');

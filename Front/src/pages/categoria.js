@@ -12,7 +12,6 @@ const Categoria = () => {
   });
 
   useEffect(() => {
-    // Carga la lista de categorías cuando el componente se monta
     loadCategorias();
   }, []);
 
@@ -57,7 +56,7 @@ const Categoria = () => {
         await createCategoria(editedCategoria);
       }
       loadCategorias();
-      setEditMode(false); // Salir del modo de edición después de enviar el formulario
+      setEditMode(false); 
     } catch (error) {
       console.error('Error updating/creating categoría:', error);
     }
