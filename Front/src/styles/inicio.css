@@ -29,8 +29,9 @@
 
   .titulo-sobre-nosotros {
     text-align: center;
-    font-size: 2.5em;
-    font-family: 'Crafty Girls', cursive;
     color: #333;
-    margin-bottom: 1em;
+    margin-bottom: 10px;
+    font-size: 24px; /* Tamaño de letra para el título */
+    font-family: Arial, sans-serif; /* Tipo de letra para el título */
+  
   }
