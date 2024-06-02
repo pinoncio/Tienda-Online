@@ -10,7 +10,6 @@ const user_1 = require("./user");
 exports.Carrito = connection_1.default.define('carrito', {
     "id_carro": { type: sequelize_1.DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
     "id_usuario": { type: sequelize_1.DataTypes.INTEGER },
-    "subtotal": { type: sequelize_1.DataTypes.INTEGER },
     "total": { type: sequelize_1.DataTypes.INTEGER }
 }, {
     freezeTableName: true,

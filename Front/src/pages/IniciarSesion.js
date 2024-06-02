@@ -1,11 +1,16 @@
-import React, { useState } from 'react';
+// src/pages/IniciarSesion.js
+import React, { useState, useContext } from 'react';
+import { useNavigate } from 'react-router-dom';
 import '../styles/iniciarsesion.css';
+import { AuthContext } from '../AuthContext';
 
 const IniciarSesion = () => {
   const [errors, setErrors] = useState({
     rut: false,
     contraseña: false,
   });
+  const { login } = useContext(AuthContext);
+  const navigate = useNavigate();
 
   const handleBlur = (event) => {
     const { name, value } = event.target;
@@ -15,10 +20,25 @@ const IniciarSesion = () => {
     }));
   };
 
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    const { rut, contraseña } = event.target.elements;
+    
+    if (rut.value && contraseña.value) {
+      login();
+      navigate('/');
+    } else {
+      setErrors({
+        rut: rut.value === '',
+        contraseña: contraseña.value === '',
+      });
+    }
+  };
+
   return (
     <div className="form-container">
       <h2>Iniciar Sesión</h2>
-      <form action="/ruta/a/tu/servidor" method="post">
+      <form onSubmit={handleSubmit}>
         <div className="form-group">
           <label htmlFor="rut">Rut</label>
           <input 

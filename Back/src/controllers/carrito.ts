@@ -10,10 +10,14 @@ export const newCarrito = async (req: Request, res: Response) => {
 
     try {
 
-        const carrito = await Carrito.create({
-            "id_usuario" : id_usuario,
-            "total":  0
-        });
+        let carrito = await Carrito.findOne({ where: { id_usuario}});
+
+        if (!carrito){
+            carrito = await Carrito.create({
+                "id_usuario" : id_usuario,
+                "total":  0,
+            });
+        }
 
         const pkCarrito = carrito.dataValues.id_carro
 
@@ -40,7 +44,7 @@ export const newCarrito = async (req: Request, res: Response) => {
                 const precioProducto = idProducto?.dataValues.precio_producto;
                 const subTotal = precioProducto * cantidadInt
                 const idCarro = await Carrito.findOne({attributes: ['total'], where: {id_carro: pkCarrito}})
-                const total = idCarro?.dataValues.total
+                const totals = idCarro?.dataValues.total
 
                 try {
                     await Carrito_productos.create({
@@ -51,7 +55,7 @@ export const newCarrito = async (req: Request, res: Response) => {
                     });
 
                     await Carrito.update({
-                        "total": total + subTotal
+                        "total": totals + subTotal
                         },
                         {where: {id_carro: pkCarrito}
                     });
