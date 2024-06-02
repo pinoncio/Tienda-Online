@@ -1,0 +1,26 @@
+.product-detail {
+    background-color: #ffe4ec;
+    margin-top: 20px;
+    padding: 20px;
+    border-radius: 8px;
+    width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+  }
+  
+  .product-detail img {
+    max-width: 100%;
+    border-radius: 5px;
+  }
+  
+  .product-detail h1 {
+    color: #ff69b4;
+  }
+  
+  .product-detail .precio {
+    color: #333333;
+    font-size: 1.2em;
+    margin-top: 10px;
+  }
+  

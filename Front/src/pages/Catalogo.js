@@ -1,42 +1,47 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import product1 from '../image/1.jpeg';
 import product2 from '../image/2.jpeg';
 import product3 from '../image/3.jpeg';
+import '../styles/catalogo.css';
 
-function Catalogo(){
-    return <>
-        
-        <section id="catalogo">
-          <h1>Catalogo de productos</h1>
-          <div className="catalog">
-            <div className="product">
-              <h2>Mural Rame</h2>
-              <img src={product1} alt="" />
-              <p>descripcion</p>
-              <p className="precio">$80.000</p> 
-              <button className="add-carrito">Agregar al carrito</button>
-            </div>
+function Catalogo() {
+  const navigate = useNavigate();
 
-            <div className="product">
-              <h2>Mural Mostasa</h2>
-              <img src={product2} alt="" /> 
-              <p>descripcion</p> 
-              <p className="precio">$precio</p>
-              <button className="add-carrito">Agregar al carrito</button>
-            </div>
+  const handleImageClick = (productId) => {
+    navigate(`/product/${productId}`);
+  };
 
-            <div className="product">
-              <h2>Mural Angel</h2>
-              <img src={product3} alt="" />   
-              <p>descripcion</p>
-              <p className="precio">$precio</p>
-              <button className="add-carrito">Agregar al carrito</button>
-            </div>       
-            
-          </div>
-        </section>
-    </>
+  return (
+    <section id="catalogo">
+      <h1>Catalogo de productos</h1>
+      <div className="catalog">
+        <div className="product">
+          <h2>Mural Rame</h2>
+          <img src={product1} alt="Mural Rame" onClick={() => handleImageClick(1)} />
+          <p>descripcion</p>
+          <p className="precio">$80.000</p>
+          <button className="add-carrito">Agregar al carrito</button>
+        </div>
+
+        <div className="product">
+          <h2>Mural Mostasa</h2>
+          <img src={product2} alt="Mural Mostasa" onClick={() => handleImageClick(2)} />
+          <p>descripcion</p>
+          <p className="precio">$precio</p>
+          <button className="add-carrito">Agregar al carrito</button>
+        </div>
+
+        <div className="product">
+          <h2>Mural Angel</h2>
+          <img src={product3} alt="Mural Angel" onClick={() => handleImageClick(3)} />
+          <p>descripcion</p>
+          <p className="precio">$precio</p>
+          <button className="add-carrito">Agregar al carrito</button>
+        </div>
+      </div>
+    </section>
+  );
 }
 
-
-export {Catalogo};
+export { Catalogo };

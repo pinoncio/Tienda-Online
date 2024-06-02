@@ -7,6 +7,7 @@ import iconow from './image/wasap.png';
 import { Inicio } from './pages/Inicio';
 import { Admin } from './pages/admin';
 import { Catalogo } from './pages/Catalogo';
+import { DetalleProducto } from './pages/detalleProducto';
 import { CrearCuenta } from './pages/CrearCuenta';
 import { IniciarSesion } from './pages/IniciarSesion';
 import { Carrito } from './pages/Carrito';
@@ -31,6 +32,7 @@ function App() {
           <Routes>
             <Route path="/" element={<Inicio />} />
             <Route path="/catalogo" element={<Catalogo />} />
+            <Route path="/product/:id" element={<DetalleProducto />} />
             <Route path="/admin" element={<Admin />} />
             <Route path="/crear-cuenta" element={<CrearCuenta />} />
             <Route path="/iniciar-sesion" element={<IniciarSesion />} />
