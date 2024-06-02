@@ -20,24 +20,18 @@ function Catalogo() {
           <h2>Mural Rame</h2>
           <img src={product1} alt="Mural Rame" onClick={() => handleImageClick(1)} />
           <p>descripcion</p>
-          <p className="precio">$80.000</p>
-          <button className="add-carrito">Agregar al carrito</button>
         </div>
 
         <div className="product">
           <h2>Mural Mostasa</h2>
           <img src={product2} alt="Mural Mostasa" onClick={() => handleImageClick(2)} />
           <p>descripcion</p>
-          <p className="precio">$precio</p>
-          <button className="add-carrito">Agregar al carrito</button>
         </div>
 
         <div className="product">
           <h2>Mural Angel</h2>
           <img src={product3} alt="Mural Angel" onClick={() => handleImageClick(3)} />
           <p>descripcion</p>
-          <p className="precio">$precio</p>
-          <button className="add-carrito">Agregar al carrito</button>
         </div>
       </div>
     </section>
