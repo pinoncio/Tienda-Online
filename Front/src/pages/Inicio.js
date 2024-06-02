@@ -28,7 +28,7 @@ function Inicio() {
       </section>
 
       <section id="catalogo">
-        <h1>Catalogo de productos</h1>
+        <h1>Productos más vendidos</h1>
         <div className="catalog">
           <div className="product">
             <h2>Mural Rame</h2>
