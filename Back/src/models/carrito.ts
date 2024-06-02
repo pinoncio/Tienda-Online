@@ -7,7 +7,6 @@ export const Carrito = sequelize.define(
     {
         "id_carro": { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
         "id_usuario": {type: DataTypes.INTEGER},
-        "subtotal": {type: DataTypes.INTEGER},
         "total": {type: DataTypes.INTEGER}
 
     },

@@ -34,7 +34,7 @@ export const getProducto = async(req: Request, res: Response) => {
                 msg: "el producto no existe"
             })
         }
-        const producto = await Productos.findOne({attributes:['cod_producto','nombre_producto','precio_producto','descripcion_producto',[sequelize.col('categoria.nombre_categoria'), 'nombre_categoria'],'cantidad_disponible','imagen'],
+        const producto = await Productos.findOne({attributes:['cod_producto','nombre_producto','precio_producto','descripcion_producto',[sequelize.col('categoria.nombre_categoria'), 'nombre_categoria'],'cantidad_disponible', 'cantidad_total','imagen'],
             include: [
               {
                 model: Categorias,
@@ -55,7 +55,7 @@ export const getProducto = async(req: Request, res: Response) => {
 
 export const getProductos = async(req: Request, res: Response) =>{
     try{
-        const listaProductos = await Productos.findAll({attributes:['cod_producto','nombre_producto','precio_producto','descripcion_producto',[sequelize.col('categoria.nombre_categoria'), 'nombre_categoria'],'cantidad_disponible','imagen'],
+        const listaProductos = await Productos.findAll({attributes:['cod_producto','nombre_producto','precio_producto','descripcion_producto',[sequelize.col('categoria.nombre_categoria'), 'nombre_categoria'],'cantidad_disponible', 'cantidad_total','imagen'],
         include: [
           {
             model: Categorias,

@@ -61,8 +61,8 @@ class Server {
             await User.sync()
             await Categorias.sync()
             await Productos.sync()
-            await Carrito_productos.sync()
             await Carrito.sync()
+            await Carrito_productos.sync()
 
         } catch (error) {
             console.error('No se ha podido conectar a la base de datos');

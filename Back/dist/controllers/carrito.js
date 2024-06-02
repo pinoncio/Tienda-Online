@@ -16,10 +16,13 @@ const producto_1 = require("../models/producto");
 const newCarrito = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { id_usuario, cantidad, cod_producto } = req.body;
     try {
-        const carrito = yield carrito_1.Carrito.create({
-            "id_usuario": id_usuario,
-            "total": 0
-        });
+        let carrito = yield carrito_1.Carrito.findOne({ where: { id_usuario } });
+        if (!carrito) {
+            carrito = yield carrito_1.Carrito.create({
+                "id_usuario": id_usuario,
+                "total": 0,
+            });
+        }
         const pkCarrito = carrito.dataValues.id_carro;
         for (const [index, producto] of cod_producto.entries()) {
             const cant = cantidad[index];
@@ -41,7 +44,7 @@ const newCarrito = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
                 const precioProducto = idProducto === null || idProducto === void 0 ? void 0 : idProducto.dataValues.precio_producto;
                 const subTotal = precioProducto * cantidadInt;
                 const idCarro = yield carrito_1.Carrito.findOne({ attributes: ['total'], where: { id_carro: pkCarrito } });
-                const total = idCarro === null || idCarro === void 0 ? void 0 : idCarro.dataValues.total;
+                const totals = idCarro === null || idCarro === void 0 ? void 0 : idCarro.dataValues.total;
                 try {
                     yield carrito_productos_1.Carrito_productos.create({
                         "id_carro": pkCarrito,
@@ -50,7 +53,7 @@ const newCarrito = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
                         "subtotal": subTotal
                     });
                     yield carrito_1.Carrito.update({
-                        "total": total + subTotal
+                        "total": totals + subTotal
                     }, { where: { id_carro: pkCarrito }
                     });
                     yield producto_1.Productos.update({

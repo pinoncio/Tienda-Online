@@ -62,8 +62,8 @@ class Server {
                 yield user_1.User.sync();
                 yield categoria_1.Categorias.sync();
                 yield producto_1.Productos.sync();
-                yield carrito_productos_1.Carrito_productos.sync();
                 yield carrito_1.Carrito.sync();
+                yield carrito_productos_1.Carrito_productos.sync();
             }
             catch (error) {
                 console.error('No se ha podido conectar a la base de datos');
