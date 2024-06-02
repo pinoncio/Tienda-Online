@@ -3,14 +3,14 @@ import { Carrito_productos } from "../models/carrito_productos";
 import { Carrito } from "../models/carrito";
 import { Productos } from "../models/producto";
 
-export const getCarritoProductos = async (req: Request, res: Response) => {
+export const getCarritosProductos = async (req: Request, res: Response) => {
     try {
         const carritoProductos = await Carrito_productos.findAll({
             include: [
                 { model: Carrito, attributes: ['id_carro'] },
                 { model: Productos, attributes: ['cod_producto'] }
             ],
-            attributes: ['cod_carro_productos', 'cantidad', 'subtotal']
+            attributes: ['id_carro_productos', 'cantidad', 'subtotal']
         });
         res.json(carritoProductos);
     } catch (error) {
@@ -19,7 +19,7 @@ export const getCarritoProductos = async (req: Request, res: Response) => {
     }
 };
 
-export const getCarritosProductos = async (req: Request, res: Response) => {
+export const getCarritoProductos = async (req: Request, res: Response) => {
     const { id_carro_productos } = req.params;
     try {
         const carritoProductos = await Carrito_productos.findByPk(id_carro_productos, {

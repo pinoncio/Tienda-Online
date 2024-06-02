@@ -9,18 +9,18 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.deleteCarritoProductos = exports.updateCarritoProductos = exports.getCarritosProductos = exports.getCarritoProductos = void 0;
+exports.deleteCarritoProductos = exports.updateCarritoProductos = exports.getCarritoProductos = exports.getCarritosProductos = void 0;
 const carrito_productos_1 = require("../models/carrito_productos");
 const carrito_1 = require("../models/carrito");
 const producto_1 = require("../models/producto");
-const getCarritoProductos = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+const getCarritosProductos = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const carritoProductos = yield carrito_productos_1.Carrito_productos.findAll({
             include: [
                 { model: carrito_1.Carrito, attributes: ['id_carro'] },
                 { model: producto_1.Productos, attributes: ['cod_producto'] }
             ],
-            attributes: ['cod_carro_productos', 'cantidad', 'subtotal']
+            attributes: ['id_carro_productos', 'cantidad', 'subtotal']
         });
         res.json(carritoProductos);
     }
@@ -29,8 +29,8 @@ const getCarritoProductos = (req, res) => __awaiter(void 0, void 0, void 0, func
         res.status(500).json({ error: 'Error al obtener los productos del carrito.' });
     }
 });
-exports.getCarritoProductos = getCarritoProductos;
-const getCarritosProductos = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+exports.getCarritosProductos = getCarritosProductos;
+const getCarritoProductos = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { id_carro_productos } = req.params;
     try {
         const carritoProductos = yield carrito_productos_1.Carrito_productos.findByPk(id_carro_productos, {
@@ -51,7 +51,7 @@ const getCarritosProductos = (req, res) => __awaiter(void 0, void 0, void 0, fun
         res.status(500).json({ error: 'Error al obtener los productos del carrito.' });
     }
 });
-exports.getCarritosProductos = getCarritosProductos;
+exports.getCarritoProductos = getCarritoProductos;
 const updateCarritoProductos = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { id_carro_productos } = req.params;
     const { id_carro, cod_producto, cantidad, subtotal } = req.body;

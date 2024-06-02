@@ -7,6 +7,7 @@ export const Carrito_productos = sequelize.define('carrito_productos', {
     "id_carro_productos": { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
     "cod_producto": { type: DataTypes.INTEGER },
     "cantidad": { type: DataTypes.INTEGER },
+    "subtotal": {type: DataTypes.INTEGER},
     "id_carro": { type: DataTypes.INTEGER },
 }, {
     timestamps: false,

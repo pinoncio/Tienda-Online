@@ -12,6 +12,7 @@ exports.Carrito_productos = connection_1.default.define('carrito_productos', {
     "id_carro_productos": { type: sequelize_1.DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
     "cod_producto": { type: sequelize_1.DataTypes.INTEGER },
     "cantidad": { type: sequelize_1.DataTypes.INTEGER },
+    "subtotal": { type: sequelize_1.DataTypes.INTEGER },
     "id_carro": { type: sequelize_1.DataTypes.INTEGER },
 }, {
     timestamps: false,

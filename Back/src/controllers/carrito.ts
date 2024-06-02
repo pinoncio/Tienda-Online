@@ -21,7 +21,7 @@ export const newCarrito = async (req: Request, res: Response) => {
 
         const pkCarrito = carrito.dataValues.id_carro
 
-        for ( const [index,producto] of cod_producto.entries()){
+        for ( const [index, producto] of cod_producto.entries()){
             const cant = cantidad[index]
             const cantidadInt = parseInt(cant, 10);
             const productoInt = parseInt(producto, 10);
@@ -48,20 +48,20 @@ export const newCarrito = async (req: Request, res: Response) => {
 
                 try {
                     await Carrito_productos.create({
-                        "id_carro": pkCarrito,
-                        "cod_producto": productoInt,
-                        "cantidad": cantidadInt,
-                        "subtotal": subTotal
+                        id_carro: pkCarrito,
+                        cod_producto: productoInt,
+                        cantidad: cantidadInt,
+                        subtotal: subTotal,
                     });
 
                     await Carrito.update({
-                        "total": totals + subTotal
+                        total: totals + subTotal
                         },
                         {where: {id_carro: pkCarrito}
                     });
 
                     await Productos.update({
-                        "cantidad_disponible": cantidadDisponible
+                        cantidad_disponible: cantidadDisponible
                     },
                         { where: { cod_producto: productoInt}
                     })
@@ -77,6 +77,7 @@ export const newCarrito = async (req: Request, res: Response) => {
             msg: "Producto ingresado correctamente al carrito"
         })
     } catch (outterError) {
+        console.error("Error al procesar el carrito", outterError)
         res.status(400).json({
             msg: "Ha ocurrido un error al ingresar el producto al carrito",
             outterError

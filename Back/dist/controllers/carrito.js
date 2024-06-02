@@ -47,17 +47,17 @@ const newCarrito = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
                 const totals = idCarro === null || idCarro === void 0 ? void 0 : idCarro.dataValues.total;
                 try {
                     yield carrito_productos_1.Carrito_productos.create({
-                        "id_carro": pkCarrito,
-                        "cod_producto": productoInt,
-                        "cantidad": cantidadInt,
-                        "subtotal": subTotal
+                        id_carro: pkCarrito,
+                        cod_producto: productoInt,
+                        cantidad: cantidadInt,
+                        subtotal: subTotal,
                     });
                     yield carrito_1.Carrito.update({
-                        "total": totals + subTotal
+                        total: totals + subTotal
                     }, { where: { id_carro: pkCarrito }
                     });
                     yield producto_1.Productos.update({
-                        "cantidad_disponible": cantidadDisponible
+                        cantidad_disponible: cantidadDisponible
                     }, { where: { cod_producto: productoInt }
                     });
                 }
@@ -74,6 +74,7 @@ const newCarrito = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
         });
     }
     catch (outterError) {
+        console.error("Error al procesar el carrito", outterError);
         res.status(400).json({
             msg: "Ha ocurrido un error al ingresar el producto al carrito",
             outterError
