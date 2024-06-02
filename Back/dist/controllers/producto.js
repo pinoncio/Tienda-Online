@@ -145,8 +145,8 @@ const updateStock = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
     }
     try {
         yield producto_1.Productos.update({
-            cantidad_total: cantidad,
-            cantidad_disponible: cantidad
+            cantidad_total: idProducto.dataValues.cantidad_disponible + cantidad,
+            cantidad_disponible: idProducto.dataValues.cantidad_disponible + cantidad
         }, { where: { cod_producto: cod_producto } });
         return res.json({
             msg: 'Stock del producto ' + cod_producto + ' actualizado correctamente'
