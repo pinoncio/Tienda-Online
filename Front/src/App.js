@@ -8,8 +8,6 @@ import iconow from "./image/wasap.png";
 import { Inicio } from './pages/Inicio';
 import { Admin } from './pages/admin';
 import { Catalogo } from './pages/Catalogo';
-import { Nosotros } from './pages/Nosotros';
-import { Contacto } from './pages/Contacto';
 import { CrearCuenta } from './pages/CrearCuenta';
 import { IniciarSesion } from './pages/IniciarSesion';
 import { Carrito } from './pages/Carrito';
@@ -32,7 +30,6 @@ function App() {
               <li><a href="/">Inicio</a></li>
               <li><a href="#catalogo">Catálogo</a></li>
               <li><a href="#admin">Admin</a></li>
-              <li><a href="#contacto">Contacto</a></li>
               <li className="login"><a href="#crear-cuenta">Crear Cuenta</a></li>
               <li className="login"><a href="#iniciar-sesion">Iniciar Sesión</a></li>
               <li><a href="#carrito"><i className="fas fa-shopping-cart"></i></a></li>
@@ -44,8 +41,6 @@ function App() {
           <Route path="/" element={<Inicio />} />
           <Route path="/catalogo" element={<Catalogo />} />
           <Route path="/admin" element={<Admin />} />
-          <Route path="/nosotros" element={<Nosotros />} />
-          <Route path="/contacto" element={<Contacto />} />
           <Route path="/crear-cuenta" element={<CrearCuenta />} />
           <Route path="/iniciar-sesion" element={<IniciarSesion />} />
           <Route path="/carrito" element={<Carrito />} />
