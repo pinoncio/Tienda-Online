@@ -98,9 +98,7 @@ main {
     justify-content: space-around;
     padding: 50px 20px;
     margin-bottom: 50px;
-
 }
-
 
 .product {
     border: 1px solid #ffccdd;
@@ -112,12 +110,11 @@ main {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-
 }
 
 .product img {
     max-width: 100%;
-    border-radius: 5px;   /*ES LO MISMO QUE EL OTRO??*/
+    border-radius: 5px;
 }
 
 .product h2 {
@@ -128,7 +125,6 @@ main {
 
 .product p {
     margin: 10px 0;
-
 }
 
 footer {
@@ -144,36 +140,37 @@ footer {
     align-items: baseline;
 }
 
-footer p{
+footer p {
     margin-right: 30px;
 }
 
 .social-icons a {
     text-decoration: none;
-    color:#333333;
+    color: #333333;
     margin-right: 5px;
     margin-left: 5px;
-    
 }
 
-.social-icons img{
-    width: 30px;
-    height: 30px;
+.social-icons img {
+    width: 25px; /* Ajusta el tamaño según sea necesario */
+    height: 25px; /* Ajusta el tamaño según sea necesario */
 }
 
-
+.social-icons a:hover img {
+    filter: brightness(1.2); /* Añade un efecto de brillo al pasar el ratón */
+}
 
 .logo img {
     width: 55px;
     height: 55px;
 }
 
-.product img{
+.product img {
     width: 300px;
     height: 300px;
 }
 
-.product button{
+.product button {
     background-color: #fa8fb1;
     color: white;
     border: none;
@@ -183,7 +180,7 @@ footer p{
     height: 30px;
     border-radius: 8px;
     box-shadow: 5px 5px 10px rgb(128, 0, 73);
-    margin:10px;
+    margin: 10px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -192,8 +189,6 @@ footer p{
 .product button:hover {
     background-color: #fc6998;
 }
-
-
 
 .form-container {
     background-color: #ffe4ec;

@@ -84,9 +84,9 @@ const NavBar = () => {
           </>
         ) : (
           <>
-            <li>
-              <a href="#perfil"><i className="fas fa-user"></i></a>
-              <button onClick={logout}>Cerrar Sesión</button>
+            <li className="user-container">
+              <a href="#perfil"><i className="fas fa-user user-icon"></i></a>
+              <i className="fas fa-sign-out-alt logout-icon" onClick={logout}></i>
             </li>
           </>
         )}
@@ -94,5 +94,6 @@ const NavBar = () => {
     </nav>
   );
 };
+
 
 export default App;
