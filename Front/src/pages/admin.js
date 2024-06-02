@@ -27,7 +27,7 @@ function Admin() {
               <p>Roles</p>
             </div>
             <div className="admin-card" onClick={() => handleNavigation('/producto')}>
-              <FontAwesomeIcon icon={faBox} size="3x" />
+              <FontAwesomeIcon icon={faBox} size="3x" className="icon"/>
               <p>Productos</p>
             </div>
             <div className="admin-card" onClick={() => handleNavigation('/orders')}>

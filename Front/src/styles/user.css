@@ -99,4 +99,18 @@ input, select {
 .container button{
   margin-bottom: 20px;
   margin-top: 10px;
+
+}
+
+.container button {
+  padding: 12px 25px;
+  background-color: #fa8fb1;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #fc6998;
 }
