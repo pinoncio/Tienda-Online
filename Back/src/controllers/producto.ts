@@ -1,4 +1,4 @@
-import { Request, Response } from "express";
+import { Request, Response, NextFunction } from "express";
 import { Productos } from "../models/producto";
 import { Categorias } from "../models/categoria";
 import sequelize from "sequelize";
@@ -6,13 +6,15 @@ import sequelize from "sequelize";
 
 export const newProducto = async(req: Request, res: Response) =>{
     const {nombre_producto, precio_producto, descripcion_producto,id_categoria} = req.body;
+    const imagen = req.file ? req.file.path : null;
 
     try{
         await Productos.create({
             "nombre_producto": nombre_producto,
             "precio_producto": precio_producto,
             "descripcion_producto": descripcion_producto,
-            "id_categoria": id_categoria
+            "id_categoria": id_categoria,
+            "imagen": imagen
         })
         return res.status(201).json({
             msg: "Producto creado correctamente"
@@ -155,4 +157,32 @@ export const updateStock = async(req: Request, res: Response) =>{
     }
 
 
+};
+
+export const updateImagen = async (req: Request, res: Response, next: NextFunction) => {
+    const { cod_producto } = req.params;
+    const URL_IMAGEN = req.file ? req.file.path : null;
+    const imagenExtension = URL_IMAGEN+'.jpg'
+  
+    try {
+  
+      const idProducto = await Productos.findOne({where: {cod_producto}});
+  
+      if (!idProducto) {
+        return res.status(404).json({ msg: 'Producto no encontrado' });
+
+      }
+      
+      await Productos.update({
+        imagen: imagenExtension
+      },{where: {cod_producto: cod_producto}})
+  
+      return res.json({ msg: 'Imagen del producto actualizada correctamente' });
+
+    } catch (error) {
+      console.error(error);
+        res.status(500).json({
+            msg: 'Error al actualizar la imagen del producto',
+            error });
+    }
 }
