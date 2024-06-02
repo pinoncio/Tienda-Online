@@ -20,8 +20,9 @@ import { AuthProvider, AuthContext } from './AuthContext';
 
 function App() {
   return (
-<<<<<<< HEAD
-    <HashRouter>
+
+    <AuthProvider>
+      <HashRouter>
       <div className="App">
         <header>
           <div className="logo">
@@ -67,49 +68,8 @@ function App() {
           <a href="https://www.instagram.com/creaciones.con.amoor/" target="_blank" rel="noopener noreferrer">
             Síguenos en Instagram
           </a>
-=======
-    <AuthProvider>
-      <HashRouter>
-        <div className="App">
-          <header>
-            <div className="logo">
-              <img src={logo} alt="" />
-            </div>
-            <NavBar />
-          </header>
-          <Routes>
-            <Route path="/" element={<Inicio />} />
-            <Route path="/catalogo" element={<Catalogo />} />
-            <Route path="/admin" element={<Admin />} />
-            <Route path="/nosotros" element={<Nosotros />} />
-            <Route path="/contacto" element={<Contacto />} />
-            <Route path="/crear-cuenta" element={<CrearCuenta />} />
-            <Route path="/iniciar-sesion" element={<IniciarSesion />} />
-            <Route path="/carrito" element={<Carrito />} />
-            <Route path="/users" element={<Users />} />
-            <Route path="/roles" element={<Roles />} />
-            <Route path="/categoria" element={<Categoria />} />
-            <Route path="/producto" element={<Producto />} />
-            <Route path="/venta" element={<Venta />} />
-          </Routes>
-          <footer>
-            <p>&copy; 2024 Creaciones con Amor. Todos los derechos reservados.</p>
-            <div className="social-icons">
-              <a>
-                <img src={iconow} alt="" />
-              </a>
-              <a href="https://wa.me/+56975409834" target="_blank" rel="noopener noreferrer">
-                Contactanos al WhatsApp
-              </a>
-              <a>
-                <img src={icono} alt="" />
-              </a>
-              <a href="https://www.instagram.com/creaciones.con.amoor/" target="_blank" rel="noopener noreferrer">
-                Siguenos en Instagram
-              </a>
             </div>
           </footer>
->>>>>>> dbeb25ffe5b298961ef48d86dc17b4b97725d97c
         </div>
       </HashRouter>
     </AuthProvider>
