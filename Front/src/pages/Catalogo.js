@@ -27,6 +27,7 @@ const Catalogo = () => {
       <div className="product-grid">
         {productos.map((producto) => (
           <ProductoCard key={producto.cod_producto} producto={producto} />
+          
         ))}
       </div>
     </div>

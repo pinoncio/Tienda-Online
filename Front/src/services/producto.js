@@ -9,3 +9,7 @@ export const createProducto = (producto) => axios.post(API_URL, producto);
 export const updateProducto = (cod_producto, producto) => axios.put(`${API_URL}/${cod_producto}`, producto);
 
 export const deleteProducto = (cod_producto) => axios.delete(`${API_URL}/${cod_producto}`);
+
+
+
+export const getProducto = (cod_producto) => axios.get(`${API_URL}/${cod_producto}`);

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom'; // Importa Link para manejar la navegación entre páginas
+import { Link } from 'react-router-dom'; 
 
 const ProductoCard = ({ producto }) => {
   return (
@@ -10,7 +10,6 @@ const ProductoCard = ({ producto }) => {
           <img src={producto.imagen} alt={producto.nombre_producto} />
         </Link>
         <p>Precio: {producto.precio_producto}</p>
-        <p>Cantidad Disponible: {producto.cantidad_disponible}</p>
       </div>
     </div>
   );
