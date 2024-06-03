@@ -1,0 +1,34 @@
+.container-producto {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+  }
+  
+  .tarjeta-producto {
+    border: 1px solid #ffccdd;
+    border-radius: 5px;
+    padding: 10px;
+    width: calc(33.333% - 20px);
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 20px; 
+   }
+  
+  .tarjeta-producto img {
+    max-width: 100%;
+    border-radius: 5px;
+  }
+  
+  .tarjeta-producto h2 {
+    font-size: 1.2em;
+    margin: 10px 0;
+    color: #ff69b4;
+  }
+  
+  .tarjeta-producto p {
+    margin: 10px 0;
+  }
+  

@@ -1,41 +1,36 @@
-import React from 'react';
-import { useNavigate } from 'react-router-dom';
-import product1 from '../image/1.jpeg';
-import product2 from '../image/2.jpeg';
-import product3 from '../image/3.jpeg';
+import React, { useState, useEffect } from 'react';
+import { getProductos } from '../services/producto';
+import ProductoCard from './ProductoCard';
 import '../styles/catalogo.css';
 
-function Catalogo() {
-  const navigate = useNavigate();
 
-  const handleImageClick = (productId) => {
-    navigate(`/product/${productId}`);
+const Catalogo = () => {
+  const [productos, setProductos] = useState([]);
+
+  useEffect(() => {
+    // aqui se carga la lista de productos
+    loadProductos();
+  }, []);
+
+  const loadProductos = async () => {
+    try {
+      const response = await getProductos();
+      setProductos(response.data);
+    } catch (error) {
+      console.error('Error fetching productos:', error);
+    }
   };
 
   return (
-    <section id="catalogo">
-      <h1>Catalogo de productos</h1>
-      <div className="catalog">
-        <div className="product">
-          <h2>Mural Rame</h2>
-          <img src={product1} alt="Mural Rame" onClick={() => handleImageClick(1)} />
-          <p>descripcion</p>
-        </div>
-
-        <div className="product">
-          <h2>Mural Mostasa</h2>
-          <img src={product2} alt="Mural Mostasa" onClick={() => handleImageClick(2)} />
-          <p>descripcion</p>
-        </div>
-
-        <div className="product">
-          <h2>Mural Angel</h2>
-          <img src={product3} alt="Mural Angel" onClick={() => handleImageClick(3)} />
-          <p>descripcion</p>
-        </div>
+    <div className="container">
+      <h1>Catálogo de Productos</h1>
+      <div className="product-grid">
+        {productos.map((producto) => (
+          <ProductoCard key={producto.cod_producto} producto={producto} />
+        ))}
       </div>
-    </section>
+    </div>
   );
-}
+};
 
-export { Catalogo };
+export {Catalogo};
