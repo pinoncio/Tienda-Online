@@ -29,7 +29,7 @@ const CrearCuenta = () => {
         const mailData = {
           to: formData.correo,
           subject: '¡Bienvenido a nuestro sitio!',
-          text: `Estimado ${formData.nombre_usuario},
+          text: `Estimado/a ${formData.nombre_usuario},
 
 Gracias por registrarte en nuestro sitio. Nos complace darte la bienvenida a nuestra comunidad.
 
