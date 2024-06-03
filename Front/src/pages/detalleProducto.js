@@ -18,7 +18,6 @@ function DetalleProducto() {
   const addCantCarrito = (event) => {
     const cantidad = event.target.parentNode.querySelector('input').value;
     console.log(`Agregado al carrito: ${product.name} - Cantidad: ${cantidad}`);
-    // Aquí puedes agregar la lógica para agregar el producto al carrito con la cantidad seleccionada
   };
 
   if (!product) {

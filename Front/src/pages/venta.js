@@ -6,7 +6,6 @@ const Venta = () => {
   const [ventas, setVentas] = useState([]);
 
   useEffect(() => {
-    // Carga la lista de ventas cuando el componente se monta
     loadVentas();
   }, []);
 

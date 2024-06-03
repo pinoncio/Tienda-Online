@@ -1,21 +1,62 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { useCreateUserForm } from '../components/createuser';
+import { AuthContext } from '../AuthContext'; 
 import '../styles/crearcuenta.css';
-import { ToastContainer } from 'react-toastify';
+import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import sendMail from '../services/mail'; 
 
 const CrearCuenta = () => {
+  const { login } = useContext(AuthContext); 
   const {
     formData,
     errors,
     handleChange,
     handleBlur,
-    handleSubmit,
+    handleSubmit: handleSubmitForm,
   } = useCreateUserForm();
+
+  const isEmailValid = (email) => {
+    const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return regex.test(String(email).toLowerCase());
+  };
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    try {
+      await handleSubmitForm(event);
+      if (formData.correo && isEmailValid(formData.correo)) {
+        const mailData = {
+          to: formData.correo,
+          subject: '¡Bienvenido a nuestro sitio!',
+          text: `Estimado ${formData.nombre_usuario},
+
+Gracias por registrarte en nuestro sitio. Nos complace darte la bienvenida a nuestra comunidad.
+
+En Creaciones con amor, nos esforzamos por ofrecer la mejor experiencia a nuestros clientes. Si tienes alguna pregunta, inquietud o simplemente quieres hablar con nosotros, no dudes en contactarnos.
+
+Además, te invitamos a seguirnos en Instagram para estar al tanto de nuestras últimas novedades y promociones: https://www.instagram.com/creaciones.con.amoor/.
+
+¡Gracias por elegirnos! Esperamos que disfrutes explorando nuestro sitio y descubriendo todo lo que tenemos para ofrecer.
+
+Atentamente,
+El equipo de Creaciones con amor`
+        };
+        await sendMail(mailData);
+        toast.success('Cuenta creada exitosamente');
+
+        login();
+      } else {
+        throw new Error('Correo electrónico no válido');
+      }
+    } catch (error) {
+      toast.error('Error al crear la cuenta');
+    }
+  };
 
   return (
     <div className="form-container">
-      <h2>Crear Cuenta</h2>
+      <h2 className='h2'>Crear Cuenta</h2>
       <form onSubmit={handleSubmit}>
         <div className="form-group">
           <label htmlFor="nombre_usuario">Nombre</label>

@@ -25,9 +25,11 @@ function App() {
         <div className="App">
           <header>
             <div className="logo">
-              <img src={logo} alt=""/>
-            </div>
-            <NavBar /> {/* Añade el componente NavBar aquí */}
+            <a href="/inicio"> 
+        <img src={logo} alt=""/>
+      </a>
+    </div>
+            <NavBar /> 
           </header>
           <Routes>
             <Route path="/" element={<Inicio />} />
@@ -43,6 +45,8 @@ function App() {
             <Route path="/producto" element={<Producto />} />
             <Route path="/venta" element={<Venta />} />
           </Routes>
+          <br></br>
+          <br></br>
           <footer>
             <p>&copy; 2024 Creaciones con Amor. Todos los derechos reservados.</p>
             <div className="social-icons">
@@ -76,7 +80,6 @@ const NavBar = () => {
         <li><a href="#catalogo">Catálogo</a></li>
         <li><a href="#admin">Admin</a></li>
         <li><a href="#contacto">Contacto</a></li>
-        <li><a href="#carrito"><i className="fas fa-shopping-cart"></i></a></li>
         {!isAuthenticated ? (
           <>
             <li className="login"><a href="#crear-cuenta">Crear Cuenta</a></li>
@@ -88,8 +91,11 @@ const NavBar = () => {
               <a href="#perfil"><i className="fas fa-user user-icon"></i></a>
               <i className="fas fa-sign-out-alt logout-icon" onClick={logout}></i>
             </li>
+            
           </>
+          
         )}
+        <li><a href="#carrito"><i className="fas fa-shopping-cart"></i></a></li>
       </ul>
     </nav>
   );
