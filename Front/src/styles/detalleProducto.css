@@ -1,83 +1,56 @@
-.detalle-producto{
-    margin-top: 20px;
-    padding: 20px;
-    border-radius: 8px;
-    width: 800px;
-    margin-left: auto;
-    margin-right: auto;
-    text-align: center;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-around;
-    border: 1px solid #ffccdd;
-  }
-  
-  .detalle-producto img {
-    width: 500px;
-    height: 500px;
-    border-radius: 5px;
-  }
-  
-  .detalle-producto h1 {
-    color: #000000;
-  }
-    
-  .detalle-body {
-    text-align: center;
-  }
-  
-  .detalle-body p {
-    margin: 10px 0;
-  }
-  
-  .detalle-body .precio {
-    color: #333333;
-    font-size: 1.2em;
-    margin-top: 10px;
-  }
+.detalle-producto {
+  margin-top: 20px;
+  padding: 20px;
+  border-radius: 8px;
+  width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  border: 1px solid #ffccdd;
+}
 
-  .detalle-producto button{
-    background-color: #fa8fb1;
-    color: white;
-    border: none;
-    cursor: pointer;
-    margin-top: 10px;
-    width: 200px; 
-    height: 30px;
-    border-radius: 8px;
-    box-shadow: 5px 5px 10px rgb(128, 0, 73);
-    margin:10px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+.detalle-producto .body img {
+  width: 400px;
+  height: 500px;
+  border-radius: 5px;
+}
+
+.detalle-producto .titulo h2 {
+  color: #000000;
+}
+
+.detalle-producto .body {
+  text-align: center;
+}
+
+.detalle-producto .body p {
+  margin: 10px 0;
+}
+
+
+.detalle-producto button {
+  background-color: #fa8fb1;
+  color: white;
+  border: none;
+  cursor: pointer;
+  margin-top: 10px;
+  width: 200px;
+  height: 30px;
+  border-radius: 8px;
+  box-shadow: 5px 5px 10px rgb(128, 0, 73);
+  margin: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .detalle-producto button:hover {
-    background-color: #fc6998;
+  background-color: #fc6998;
 }
 
-
-.detalle-producto .cantidad {
-  margin-top: 10px;
-}
-
-.detalle-producto .cantidad label {
-  margin-right: 10px;
-}
-
-.detalle-producto .cantidad input {
-  width: 50px;
-  padding: 5px;
-  border: 1px solid #ffccdd;
-  border-radius: 5px;
-  font-size: 16px;
-}
-
-.cantidad{
-  display: flex;
-  justify-content: center;
-  align-items: baseline;
-}
 
 .boton-volver {
   text-align: center;

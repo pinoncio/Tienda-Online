@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { getProducto } from '../services/producto';
+import '../styles/detalleProducto.css';
+
 
 const DetalleProduct = () => {
   const { cod_producto } = useParams();
@@ -14,7 +16,7 @@ const DetalleProduct = () => {
         setProducto(response.data);
         setLoading(false);
       } catch (error) {
-        console.error('Error fetching producto:', error);
+        console.error('Error :', error);
         setLoading(false);
       }
     };
@@ -32,10 +34,15 @@ const DetalleProduct = () => {
 
   return (
     <div className="detalle-producto">
-      <h2>{producto.nombre_producto}</h2>
-      <img src={producto.imagen} alt={producto.nombre_producto} />
-      <p>Precio: {producto.precio_producto}</p>
-      <p>Descripción: {producto.descripcion_producto}</p>
+        <div className='titulo'>
+            <h2>{producto.nombre_producto}</h2>
+        </div>
+        <div className='body'>
+            <img src={producto.imagen} alt="" />
+            <p>Precio: {producto.precio_producto}</p>
+            <p>Descripción: {producto.descripcion_producto}</p>
+        </div>
+
     </div>
   );
 };
