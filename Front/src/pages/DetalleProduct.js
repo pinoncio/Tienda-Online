@@ -1,7 +1,7 @@
 import React from 'react';
 import { useParams } from 'react-router-dom'; // Importa useParams para obtener el código del producto de la URL
 
-const DetalleProducto = () => {
+const DetalleProduct = () => {
   const { cod_producto } = useParams(); // Obtiene el código del producto de la URL
 
   // Lógica para cargar los detalles del producto utilizando el código obtenido
@@ -16,4 +16,4 @@ const DetalleProducto = () => {
   );
 };
 
-export {DetalleProducto} ;
+export {DetalleProduct} ;
