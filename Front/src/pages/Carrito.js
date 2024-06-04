@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom'; // Cambiar a useNavigate
 import { getCarritosProductos } from '../services/carritoproducto'; 
 import '../styles/Carrito.css';
 
 const Carrito = () => {
   const [carritosProductos, setCarritosProductos] = useState([]);
+  const navigate = useNavigate(); // Cambiar a useNavigate
 
   useEffect(() => {
     fetchCarritosProductos(); 
@@ -20,6 +22,11 @@ const Carrito = () => {
 
   const calculateTotal = () => {
     return carritosProductos.reduce((total, item) => total + item.subtotal, 0);
+  };
+
+  const handleContinueShopping = () => {
+    // Redireccionar a la página de /catalogo
+    navigate('/catalogo'); // Cambiar a navigate
   };
 
   return (
@@ -55,7 +62,7 @@ const Carrito = () => {
         <span>Total a Pagar: ${calculateTotal()}</span>
       </div>
       <div className="buttons">
-        <button className="continue-shopping">Continuar Comprando</button>
+        <button className="continue-shopping" onClick={handleContinueShopping}>Continuar Comprando</button>
         <button className="place-order">Solicitar Pedido</button>
       </div>
     </div>
