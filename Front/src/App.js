@@ -10,13 +10,14 @@ import { Catalogo } from './pages/Catalogo';
 import { DetalleProduct } from './pages/DetalleProduct';
 import { CrearCuenta } from './pages/CrearCuenta';
 import { IniciarSesion } from './pages/IniciarSesion';
+import { Carrito } from './pages/Carrito';
 import Users from './pages/user';
 import Roles from './pages/rol';
 import Categoria from './pages/categoria';
 import Producto from './pages/producto';
 import Venta from './pages/venta';
-import CarritoPage from './pages/carrito';
 import { AuthProvider, AuthContext } from './AuthContext';
+
 
 function App() {
   return (
@@ -43,7 +44,7 @@ function App() {
             <Route path="/categoria" element={<Categoria />} />
             <Route path="/producto" element={<Producto />} />
             <Route path="/venta" element={<Venta />} />
-            <Route path="/carrito" element={<CarritoPage />} /> 
+            <Route path="/carrito" element={<Carrito />} /> 
           </Routes>
           <br></br>
           <br></br>
