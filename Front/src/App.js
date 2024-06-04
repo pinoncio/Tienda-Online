@@ -78,6 +78,7 @@ const NavBar = () => {
     // Eliminar el token y el rol del localStorage
     localStorage.removeItem('token');
     localStorage.removeItem('rol');
+    localStorage.removeItem('idUser');
     // Llamar a la función de logout del contexto de autenticación
     logout();
   };
