@@ -79,12 +79,12 @@ const getUsers = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
 });
 exports.getUsers = getUsers;
 const loginUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const { rut_usuario, contrasena } = req.body;
+    const { correo, contrasena } = req.body;
     // validacion de usuario
-    const usuario = yield user_1.User.findOne({ where: { rut_usuario: rut_usuario } });
+    const usuario = yield user_1.User.findOne({ where: { correo: correo } });
     if (!usuario) {
         return res.status(401).json({
-            msg: 'El rut ingresado no es valido'
+            msg: 'El correo ingresado no es valido'
         });
     }
     //validacion del password
@@ -97,7 +97,7 @@ const loginUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     // generar token
     const idRol = usuario.dataValues.id_rol;
     const token = jsonwebtoken_1.default.sign({
-        rut_usuario: rut_usuario,
+        correo: correo,
         role: idRol
     }, process.env.SECRET_KEY || 'PRUEBA1'); // , {expiresIn: '10000'} como tercer parametro para timepo de expiracion del token
     res.json({ token, rol: idRol });
