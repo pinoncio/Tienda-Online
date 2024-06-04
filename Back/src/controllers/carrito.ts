@@ -86,10 +86,10 @@ export const newCarrito = async (req: Request, res: Response) => {
 };
 
 export const getCarrito = async (req: Request, res: Response) => {
-    const { id_carro } = req.params;
+    const { id_usuario } = req.params;
 
     try {
-        const carrito = await Carrito.findByPk(id_carro);
+        const carrito = await Carrito.findOne({ where: {id_usuario: id_usuario}});
 
         if (!carrito) {
             return res.status(404).json({
