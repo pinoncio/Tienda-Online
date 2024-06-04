@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom';
 import { getProducto } from '../services/producto';
 import '../styles/detalleProducto.css';
 
+const SERVER_BASE_URL = 'http://localhost:3000/';
 
 const DetalleProduct = () => {
   const { cod_producto } = useParams();
@@ -32,19 +33,20 @@ const DetalleProduct = () => {
     return <div>No se encontró el producto.</div>;
   }
 
+  const imageUrl = new URL(producto.imagen, SERVER_BASE_URL).href;
+
   return (
     <div className="detalle-producto">
-        <div className='titulo'>
-            <h2>{producto.nombre_producto}</h2>
-        </div>
-        <div className='body'>
-            <img src={producto.imagen} alt="" />
-            <p>Precio: {producto.precio_producto}</p>
-            <p>Descripción: {producto.descripcion_producto}</p>
-        </div>
-
+      <div className='titulo'>
+        <h2>{producto.nombre_producto}</h2>
+      </div>
+      <div className='body'>
+        <img src={imageUrl} alt={producto.nombre_producto} />
+        <p>Precio: {producto.precio_producto}</p>
+        <p>Descripción: {producto.descripcion_producto}</p>
+      </div>
     </div>
   );
 };
 
-export {DetalleProduct};
+export { DetalleProduct };

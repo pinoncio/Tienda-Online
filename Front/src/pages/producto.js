@@ -3,7 +3,7 @@ import { getProductos, deleteProducto, createProducto, updateProducto } from '..
 import '../styles/producto.css';
 
 
-const SERVER_BASE_URL = 'http://localhost:3000/public';
+const SERVER_BASE_URL = 'http://localhost:3000/';
 
 const Producto = () => {
   const [productos, setProductos] = useState([]);
@@ -15,7 +15,7 @@ const Producto = () => {
     cantidad_total: '',
     cantidad_disponible: '',
     descripcion_producto: '',
-    imagen: null, // Adjusted to handle file input
+    imagen: null, 
     id_categoria: ''
   });
 
@@ -28,7 +28,7 @@ const Producto = () => {
       const response = await getProductos();
       setProductos(response.data);
     } catch (error) {
-      console.error('Error fetching productos:', error);
+      console.error('Error al obtener productos:', error);
     }
   };
 
@@ -37,7 +37,7 @@ const Producto = () => {
       await deleteProducto(cod_producto);
       loadProductos();
     } catch (error) {
-      console.error('Error deleting producto:', error);
+      console.error('Error al eliminar producto:', error);
     }
   };
 
@@ -55,7 +55,7 @@ const Producto = () => {
       cantidad_total: '',
       cantidad_disponible: '',
       descripcion_producto: '',
-      imagen: null, // Adjusted to handle file input
+      imagen: null, 
       id_categoria: ''
     });
   };
@@ -83,7 +83,7 @@ const Producto = () => {
       loadProductos();
       setEditMode(false);
     } catch (error) {
-      console.error('Error updating/creating producto:', error);
+      console.error('Error al actualizar/crear producto:', error);
     }
   };
 
@@ -122,9 +122,9 @@ const Producto = () => {
         </thead>
         <tbody>
           {productos.map((producto) => {
-            const imageUrl = producto.imagen.replace(/\\/g, '/'); //cambia las barras \ a barras / de la url de la imagen
-            console.log("URL de la imagen:", imageUrl);
-            return (
+              const imageUrl = new URL(producto.imagen, SERVER_BASE_URL).href;
+              console.log("URL de la imagen:", imageUrl);
+              return (
               <tr key={producto.cod_producto}>
                 <td>{producto.cod_producto}</td>
                 <td>{producto.nombre_producto}</td>
@@ -135,9 +135,10 @@ const Producto = () => {
 
                 <td>
                   {producto.imagen && (
-                    <img src={new URL(producto.imagen, SERVER_BASE_URL).href} alt={producto.nombre_producto} style={{ maxWidth: '100px', maxHeight: '100px' }} />
+                    <img src={imageUrl} alt={producto.nombre_producto} style={{ maxWidth: '100px', maxHeight: '100px' }} />
                   )}
                 </td>
+
 
                 <td>{producto.id_categoria}</td>
                 <td>
