@@ -13,4 +13,4 @@ export const updateUser = (id_usuario, user) => axios.put(`${API_URL}/${id_usuar
 
 export const deleteUser = (id_usuario) => axios.delete(`${API_URL}/${id_usuario}`);
 
-export const loginUser = (credentials) => axios.post(`${API_URL}/login`, credentials);
+
