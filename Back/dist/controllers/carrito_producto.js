@@ -18,7 +18,7 @@ const getCarritosProductos = (req, res) => __awaiter(void 0, void 0, void 0, fun
         const carritoProductos = yield carrito_productos_1.Carrito_productos.findAll({
             include: [
                 { model: carrito_1.Carrito, attributes: ['id_carro'] },
-                { model: producto_1.Productos, attributes: ['cod_producto'] }
+                { model: producto_1.Productos, attributes: ['nombre_producto'] }
             ],
             attributes: ['id_carro_productos', 'cantidad', 'subtotal']
         });
@@ -36,7 +36,7 @@ const getCarritoProductos = (req, res) => __awaiter(void 0, void 0, void 0, func
         const carritoProductos = yield carrito_productos_1.Carrito_productos.findByPk(id_carro_productos, {
             include: [
                 { model: carrito_1.Carrito, attributes: ['id_carro'] },
-                { model: producto_1.Productos, attributes: ['cod_producto'] }
+                { model: producto_1.Productos, attributes: ['nombre_producto'] }
             ]
         });
         if (carritoProductos) {
