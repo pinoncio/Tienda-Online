@@ -21,9 +21,15 @@ const sequelize_1 = __importDefault(require("sequelize"));
 const newUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { rut_usuario, contrasena, nombre_usuario, apellido1_usuario, apellido2_usuario, direccion, correo, id_rol } = req.body;
     const usuario = yield user_1.User.findOne({ where: { rut_usuario: rut_usuario } });
+    const userCorreo = yield user_1.User.findOne({ where: { correo: correo } });
     if (usuario) {
         return res.status(400).json({
             msg: 'Ya existe un usuario con ese rut'
+        });
+    }
+    if (userCorreo) {
+        return res.status(400).json({
+            msg: 'El correo ingresado ya ha sido utilizado'
         });
     }
     const hashedpassword = yield bcrypt_1.default.hash(contrasena, 10);
