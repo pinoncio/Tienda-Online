@@ -5,7 +5,7 @@ import sequelize from "sequelize";
 
 
 export const newProducto = async(req: Request, res: Response) =>{
-    const {nombre_producto, precio_producto, descripcion_producto,id_categoria} = req.body;
+    const {nombre_producto, precio_producto, descripcion_producto,id_categoria, cantidad_disponible} = req.body;
     const imagen = req.file ? req.file.path : null;
 
     try{
@@ -14,6 +14,7 @@ export const newProducto = async(req: Request, res: Response) =>{
             "precio_producto": precio_producto,
             "descripcion_producto": descripcion_producto,
             "id_categoria": id_categoria,
+            "cantidad_disponible": cantidad_disponible,
             "imagen": imagen
         })
         return res.status(201).json({

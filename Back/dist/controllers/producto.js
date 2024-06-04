@@ -17,7 +17,7 @@ const producto_1 = require("../models/producto");
 const categoria_1 = require("../models/categoria");
 const sequelize_1 = __importDefault(require("sequelize"));
 const newProducto = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const { nombre_producto, precio_producto, descripcion_producto, id_categoria } = req.body;
+    const { nombre_producto, precio_producto, descripcion_producto, id_categoria, cantidad_disponible } = req.body;
     const imagen = req.file ? req.file.path : null;
     try {
         yield producto_1.Productos.create({
@@ -25,6 +25,7 @@ const newProducto = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
             "precio_producto": precio_producto,
             "descripcion_producto": descripcion_producto,
             "id_categoria": id_categoria,
+            "cantidad_disponible": cantidad_disponible,
             "imagen": imagen
         });
         return res.status(201).json({
