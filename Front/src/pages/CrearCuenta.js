@@ -1,13 +1,11 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import { useCreateUserForm } from '../components/createuser';
-import { AuthContext } from '../AuthContext'; 
 import '../styles/crearcuenta.css';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import sendMail from '../services/mail'; 
+import sendMail from '../services/mail';
 
 const CrearCuenta = () => {
-  const { login } = useContext(AuthContext); 
   const {
     formData,
     errors,
@@ -44,8 +42,6 @@ El equipo de Creaciones con amor`
         };
         await sendMail(mailData);
         toast.success('Cuenta creada exitosamente');
-
-        login();
       } else {
         throw new Error('Correo electrónico no válido');
       }

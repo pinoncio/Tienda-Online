@@ -62,6 +62,22 @@ const User = () => {
     });
   };
 
+  const handleCancel = () => {
+    setEditMode(false);
+    setCreateMode(false);
+    setEditedUser({
+      id_usuario: '',
+      rut_usuario: '',
+      nombre_usuario: '',
+      apellido1_usuario: '',
+      apellido2_usuario: '',
+      direccion: '',
+      correo: '',
+      contrasena: '', 
+      id_rol: ''
+    });
+  };
+
   const getRolNombre = (id_rol) => {
     const rol = roles.find((rol) => rol.id_rol === id_rol);
     return rol ? rol.nombre_rol : 'Desconocido';
@@ -145,7 +161,10 @@ const User = () => {
               </select>
             </div>
           </div>
-          <button type="submit">{editMode ? "Guardar" : "Crear"}</button>
+          <div className="form-buttons">
+            <button type="submit">{editMode ? "Guardar" : "Crear"}</button>
+            <button type="button" className="cancel-button" onClick={handleCancel}>Cancelar</button>
+          </div>
         </form>
       )}
     </div>
@@ -153,4 +172,3 @@ const User = () => {
 };
 
 export default User;
-
