@@ -18,7 +18,6 @@ import Producto from './pages/producto';
 import Venta from './pages/venta';
 import { AuthProvider, AuthContext } from './AuthContext';
 
-
 function App() {
   return (
     <AuthProvider>
@@ -73,13 +72,22 @@ function App() {
 
 const NavBar = () => {
   const { isAuthenticated, logout } = React.useContext(AuthContext);
+  const rol = localStorage.getItem('rol');
+
+  const handleLogout = () => {
+    // Eliminar el token y el rol del localStorage
+    localStorage.removeItem('token');
+    localStorage.removeItem('rol');
+    // Llamar a la función de logout del contexto de autenticación
+    logout();
+  };
 
   return (
     <nav>
       <ul>
         <li><a href="/">Inicio</a></li>
         <li><a href="#catalogo">Catálogo</a></li>
-        <li><a href="#admin">Admin</a></li>
+        {isAuthenticated && rol === '1' && <li><a href="#admin">Admin</a></li>}
         <li><a href="#contacto">Contacto</a></li>
         {!isAuthenticated ? (
           <>
@@ -90,7 +98,7 @@ const NavBar = () => {
           <>
             <li className="user-container">
               <a href="#perfil"><i className="fas fa-user user-icon"></i></a>
-              <i className="fas fa-sign-out-alt logout-icon" onClick={logout}></i>
+              <i className="fas fa-sign-out-alt logout-icon" onClick={handleLogout}></i>
             </li>
           </>
         )}
@@ -99,5 +107,6 @@ const NavBar = () => {
     </nav>
   );
 };
+
 
 export default App;
