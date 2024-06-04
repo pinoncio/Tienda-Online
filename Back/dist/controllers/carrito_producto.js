@@ -13,14 +13,29 @@ exports.deleteCarritoProductos = exports.updateCarritoProductos = exports.getCar
 const carrito_productos_1 = require("../models/carrito_productos");
 const carrito_1 = require("../models/carrito");
 const producto_1 = require("../models/producto");
+const user_1 = require("../models/user");
 const getCarritosProductos = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
+        const { id_usuario } = req.params;
+        let carrito = yield carrito_1.Carrito.findOne({ where: { id_usuario: id_usuario } });
+        const idUser = yield user_1.User.findOne({ where: { id_usuario: id_usuario } });
+        if (!idUser) {
+            return res.status(400).json({
+                msg: "El usuario no existe"
+            });
+        }
+        if (!carrito) {
+            carrito = yield carrito_1.Carrito.create({
+                "id_usuario": id_usuario,
+                "total": 0
+            });
+        }
         const carritoProductos = yield carrito_productos_1.Carrito_productos.findAll({
             include: [
                 { model: carrito_1.Carrito, attributes: ['id_carro'] },
                 { model: producto_1.Productos, attributes: ['nombre_producto'] }
             ],
-            attributes: ['id_carro_productos', 'cantidad', 'subtotal']
+            attributes: ['id_carro_productos', 'cantidad', 'subtotal'], where: { id_carro: carrito === null || carrito === void 0 ? void 0 : carrito.dataValues.id_carro }
         });
         res.json(carritoProductos);
     }
