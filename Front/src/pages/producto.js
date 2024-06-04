@@ -122,8 +122,7 @@ const Producto = () => {
         </thead>
         <tbody>
           {productos.map((producto) => {
-            // Reemplazar barras invertidas con barras inclinadas en la URL de la imagen
-            const imageUrl = producto.imagen.replace(/\\/g, '/');
+            const imageUrl = producto.imagen.replace(/\\/g, '/'); //cambia las barras \ a barras / de la url de la imagen
             console.log("URL de la imagen:", imageUrl);
             return (
               <tr key={producto.cod_producto}>
