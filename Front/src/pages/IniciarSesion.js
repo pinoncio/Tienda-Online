@@ -23,30 +23,23 @@ const IniciarSesion = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
     const { email, contraseña } = event.target.elements;
-
-    if (email.value && contraseña.value) {
-      try {
-        const response = await loginUser(email.value, contraseña.value);
-        if (response.success) {
-          login(response.data);
-          navigate('/');
-        } else {
-          setErrors({
-            email: !response.success,
-            contraseña: !response.success,
-          });
-        }
-      } catch (error) {
-        console.error('Login error:', error);
+  
+    try {
+      const response = await loginUser({ correo: email.value, contrasena: contraseña.value });
+      if (response.data.token) {
+        login(response.data.token);
+        navigate('/');
+      } else {
         setErrors({
           email: true,
           contraseña: true,
         });
       }
-    } else {
+    } catch (error) {
+      console.error('Login error:', error);
       setErrors({
-        email: email.value === '',
-        contraseña: contraseña.value === '',
+        email: true,
+        contraseña: true,
       });
     }
   };
