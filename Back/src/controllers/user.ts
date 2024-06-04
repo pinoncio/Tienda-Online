@@ -75,14 +75,14 @@ export const getUsers = async(req: Request, res: Response) =>{
 
 export const loginUser = async(req: Request, res: Response) =>{
 
-    const { rut_usuario, contrasena } = req.body;
+    const { correo, contrasena } = req.body;
 
     // validacion de usuario
-    const usuario: any = await User.findOne({where: {rut_usuario: rut_usuario}})
+    const usuario: any = await User.findOne({where: {correo: correo}})
 
     if(!usuario) {
         return res.status(401).json({
-            msg: 'El rut ingresado no es valido'
+            msg: 'El correo ingresado no es valido'
         })
     }
     //validacion del password
@@ -96,7 +96,7 @@ export const loginUser = async(req: Request, res: Response) =>{
     // generar token
     const idRol = usuario.dataValues.id_rol 
     const token = jwt.sign({
-        rut_usuario: rut_usuario,
+        correo: correo,
         role: idRol
     }, process.env.SECRET_KEY || 'PRUEBA1'); // , {expiresIn: '10000'} como tercer parametro para timepo de expiracion del token
 
