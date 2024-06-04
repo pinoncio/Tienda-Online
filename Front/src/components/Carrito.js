@@ -1,18 +1,18 @@
 import React, { useState, useEffect } from 'react';
-import { getCarritosProductos } from '../services/carritoproducto'; // Importa los servicios para obtener los datos de carrito_producto
-import '../styles/Carrito.css'; // Import the CSS file for styling
+import { getCarritosProductos } from '../services/carritoproducto'; 
+import '../styles/Carrito.css';
 
 const Carrito = () => {
   const [carritosProductos, setCarritosProductos] = useState([]);
 
   useEffect(() => {
-    fetchCarritosProductos(); // Llama a la función para obtener los carritos de productos
+    fetchCarritosProductos(); 
   }, []);
 
   const fetchCarritosProductos = async () => {
     try {
-      const response = await getCarritosProductos(); // Obtiene los datos de los carritos de productos
-      setCarritosProductos(response.data); // Almacena los datos en el estado
+      const response = await getCarritosProductos();
+      setCarritosProductos(response.data); 
     } catch (error) {
       console.error('Error fetching carritos de productos:', error);
     }
@@ -37,16 +37,13 @@ const Carrito = () => {
         <tbody>
           {carritosProductos.map((carritoProducto) => (
             <tr key={carritoProducto.id_carro_productos}>
-              <td>
-                <img src={carritoProducto.producto.imagen} alt={carritoProducto.producto.nombre} />
-                {carritoProducto.producto.nombre}
-              </td>
+              <td>{carritoProducto.producto.nombre_producto}</td>
               <td>
                 <button>-</button>
                 {carritoProducto.cantidad}
                 <button>+</button>
               </td>
-              <td>${carritoProducto.producto.precio}</td>
+              <td>${carritoProducto.subtotal}</td>
               <td>
                 <button className="delete-button">🗑️</button>
               </td>

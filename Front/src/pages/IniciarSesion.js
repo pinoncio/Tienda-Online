@@ -1,5 +1,5 @@
-// src/pages/IniciarSesion.js
 import React, { useState, useContext } from 'react';
+import { loginUser } from '../services/iniciarsesion';
 import { useNavigate } from 'react-router-dom';
 import '../styles/iniciarsesion.css';
 import { AuthContext } from '../AuthContext';
@@ -20,13 +20,29 @@ const IniciarSesion = () => {
     }));
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
     const { email, contraseña } = event.target.elements;
-    
+
     if (email.value && contraseña.value) {
-      login();
-      navigate('/');
+      try {
+        const response = await loginUser(email.value, contraseña.value);
+        if (response.success) {
+          login(response.data);
+          navigate('/');
+        } else {
+          setErrors({
+            email: !response.success,
+            contraseña: !response.success,
+          });
+        }
+      } catch (error) {
+        console.error('Login error:', error);
+        setErrors({
+          email: true,
+          contraseña: true,
+        });
+      }
     } else {
       setErrors({
         email: email.value === '',
@@ -48,7 +64,7 @@ const IniciarSesion = () => {
             required 
             onBlur={handleBlur} 
           />
-          {errors.email && <span className="error-message">El campo es obligatorio</span>}
+          {errors.email && <span className="error-message">El campo es obligatorio o incorrecto</span>}
         </div>
         <div className="form-group">
           <label htmlFor="contraseña">Contraseña</label>
@@ -59,7 +75,7 @@ const IniciarSesion = () => {
             required 
             onBlur={handleBlur} 
           />
-          {errors.contraseña && <span className="error-message">El campo es obligatorio</span>}
+          {errors.contraseña && <span className="error-message">El campo es obligatorio o incorrecto</span>}
         </div>
         <div className="form-group">
           <input type="submit" value="Iniciar Sesión" className="submit-button" />
