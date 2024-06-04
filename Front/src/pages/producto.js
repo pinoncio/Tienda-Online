@@ -2,6 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { getProductos, deleteProducto, createProducto, updateProducto } from '../services/producto';
 import '../styles/producto.css';
 
+
+const SERVER_BASE_URL = 'http://localhost:3000/';
+
 const Producto = () => {
   const [productos, setProductos] = useState([]);
   const [editMode, setEditMode] = useState(false);
@@ -12,12 +15,11 @@ const Producto = () => {
     cantidad_total: '',
     cantidad_disponible: '',
     descripcion_producto: '',
-    imagen: '',
+    imagen: null, 
     id_categoria: ''
   });
 
   useEffect(() => {
-    // Carga la lista de productos cuando el componente se monta
     loadProductos();
   }, []);
 
@@ -26,7 +28,7 @@ const Producto = () => {
       const response = await getProductos();
       setProductos(response.data);
     } catch (error) {
-      console.error('Error fetching productos:', error);
+      console.error('Error al obtener productos:', error);
     }
   };
 
@@ -35,13 +37,13 @@ const Producto = () => {
       await deleteProducto(cod_producto);
       loadProductos();
     } catch (error) {
-      console.error('Error deleting producto:', error);
+      console.error('Error al eliminar producto:', error);
     }
   };
 
   const handleEdit = (producto) => {
     setEditMode(true);
-    setEditedProducto(producto);
+    setEditedProducto({ ...producto, imagen: null });
   };
 
   const handleCreate = () => {
@@ -53,23 +55,35 @@ const Producto = () => {
       cantidad_total: '',
       cantidad_disponible: '',
       descripcion_producto: '',
-      imagen: '',
+      imagen: null, 
       id_categoria: ''
     });
   };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+    const formData = new FormData();
+    formData.append('nombre_producto', editedProducto.nombre_producto);
+    formData.append('precio_producto', editedProducto.precio_producto);
+    formData.append('cantidad_total', editedProducto.cantidad_total);
+    formData.append('cantidad_disponible', editedProducto.cantidad_disponible);
+    formData.append('descripcion_producto', editedProducto.descripcion_producto);
+    formData.append('id_categoria', editedProducto.id_categoria);
+
+    if (editedProducto.imagen) {
+      formData.append('imagen', editedProducto.imagen);
+    }
+
     try {
       if (editedProducto.cod_producto) {
-        await updateProducto(editedProducto.cod_producto, editedProducto);
+        await updateProducto(editedProducto.cod_producto, formData);
       } else {
-        await createProducto(editedProducto);
+        await createProducto(formData);
       }
       loadProductos();
-      setEditMode(false); // Salir del modo de edición después de enviar el formulario
+      setEditMode(false);
     } catch (error) {
-      console.error('Error updating/creating producto:', error);
+      console.error('Error al actualizar/crear producto:', error);
     }
   };
 
@@ -78,6 +92,14 @@ const Producto = () => {
     setEditedProducto({
       ...editedProducto,
       [name]: value
+    });
+  };
+
+  const handleFileChange = (event) => {
+    const file = event.target.files[0];
+    setEditedProducto({
+      ...editedProducto,
+      imagen: file
     });
   };
 
@@ -99,22 +121,33 @@ const Producto = () => {
           </tr>
         </thead>
         <tbody>
-          {productos.map((producto) => (
-            <tr key={producto.cod_producto}>
-              <td>{producto.cod_producto}</td>
-              <td>{producto.nombre_producto}</td>
-              <td>{producto.precio_producto}</td>
-              <td>{producto.cantidad_total}</td>
-              <td>{producto.cantidad_disponible}</td>
-              <td>{producto.descripcion_producto}</td>
-              <td><img src={producto.imagen} alt={producto.nombre_producto} width="50"/></td>
-              <td>{producto.id_categoria}</td>
-              <td>
-                <button onClick={() => handleEdit(producto)}>Editar Producto</button>
-                <button onClick={() => handleDelete(producto.cod_producto)}>Eliminar Producto</button>
-              </td>
-            </tr>
-          ))}
+          {productos.map((producto) => {
+              const imageUrl = new URL(producto.imagen, SERVER_BASE_URL).href;
+              console.log("URL de la imagen:", imageUrl);
+              return (
+              <tr key={producto.cod_producto}>
+                <td>{producto.cod_producto}</td>
+                <td>{producto.nombre_producto}</td>
+                <td>{producto.precio_producto}</td>
+                <td>{producto.cantidad_total}</td>
+                <td>{producto.cantidad_disponible}</td>
+                <td>{producto.descripcion_producto}</td>
+
+                <td>
+                  {producto.imagen && (
+                    <img src={imageUrl} alt={producto.nombre_producto} style={{ maxWidth: '100px', maxHeight: '100px' }} />
+                  )}
+                </td>
+
+
+                <td>{producto.id_categoria}</td>
+                <td>
+                  <button onClick={() => handleEdit(producto)}>Editar Producto</button>
+                  <button onClick={() => handleDelete(producto.cod_producto)}>Eliminar Producto</button>
+                </td>
+              </tr>
+            );
+          })}
         </tbody>
       </table>
       <button onClick={handleCreate}>Crear Producto</button>
@@ -125,14 +158,18 @@ const Producto = () => {
           <input type="text" name="cantidad_total" value={editedProducto.cantidad_total} onChange={handleChange} placeholder="Cantidad Total" />
           <input type="text" name="cantidad_disponible" value={editedProducto.cantidad_disponible} onChange={handleChange} placeholder="Cantidad Disponible" />
           <textarea name="descripcion_producto" value={editedProducto.descripcion_producto} onChange={handleChange} placeholder="Descripción del Producto"></textarea>
-          <input type="text" name="imagen" value={editedProducto.imagen} onChange={handleChange} placeholder="URL de la Imagen" />
+          <input type="file" name="imagen" onChange={handleFileChange} />
           <input type="text" name="id_categoria" value={editedProducto.id_categoria} onChange={handleChange} placeholder="ID de la Categoría" />
           <button type="submit">Guardar</button>
           <button type="button" onClick={() => setEditMode(false)}>Cancelar</button>
         </form>
       )}
     </div>
+ 
+
   );
+  
 };
+
 
 export default Producto;

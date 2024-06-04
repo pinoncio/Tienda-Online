@@ -1,0 +1,9 @@
+Back/dist/controllers/carrito_producto.js
+Back/dist/controllers/carrito.js
+Back/dist/controllers/producto.js
+Back/dist/models/carrito_productos.js
+Back/dist/models/carrito.js
+Back/dist/models/server.js
+Back/dist/routes/carrito_productos.js
+Back/dist/routes/carrito.js
+Back/dist/routes/producto.js

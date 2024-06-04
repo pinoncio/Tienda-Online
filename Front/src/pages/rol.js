@@ -1,7 +1,7 @@
 import React from 'react';
 import { useRoles } from '../components/createrol';
 import { useNavigate } from 'react-router-dom'; 
-import '../styles/user.css';
+import '../styles/rol.css';
 
 const Rol = () => {
   const navigate = useNavigate(); 

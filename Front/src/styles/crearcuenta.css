@@ -1,47 +1,83 @@
+/* src/styles/crearcuenta.css */
+
 .form-container {
-    max-width: 400px;
-    margin: 60px auto 0;
-    padding: 20px;
-    border: 1px solid #ccc;
-    border-radius: 8px;
+  max-width: 37%;
+  margin-top: 0%;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  box-sizing: border-box; 
+}
+
+.form-group {
+  margin-bottom: 5%;
+}
+
+label {
+  display: block;
+  margin-bottom: 2%;
+}
+
+input[type="text"],
+input[type="password"] {
+  width: 100%;
+  padding: 2%;
+  font-size: 1rem;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  box-sizing: border-box; 
+}
+
+input[type="submit"] {
+  width: 95%;
+  padding: 2.5%;
+  font-size: 1.125rem;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  box-sizing: border-box; 
+}
+
+input[type="submit"]:hover {
+  background-color: #0056b3;
+}
+
+.error-message {
+  color: red;
+  font-size: 0.75rem;
+}
+
+/* Media Queries */
+@media (max-width: 600px) {
+  .form-container {
+    max-width: 95%; 
+    padding: 4%;
   }
-  
-  .form-group {
-    margin-bottom: 20px;
-  }
-  
-  label {
-    display: block;
-    margin-bottom: 5px;
-  }
-  
+
   input[type="text"],
   input[type="password"] {
-    width: 100%;
-    padding: 8px;
-    font-size: 16px;
-    border-radius: 5px;
-    border: 1px solid #ccc;
+    font-size: 0.875rem;
   }
-  
-  input[type="submit"] {
-    width: 100%;
-    padding: 10px;
-    font-size: 18px;
-    background-color: #007bff;
-    color: #fff;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-  }
-  
-  input[type="submit"]:hover {
-    background-color: #0056b3;
-  }
-  
 
-  .error-message {
-    color: red;
-    font-size: 12px;
+  input[type="submit"] {
+    padding: 2%;
+    font-size: 1rem; 
   }
-  
+}
+
+@media (max-width: 400px) {
+  .form-container {
+    max-width: 100%; 
+    margin: 5% auto 0;
+  }
+
+  .form-group {
+    margin-bottom: 4%; 
+  }
+}
+
+.h2 {
+  margin: 0;
+  margin-bottom: 2.5%;
+}

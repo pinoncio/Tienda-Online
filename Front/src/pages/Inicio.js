@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link as ScrollLink } from 'react-scroll';
+import { useNavigate } from 'react-router-dom';
 import logo from '../image/logo1.png';
 import product1 from '../image/1.jpeg';
 import product2 from '../image/2.jpeg';
@@ -7,6 +8,12 @@ import product3 from '../image/3.jpeg';
 import '../styles/inicio.css';
 
 function Inicio() {
+  const navigate = useNavigate();
+
+  const handleImageClick = (productId) => {
+    navigate(`/product/${productId}`);
+  };
+  
   return (
     <main>
       <section id="inicio">
@@ -21,24 +28,24 @@ function Inicio() {
       </section>
 
       <section id="catalogo">
-        <h2>Productos Destacados</h2>
+        <h1>Productos más vendidos</h1>
         <div className="catalog">
           <div className="product">
             <h2>Mural Rame</h2>
-            <p>Poco uso</p>
-            <img src={product1} alt="Mural Rame" />
+            <img src={product1} alt="Mural Rame" onClick={() => handleImageClick(1)} />
+            <p>descripcion</p>
           </div>
 
           <div className="product">
-            <h2>Producto 2</h2>
-            <p>Descripción breve del producto 2.</p>
-            <img src={product2} alt="Producto 2" />
+            <h2>Mural Mostasa</h2>
+            <img src={product2} alt="Mural Mostasa" onClick={() => handleImageClick(2)} />
+            <p>descripcion</p>
           </div>
 
           <div className="product">
-            <h2>Producto 3</h2>
-            <p>Descripción breve del producto 3.</p>
-            <img src={product3} alt="Producto 3" />
+            <h2>Mural Angel</h2>
+            <img src={product3} alt="Mural Angel" onClick={() => handleImageClick(3)} />
+            <p>descripcion</p>
           </div>
         </div>
       </section>

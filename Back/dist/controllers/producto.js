@@ -12,18 +12,21 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.updateStock = exports.updateProducto = exports.deleteProducto = exports.getProductos = exports.getProducto = exports.newProducto = void 0;
+exports.updateImagen = exports.updateStock = exports.updateProducto = exports.deleteProducto = exports.getProductos = exports.getProducto = exports.newProducto = void 0;
 const producto_1 = require("../models/producto");
 const categoria_1 = require("../models/categoria");
 const sequelize_1 = __importDefault(require("sequelize"));
 const newProducto = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const { nombre_producto, precio_producto, descripcion_producto, id_categoria } = req.body;
+    const { nombre_producto, precio_producto, descripcion_producto, id_categoria, cantidad_disponible } = req.body;
+    const imagen = req.file ? req.file.path : null;
     try {
         yield producto_1.Productos.create({
             "nombre_producto": nombre_producto,
             "precio_producto": precio_producto,
             "descripcion_producto": descripcion_producto,
-            "id_categoria": id_categoria
+            "id_categoria": id_categoria,
+            "cantidad_disponible": cantidad_disponible,
+            "imagen": imagen
         });
         return res.status(201).json({
             msg: "Producto creado correctamente"
@@ -160,3 +163,26 @@ const updateStock = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
     }
 });
 exports.updateStock = updateStock;
+const updateImagen = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+    const { cod_producto } = req.params;
+    const URL_IMAGEN = req.file ? req.file.path : null;
+    const imagenExtension = URL_IMAGEN + '.jpg';
+    try {
+        const idProducto = yield producto_1.Productos.findOne({ where: { cod_producto } });
+        if (!idProducto) {
+            return res.status(404).json({ msg: 'Producto no encontrado' });
+        }
+        yield producto_1.Productos.update({
+            imagen: imagenExtension
+        }, { where: { cod_producto: cod_producto } });
+        return res.json({ msg: 'Imagen del producto actualizada correctamente' });
+    }
+    catch (error) {
+        console.error(error);
+        res.status(500).json({
+            msg: 'Error al actualizar la imagen del producto',
+            error
+        });
+    }
+});
+exports.updateImagen = updateImagen;
