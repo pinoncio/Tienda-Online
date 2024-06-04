@@ -10,10 +10,16 @@ export const newUser = async(req: Request, res: Response) =>{
     const { rut_usuario, contrasena, nombre_usuario, apellido1_usuario, apellido2_usuario, direccion, correo, id_rol} =  req.body;
 
     const usuario = await User.findOne({where: {rut_usuario: rut_usuario}})
+    const userCorreo = await User.findOne({where: {correo: correo}});
 
-    if(usuario) {
+    if(usuario ) {
         return res.status(400).json({
             msg: 'Ya existe un usuario con ese rut'
+        })
+    }
+    if(userCorreo ) {
+        return res.status(400).json({
+            msg: 'El correo ingresado ya ha sido utilizado'
         })
     }
 
