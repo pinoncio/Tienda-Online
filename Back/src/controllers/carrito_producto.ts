@@ -8,7 +8,7 @@ export const getCarritosProductos = async (req: Request, res: Response) => {
         const carritoProductos = await Carrito_productos.findAll({
             include: [
                 { model: Carrito, attributes: ['id_carro'] },
-                { model: Productos, attributes: ['cod_producto'] }
+                { model: Productos, attributes: ['nombre_producto'] }
             ],
             attributes: ['id_carro_productos', 'cantidad', 'subtotal']
         });
@@ -25,7 +25,7 @@ export const getCarritoProductos = async (req: Request, res: Response) => {
         const carritoProductos = await Carrito_productos.findByPk(id_carro_productos, {
             include: [
                 { model: Carrito, attributes: ['id_carro'] },
-                { model: Productos, attributes: ['cod_producto'] }
+                { model: Productos, attributes: ['nombre_producto'] }
             ]
         });
         if (carritoProductos) {
