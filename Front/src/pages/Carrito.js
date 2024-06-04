@@ -1,8 +1,13 @@
-function Carrito(){
-    return <>
-        <h3>Carrito </h3>
-    </>
-}
+import React from 'react';
+import Carrito from '../components/Carrito';
 
+const CarritoPage = () => {
+  return (
+    <div>
+      <h1>Carrito de Compras</h1>
+      <Carrito />
+    </div>
+  );
+};
 
-export {Carrito};
+export default CarritoPage;
