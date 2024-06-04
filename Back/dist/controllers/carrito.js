@@ -16,7 +16,7 @@ const producto_1 = require("../models/producto");
 const newCarrito = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { id_usuario, cantidad, cod_producto } = req.body;
     try {
-        let carrito = yield carrito_1.Carrito.findOne({ where: { id_usuario } });
+        let carrito = yield carrito_1.Carrito.findOne({ where: { id_usuario: id_usuario } });
         if (!carrito) {
             carrito = yield carrito_1.Carrito.create({
                 "id_usuario": id_usuario,
@@ -24,60 +24,56 @@ const newCarrito = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
             });
         }
         const pkCarrito = carrito.dataValues.id_carro;
-        for (const [index, producto] of cod_producto.entries()) {
-            const cant = cantidad[index];
-            const cantidadInt = parseInt(cant, 10);
-            const productoInt = parseInt(producto, 10);
-            if (cantidadInt > 0 || cantidadInt) {
-                const idProducto = yield producto_1.Productos.findOne({ attributes: ['precio_producto', 'cantidad_disponible', 'cantidad_total'], where: { cod_producto: productoInt } });
-                if (!idProducto) {
-                    return res.status(400).json({
-                        msg: "El producto ingresado no existe",
-                    });
-                }
-                const cantidadDisponible = (idProducto === null || idProducto === void 0 ? void 0 : idProducto.dataValues.cantidad_disponible) - cantidadInt;
-                if (cantidadDisponible < 0) {
-                    return res.status(400).json({
-                        msg: "No hay stock suficiente"
-                    });
-                }
-                const precioProducto = idProducto === null || idProducto === void 0 ? void 0 : idProducto.dataValues.precio_producto;
-                const subTotal = precioProducto * cantidadInt;
-                const idCarro = yield carrito_1.Carrito.findOne({ attributes: ['total'], where: { id_carro: pkCarrito } });
-                const totals = idCarro === null || idCarro === void 0 ? void 0 : idCarro.dataValues.total;
-                try {
-                    yield carrito_productos_1.Carrito_productos.create({
-                        id_carro: pkCarrito,
-                        cod_producto: productoInt,
-                        cantidad: cantidadInt,
-                        subtotal: subTotal,
-                    });
-                    yield carrito_1.Carrito.update({
-                        total: totals + subTotal
-                    }, { where: { id_carro: pkCarrito }
-                    });
-                    yield producto_1.Productos.update({
-                        cantidad_disponible: cantidadDisponible
-                    }, { where: { cod_producto: productoInt }
-                    });
-                }
-                catch (innerError) {
-                    res.status(400).json({
-                        msg: "Ha ocurrido un error al hacer el pedido",
-                        innerError
-                    });
-                }
+        if (cantidad > 0) {
+            const idProducto = yield producto_1.Productos.findOne({ attributes: ['precio_producto', 'cantidad_disponible', 'cantidad_total'], where: { cod_producto: cod_producto } });
+            if (!idProducto) {
+                return res.status(400).json({
+                    msg: "El producto ingresado no existe",
+                });
             }
+            const cantidadDisponible = (idProducto === null || idProducto === void 0 ? void 0 : idProducto.dataValues.cantidad_disponible) - cantidad;
+            if (cantidadDisponible < 0) {
+                return res.status(400).json({
+                    msg: "No hay stock suficiente"
+                });
+            }
+            const precioProducto = idProducto === null || idProducto === void 0 ? void 0 : idProducto.dataValues.precio_producto;
+            console.log(precioProducto);
+            const subTotal = precioProducto * cantidad;
+            const idCarro = yield carrito_1.Carrito.findOne({ attributes: ['total'], where: { id_carro: pkCarrito } });
+            const totals = idCarro === null || idCarro === void 0 ? void 0 : idCarro.dataValues.total;
+            try {
+                yield carrito_productos_1.Carrito_productos.create({
+                    id_carro: pkCarrito,
+                    cod_producto: cod_producto,
+                    cantidad: cantidad,
+                    subtotal: subTotal,
+                });
+                yield carrito_1.Carrito.update({
+                    total: totals + subTotal
+                }, { where: { id_carro: pkCarrito }
+                });
+                yield producto_1.Productos.update({
+                    cantidad_disponible: cantidadDisponible
+                }, { where: { cod_producto: cod_producto }
+                });
+            }
+            catch (error) {
+                res.status(400).json({
+                    msg: "Ha ocurrido un error al hacer el pedido",
+                    error
+                });
+            }
+            return res.status(201).json({
+                msg: "Producto ingresado correctamente al carrito"
+            });
         }
-        res.status(201).json({
-            msg: "Producto ingresado correctamente al carrito"
-        });
     }
-    catch (outterError) {
-        console.error("Error al procesar el carrito", outterError);
-        res.status(400).json({
+    catch (error) {
+        console.error("Error al procesar el carrito", error);
+        return res.status(400).json({
             msg: "Ha ocurrido un error al ingresar el producto al carrito",
-            outterError
+            error
         });
     }
 });
