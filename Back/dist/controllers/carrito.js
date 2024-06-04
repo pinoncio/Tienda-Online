@@ -83,9 +83,9 @@ const newCarrito = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
 });
 exports.newCarrito = newCarrito;
 const getCarrito = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const { id_carro } = req.params;
+    const { id_usuario } = req.params;
     try {
-        const carrito = yield carrito_1.Carrito.findByPk(id_carro);
+        const carrito = yield carrito_1.Carrito.findOne({ where: { id_usuario: id_usuario } });
         if (!carrito) {
             return res.status(404).json({
                 msg: 'El carrito no existe',
