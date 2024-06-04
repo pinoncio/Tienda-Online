@@ -100,14 +100,15 @@ export const loginUser = async(req: Request, res: Response) =>{
     }
 
     // generar token
-    const idRol = usuario.dataValues.id_rol 
+    const idRol = usuario.dataValues.id_rol
+    const idUser = usuario.dataValues.id_usuario
     const token = jwt.sign({
         correo: correo,
         role: idRol
     }, process.env.SECRET_KEY || 'PRUEBA1'); // , {expiresIn: '10000'} como tercer parametro para timepo de expiracion del token
 
     
-    res.json({token, rol: idRol});
+    res.json({token, rol: idRol, idUser: idUser});
 
 }
 
@@ -157,7 +158,7 @@ export const deleteUser = async(req: Request, res: Response) =>{
         })
     }
     try{
-        await User.destroy({where: {id_usuario: id_usuario}})
+        await User.destroy({where: {id_usuario: id_usuario},cascade: true})
         res.json({
             msg: "Se ha eliminado al usuario: "+id_usuario
         })
