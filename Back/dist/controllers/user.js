@@ -21,9 +21,15 @@ const sequelize_1 = __importDefault(require("sequelize"));
 const newUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { rut_usuario, contrasena, nombre_usuario, apellido1_usuario, apellido2_usuario, direccion, correo, id_rol } = req.body;
     const usuario = yield user_1.User.findOne({ where: { rut_usuario: rut_usuario } });
+    const userCorreo = yield user_1.User.findOne({ where: { correo: correo } });
     if (usuario) {
         return res.status(400).json({
             msg: 'Ya existe un usuario con ese rut'
+        });
+    }
+    if (userCorreo) {
+        return res.status(400).json({
+            msg: 'El correo ingresado ya ha sido utilizado'
         });
     }
     const hashedpassword = yield bcrypt_1.default.hash(contrasena, 10);
@@ -96,11 +102,12 @@ const loginUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     }
     // generar token
     const idRol = usuario.dataValues.id_rol;
+    const idUser = usuario.dataValues.id_usuario;
     const token = jsonwebtoken_1.default.sign({
         correo: correo,
         role: idRol
     }, process.env.SECRET_KEY || 'PRUEBA1'); // , {expiresIn: '10000'} como tercer parametro para timepo de expiracion del token
-    res.json({ token, rol: idRol });
+    res.json({ token, rol: idRol, idUser: idUser });
 });
 exports.loginUser = loginUser;
 const getUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
@@ -148,7 +155,7 @@ const deleteUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
         });
     }
     try {
-        yield user_1.User.destroy({ where: { id_usuario: id_usuario } });
+        yield user_1.User.destroy({ where: { id_usuario: id_usuario }, cascade: true });
         res.json({
             msg: "Se ha eliminado al usuario: " + id_usuario
         });

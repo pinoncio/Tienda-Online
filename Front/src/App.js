@@ -10,12 +10,12 @@ import { Catalogo } from './pages/Catalogo';
 import { DetalleProduct } from './pages/DetalleProduct';
 import { CrearCuenta } from './pages/CrearCuenta';
 import { IniciarSesion } from './pages/IniciarSesion';
+import { Carrito } from './pages/Carrito';
 import Users from './pages/user';
 import Roles from './pages/rol';
 import Categoria from './pages/categoria';
 import Producto from './pages/producto';
 import Venta from './pages/venta';
-import CarritoPage from './pages/carrito';
 import { AuthProvider, AuthContext } from './AuthContext';
 
 function App() {
@@ -43,7 +43,7 @@ function App() {
             <Route path="/categoria" element={<Categoria />} />
             <Route path="/producto" element={<Producto />} />
             <Route path="/venta" element={<Venta />} />
-            <Route path="/carrito" element={<CarritoPage />} /> 
+            <Route path="/carrito" element={<Carrito />} /> 
           </Routes>
           <br></br>
           <br></br>
@@ -72,13 +72,23 @@ function App() {
 
 const NavBar = () => {
   const { isAuthenticated, logout } = React.useContext(AuthContext);
+  const rol = localStorage.getItem('rol');
+
+  const handleLogout = () => {
+    // Eliminar el token y el rol del localStorage
+    localStorage.removeItem('token');
+    localStorage.removeItem('rol');
+    localStorage.removeItem('idUser');
+    // Llamar a la función de logout del contexto de autenticación
+    logout();
+  };
 
   return (
     <nav>
       <ul>
         <li><a href="/">Inicio</a></li>
         <li><a href="#catalogo">Catálogo</a></li>
-        <li><a href="#admin">Admin</a></li>
+        {isAuthenticated && rol === '1' && <li><a href="#admin">Admin</a></li>}
         <li><a href="#contacto">Contacto</a></li>
         {!isAuthenticated ? (
           <>
@@ -89,7 +99,7 @@ const NavBar = () => {
           <>
             <li className="user-container">
               <a href="#perfil"><i className="fas fa-user user-icon"></i></a>
-              <i className="fas fa-sign-out-alt logout-icon" onClick={logout}></i>
+              <i className="fas fa-sign-out-alt logout-icon" onClick={handleLogout}></i>
             </li>
           </>
         )}
@@ -98,5 +108,6 @@ const NavBar = () => {
     </nav>
   );
 };
+
 
 export default App;
