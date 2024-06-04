@@ -37,6 +37,7 @@ nav ul {
     margin: 0;
     padding: 0;
     display: flex;
+    align-items: center; /* Alinea los items en el centro verticalmente */
 }
 
 nav ul li {
@@ -58,6 +59,26 @@ nav ul li a:hover {
     color: #333333;
     text-decoration: none;
     margin-left: 10px;
+}
+
+.icon {
+    margin-left: 0.5rem;
+    cursor: pointer;
+}
+
+.user-container {
+    display: flex;
+    align-items: center;
+}
+
+.user-icon, .logout-icon {
+    font-size: 1.5rem;
+    margin-left: 25px; /* Añade un margen entre los iconos de usuario y cerrar sesión */
+    cursor: pointer;  /* Asegúrate de que el cursor cambie al pasar sobre el icono */
+}
+
+.logout-icon:hover {
+    color: #ff69b4; /* Cambia el color a rosado al pasar el mouse */
 }
 
 main {
@@ -98,9 +119,7 @@ main {
     justify-content: space-around;
     padding: 50px 20px;
     margin-bottom: 50px;
-
 }
-
 
 .product {
     border: 1px solid #ffccdd;
@@ -112,12 +131,11 @@ main {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-
 }
 
 .product img {
     max-width: 100%;
-    border-radius: 5px;   /*ES LO MISMO QUE EL OTRO??*/
+    border-radius: 5px;
 }
 
 .product h2 {
@@ -128,7 +146,6 @@ main {
 
 .product p {
     margin: 10px 0;
-
 }
 
 footer {
@@ -153,15 +170,16 @@ footer p{
     color:#333333;
     margin-right: 5px;
     margin-left: 5px;
-    
 }
 
-.social-icons img{
-    width: 30px;
-    height: 30px;
+.social-icons img {
+    width: 20px; /* Ajusta el tamaño según sea necesario */
+    height: 20px; /* Ajusta el tamaño según sea necesario */
 }
 
-
+.social-icons a:hover img {
+    filter: brightness(1.2); /* Añade un efecto de brillo al pasar el ratón */
+}
 
 .logo img {
     width: 55px;
@@ -192,8 +210,6 @@ footer p{
 .product button:hover {
     background-color: #fc6998;
 }
-
-
 
 .form-container {
     background-color: #ffe4ec;

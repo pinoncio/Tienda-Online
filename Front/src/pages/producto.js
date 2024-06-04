@@ -17,7 +17,6 @@ const Producto = () => {
   });
 
   useEffect(() => {
-    // Carga la lista de productos cuando el componente se monta
     loadProductos();
   }, []);
 
@@ -67,7 +66,7 @@ const Producto = () => {
         await createProducto(editedProducto);
       }
       loadProductos();
-      setEditMode(false); // Salir del modo de edición después de enviar el formulario
+      setEditMode(false);
     } catch (error) {
       console.error('Error updating/creating producto:', error);
     }

@@ -6,7 +6,7 @@ import { AuthContext } from '../AuthContext';
 
 const IniciarSesion = () => {
   const [errors, setErrors] = useState({
-    rut: false,
+    email: false,
     contraseña: false,
   });
   const { login } = useContext(AuthContext);
@@ -22,14 +22,14 @@ const IniciarSesion = () => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    const { rut, contraseña } = event.target.elements;
+    const { email, contraseña } = event.target.elements;
     
-    if (rut.value && contraseña.value) {
+    if (email.value && contraseña.value) {
       login();
       navigate('/');
     } else {
       setErrors({
-        rut: rut.value === '',
+        email: email.value === '',
         contraseña: contraseña.value === '',
       });
     }
@@ -40,15 +40,15 @@ const IniciarSesion = () => {
       <h2>Iniciar Sesión</h2>
       <form onSubmit={handleSubmit}>
         <div className="form-group">
-          <label htmlFor="rut">Rut</label>
+          <label htmlFor="email">Correo Electrónico</label>
           <input 
-            type="text" 
-            id="rut" 
-            name="rut" 
+            type="email" 
+            id="email" 
+            name="email" 
             required 
             onBlur={handleBlur} 
           />
-          {errors.rut && <span className="error-message">El campo es obligatorio</span>}
+          {errors.email && <span className="error-message">El campo es obligatorio</span>}
         </div>
         <div className="form-group">
           <label htmlFor="contraseña">Contraseña</label>

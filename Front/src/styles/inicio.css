@@ -1,37 +1,38 @@
-.about-us-container {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    align-items: center;
-    padding: 20px;
-  }
-  
-  .about-us-text {
-    flex-basis: 60%;
-    padding: 20px;
-  }
-  
-  .about-us-text p {
-    margin-bottom: 20px;
-  }
-  
-  .about-us-image {
-    flex-basis: 40%;
-    padding: 20px;
-  }
-  
-  .about-us-image img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    border-radius: 10px;
-  }
+/* src/styles/inicio.css */
 
-  .titulo-sobre-nosotros {
-    text-align: center;
-    color: #333;
-    margin-bottom: 10px;
-    font-size: 24px; /* Tamaño de letra para el título */
-    font-family: Arial, sans-serif; /* Tipo de letra para el título */
-  
-  }
+.about-us-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+}
+
+.about-us-text {
+  flex-basis: 60%;
+  padding: 20px;
+}
+
+.about-us-text p {
+  margin-bottom: 20px;
+}
+
+.about-us-image {
+  flex-basis: 40%;
+  padding: 20px;
+}
+
+.about-us-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 10px;
+}
+
+.titulo-sobre-nosotros {
+  text-align: center;
+  color: #333;
+  margin-bottom: 10px;
+  font-size: 24px; /* Tamaño de letra para el título */
+  font-family: Arial, sans-serif; /* Tipo de letra para el título */
+}
