@@ -2,6 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { getProductos, deleteProducto, createProducto, updateProducto } from '../services/producto';
 import '../styles/producto.css';
 
+
+const SERVER_BASE_URL = 'http://localhost:3000/public';
+
 const Producto = () => {
   const [productos, setProductos] = useState([]);
   const [editMode, setEditMode] = useState(false);
@@ -119,7 +122,9 @@ const Producto = () => {
         </thead>
         <tbody>
           {productos.map((producto) => {
-            console.log("URL de la imagen:", producto.imagen); // Add this line
+            // Reemplazar barras invertidas con barras inclinadas en la URL de la imagen
+            const imageUrl = producto.imagen.replace(/\\/g, '/');
+            console.log("URL de la imagen:", imageUrl);
             return (
               <tr key={producto.cod_producto}>
                 <td>{producto.cod_producto}</td>
@@ -128,7 +133,13 @@ const Producto = () => {
                 <td>{producto.cantidad_total}</td>
                 <td>{producto.cantidad_disponible}</td>
                 <td>{producto.descripcion_producto}</td>
-                <td><img src={producto.imagen} alt={producto.nombre_producto} style={{ maxWidth: '100px', maxHeight: '100px' }} /></td>
+
+                <td>
+                  {producto.imagen && (
+                    <img src={new URL(producto.imagen, SERVER_BASE_URL).href} alt={producto.nombre_producto} style={{ maxWidth: '100px', maxHeight: '100px' }} />
+                  )}
+                </td>
+
                 <td>{producto.id_categoria}</td>
                 <td>
                   <button onClick={() => handleEdit(producto)}>Editar Producto</button>
@@ -154,8 +165,11 @@ const Producto = () => {
         </form>
       )}
     </div>
+ 
+
   );
   
 };
+
 
 export default Producto;
