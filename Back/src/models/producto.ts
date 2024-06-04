@@ -21,3 +21,4 @@ export const Productos = sequelize.define('productos',{
 );
 
 Productos.belongsTo(Categorias, {foreignKey: 'id_categoria'});
+

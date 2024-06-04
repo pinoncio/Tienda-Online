@@ -10,6 +10,5 @@ export const updateProducto = (cod_producto, producto) => axios.put(`${API_URL}/
 
 export const deleteProducto = (cod_producto) => axios.delete(`${API_URL}/${cod_producto}`);
 
-
-
 export const getProducto = (cod_producto) => axios.get(`${API_URL}/${cod_producto}`);
+

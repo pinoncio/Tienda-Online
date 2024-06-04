@@ -12,7 +12,7 @@ const Producto = () => {
     cantidad_total: '',
     cantidad_disponible: '',
     descripcion_producto: '',
-    imagen: '',
+    imagen: null, // Adjusted to handle file input
     id_categoria: ''
   });
 
@@ -40,7 +40,7 @@ const Producto = () => {
 
   const handleEdit = (producto) => {
     setEditMode(true);
-    setEditedProducto(producto);
+    setEditedProducto({ ...producto, imagen: null });
   };
 
   const handleCreate = () => {
@@ -52,18 +52,30 @@ const Producto = () => {
       cantidad_total: '',
       cantidad_disponible: '',
       descripcion_producto: '',
-      imagen: '',
+      imagen: null, // Adjusted to handle file input
       id_categoria: ''
     });
   };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+    const formData = new FormData();
+    formData.append('nombre_producto', editedProducto.nombre_producto);
+    formData.append('precio_producto', editedProducto.precio_producto);
+    formData.append('cantidad_total', editedProducto.cantidad_total);
+    formData.append('cantidad_disponible', editedProducto.cantidad_disponible);
+    formData.append('descripcion_producto', editedProducto.descripcion_producto);
+    formData.append('id_categoria', editedProducto.id_categoria);
+
+    if (editedProducto.imagen) {
+      formData.append('imagen', editedProducto.imagen);
+    }
+
     try {
       if (editedProducto.cod_producto) {
-        await updateProducto(editedProducto.cod_producto, editedProducto);
+        await updateProducto(editedProducto.cod_producto, formData);
       } else {
-        await createProducto(editedProducto);
+        await createProducto(formData);
       }
       loadProductos();
       setEditMode(false);
@@ -77,6 +89,14 @@ const Producto = () => {
     setEditedProducto({
       ...editedProducto,
       [name]: value
+    });
+  };
+
+  const handleFileChange = (event) => {
+    const file = event.target.files[0];
+    setEditedProducto({
+      ...editedProducto,
+      imagen: file
     });
   };
 
@@ -98,22 +118,25 @@ const Producto = () => {
           </tr>
         </thead>
         <tbody>
-          {productos.map((producto) => (
-            <tr key={producto.cod_producto}>
-              <td>{producto.cod_producto}</td>
-              <td>{producto.nombre_producto}</td>
-              <td>{producto.precio_producto}</td>
-              <td>{producto.cantidad_total}</td>
-              <td>{producto.cantidad_disponible}</td>
-              <td>{producto.descripcion_producto}</td>
-              <td><img src={producto.imagen} alt={producto.nombre_producto} width="50"/></td>
-              <td>{producto.id_categoria}</td>
-              <td>
-                <button onClick={() => handleEdit(producto)}>Editar Producto</button>
-                <button onClick={() => handleDelete(producto.cod_producto)}>Eliminar Producto</button>
-              </td>
-            </tr>
-          ))}
+          {productos.map((producto) => {
+            console.log("URL de la imagen:", producto.imagen); // Add this line
+            return (
+              <tr key={producto.cod_producto}>
+                <td>{producto.cod_producto}</td>
+                <td>{producto.nombre_producto}</td>
+                <td>{producto.precio_producto}</td>
+                <td>{producto.cantidad_total}</td>
+                <td>{producto.cantidad_disponible}</td>
+                <td>{producto.descripcion_producto}</td>
+                <td><img src={producto.imagen} alt={producto.nombre_producto} style={{ maxWidth: '100px', maxHeight: '100px' }} /></td>
+                <td>{producto.id_categoria}</td>
+                <td>
+                  <button onClick={() => handleEdit(producto)}>Editar Producto</button>
+                  <button onClick={() => handleDelete(producto.cod_producto)}>Eliminar Producto</button>
+                </td>
+              </tr>
+            );
+          })}
         </tbody>
       </table>
       <button onClick={handleCreate}>Crear Producto</button>
@@ -124,7 +147,7 @@ const Producto = () => {
           <input type="text" name="cantidad_total" value={editedProducto.cantidad_total} onChange={handleChange} placeholder="Cantidad Total" />
           <input type="text" name="cantidad_disponible" value={editedProducto.cantidad_disponible} onChange={handleChange} placeholder="Cantidad Disponible" />
           <textarea name="descripcion_producto" value={editedProducto.descripcion_producto} onChange={handleChange} placeholder="Descripción del Producto"></textarea>
-          <input type="text" name="imagen" value={editedProducto.imagen} onChange={handleChange} placeholder="URL de la Imagen" />
+          <input type="file" name="imagen" onChange={handleFileChange} />
           <input type="text" name="id_categoria" value={editedProducto.id_categoria} onChange={handleChange} placeholder="ID de la Categoría" />
           <button type="submit">Guardar</button>
           <button type="button" onClick={() => setEditMode(false)}>Cancelar</button>
@@ -132,6 +155,7 @@ const Producto = () => {
       )}
     </div>
   );
+  
 };
 
 export default Producto;
