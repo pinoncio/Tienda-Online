@@ -4,7 +4,7 @@ import auth from './auth';
 
 const router = Router();
 
-router.get('/list',getCarritosProductos);
+router.get('/list/:id_usuario',getCarritosProductos);
 router.get('/:id_carro_productos',getCarritoProductos);
 router.delete('/:id_carro_productos',deleteCarritoProductos);
 router.put('/:id_carro_productos',updateCarritoProductos);
