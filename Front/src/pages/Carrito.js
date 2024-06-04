@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom'; // Cambiar a useNavigate
+import { useNavigate } from 'react-router-dom';
 import { getCarritosProductos } from '../services/carritoproducto'; 
 import '../styles/Carrito.css';
 
 const Carrito = () => {
   const [carritosProductos, setCarritosProductos] = useState([]);
-  const navigate = useNavigate(); // Cambiar a useNavigate
+  const navigate = useNavigate();
 
   useEffect(() => {
     fetchCarritosProductos(); 
@@ -13,7 +13,10 @@ const Carrito = () => {
 
   const fetchCarritosProductos = async () => {
     try {
-      const response = await getCarritosProductos();
+      // Obtener el id del usuario del localStorage
+      const idUser = localStorage.getItem('idUser');
+      // Hacer una solicitud para obtener los productos del carrito para el usuario específico
+      const response = await getCarritosProductos(idUser);
       setCarritosProductos(response.data); 
     } catch (error) {
       console.error('Error fetching carritos de productos:', error);
@@ -25,8 +28,7 @@ const Carrito = () => {
   };
 
   const handleContinueShopping = () => {
-    // Redireccionar a la página de /catalogo
-    navigate('/catalogo'); // Cambiar a navigate
+    navigate('/catalogo');
   };
 
   return (
