@@ -9,7 +9,7 @@ const producto_1 = require("../controllers/producto");
 const path_1 = __importDefault(require("path"));
 const router = (0, express_1.Router)();
 const storage = multer_1.default.diskStorage({
-    destination: 'uploads/',
+    destination: 'public/',
     filename: (req, file, cb) => {
         const ext = path_1.default.extname(file.originalname).toLowerCase();
         const fileName = `${Date.now()}${ext}`;

@@ -13,6 +13,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
+const path_1 = __importDefault(require("path"));
 const cors_1 = __importDefault(require("cors"));
 const user_1 = require("./user");
 const rol_1 = require("./rol");
@@ -52,6 +53,7 @@ class Server {
         this.app.use('/api/carro', carrito_2.default);
     }
     midlewares() {
+        this.app.use('/public', express_1.default.static(path_1.default.join(__dirname, '..', '..', 'public')));
         this.app.use(express_1.default.json());
         this.app.use((0, cors_1.default)());
     }

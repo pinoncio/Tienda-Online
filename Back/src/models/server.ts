@@ -1,4 +1,5 @@
 import express, { Application } from 'express';
+import path from 'path';
 import cors from 'cors';
 import { User } from './user';
 import { Rol } from './rol';
@@ -50,7 +51,7 @@ class Server {
     }
 
     midlewares() {
-
+        this.app.use('/public', express.static(path.join(__dirname, '..', '..', 'public')));
         this.app.use(express.json());
         this.app.use(cors());
     }

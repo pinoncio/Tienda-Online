@@ -5,7 +5,7 @@ import path from 'path';
 
 const router = Router();
 const storage = multer.diskStorage({
-    destination: 'uploads/',
+    destination: 'public/',
     filename: (req, file, cb) => {
       const ext = path.extname(file.originalname).toLowerCase();
       const fileName = `${Date.now()}${ext}`;
