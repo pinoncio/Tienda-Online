@@ -20,4 +20,4 @@ export const User = sequelize.define('usuario',{
     freezeTableName: true
 });
 
-User.belongsTo(Rol, { foreignKey: 'id_rol' });
+User.belongsTo(Rol, { foreignKey: 'id_rol', onDelete: 'SET NULL' });

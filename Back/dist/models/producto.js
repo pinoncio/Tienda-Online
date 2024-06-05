@@ -20,4 +20,4 @@ exports.Productos = connection_1.default.define('productos', {
     freezeTableName: true,
     timestamps: false
 });
-exports.Productos.belongsTo(categoria_1.Categorias, { foreignKey: 'id_categoria' });
+exports.Productos.belongsTo(categoria_1.Categorias, { foreignKey: 'id_categoria', onDelete: 'SET NULL' });

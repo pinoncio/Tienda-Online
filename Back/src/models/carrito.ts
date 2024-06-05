@@ -16,4 +16,4 @@ export const Carrito = sequelize.define(
     }
 );
 
-Carrito.belongsTo(User, { foreignKey: 'id_usuario'});
+Carrito.belongsTo(User, { foreignKey: 'id_usuario', onDelete: 'CASCADE'});
