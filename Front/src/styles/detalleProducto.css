@@ -47,6 +47,18 @@
   justify-content: center;
 }
 
+.precio-destacado {
+  color: #ff0080; 
+  font-size: 30px; 
+  font-weight: bold; 
+}
+
+.precio p {
+  color: #000000; 
+  font-size: 25px; 
+  font-weight: bold; 
+}
+
 .detalle-producto button:hover {
   background-color: #fc6998;
 }

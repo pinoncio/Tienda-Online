@@ -43,11 +43,12 @@ const DetalleProduct = () => {
       </div>
 
       <div className='body'> 
-        <h2>{producto.nombre_producto}</h2>
-        <p>Precio: {producto.precio_producto}</p>
+       <h2>{producto.nombre_producto}</h2>
+      <div className='precio'>
+        <p>Precio: <span className="precio-destacado">${producto.precio_producto}</span></p>
+      </div>
         <p>Descripción: {producto.descripcion_producto}</p>
       </div>
-      
     </div>
   );
 };
