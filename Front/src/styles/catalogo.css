@@ -38,9 +38,13 @@
 
 .tarjeta-producto p {
   margin-top: 5px;
+  margin-bottom: 0px;
   font-size: 14px;
 }
 
-.body precio{
-  
+.tarjeta-producto button {
+  margin-top: 10px; /* Ajusta el margen superior del botón */
+  padding: 5px 10px; /* Ajusta el padding del botón */
+  font-size: 14px; /* Ajusta el tamaño de la fuente del botón */
+  height: auto; /* Ajusta la altura del botón automáticamente */
 }

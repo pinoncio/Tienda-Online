@@ -18,13 +18,6 @@
   border-radius: 5px;
 }
 
-.detalle-producto .titulo h2 {
-  color: #000000;
-}
-
-.detalle-producto .body {
-  text-align: center;
-}
 
 .detalle-producto .body p {
   margin: 10px 0;
@@ -73,3 +66,10 @@
   text-decoration: none;
   color: #000000;
 }
+
+
+
+
+
+
+
