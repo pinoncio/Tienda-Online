@@ -7,21 +7,21 @@
 .contenedor-product {
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-between; /* Distribuye el espacio entre las tarjetas */
+  justify-content: space-between; 
 }
 
 /* TARJETA PRODUCTO */
 .tarjeta-producto {
-  flex: 0 0 calc(33.33% - 20px); /* Ajusta el ancho para mostrar tres tarjetas por fila */
-  margin-bottom: 20px; /* Espacio inferior entre filas de tarjetas */
+  flex: 0 0 calc(33.33% - 20px); 
+  margin-bottom: 20px; 
   border: 1px solid #ffccdd;
   background-color: rgb(255, 255, 255);
   border-radius: 10px;
   padding: 30px;
   text-align: center;
-  box-sizing: border-box; /* Incluye padding y border en el ancho y alto */
-  width: 250px; /* Ancho fijo */
-  height: 250px; /* Altura fija */
+  box-sizing: border-box; 
+  width: 250px; 
+  height: 250px; 
 }
 
 .tarjeta-producto h3 {
@@ -43,8 +43,8 @@
 }
 
 .tarjeta-producto button {
-  margin-top: 10px; /* Ajusta el margen superior del botón */
-  padding: 5px 10px; /* Ajusta el padding del botón */
-  font-size: 14px; /* Ajusta el tamaño de la fuente del botón */
-  height: auto; /* Ajusta la altura del botón automáticamente */
+  margin-top: 10px; 
+  padding: 5px 10px; 
+  font-size: 14px; 
+  height: auto; 
 }

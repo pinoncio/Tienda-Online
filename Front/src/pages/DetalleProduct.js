@@ -35,6 +35,11 @@ const DetalleProduct = () => {
 
   const imageUrl = new URL(producto.imagen, SERVER_BASE_URL).href;
 
+  const addToCart = () => {
+    // Aquí puedes agregar la lógica para añadir el producto al carrito
+    console.log(`Añadir ${producto.nombre_producto} al carrito`);
+  };
+  
   return (
     <div className="detalle-producto">
 
@@ -46,6 +51,7 @@ const DetalleProduct = () => {
         <h2>{producto.nombre_producto}</h2>
         <p className='precio'>Precio: {producto.precio_producto}</p>
         <p className='descripcion'>Descripción: {producto.descripcion_producto}</p>
+        <button onClick={addToCart}>Añadir al carrito</button>
       </div>
       
     </div>
