@@ -37,14 +37,17 @@ const DetalleProduct = () => {
 
   return (
     <div className="detalle-producto">
-      <div className='titulo'>
-        <h2>{producto.nombre_producto}</h2>
-      </div>
-      <div className='body'>
+
+      <div className='imagen'>
         <img src={imageUrl} alt={producto.nombre_producto} />
+      </div>
+
+      <div className='body'> 
+        <h2>{producto.nombre_producto}</h2>
         <p>Precio: {producto.precio_producto}</p>
         <p>Descripción: {producto.descripcion_producto}</p>
       </div>
+      
     </div>
   );
 };

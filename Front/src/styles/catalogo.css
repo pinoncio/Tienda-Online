@@ -29,10 +29,11 @@
   margin-top: 10px;
 }
 
-.tarjeta-producto img {
-  max-width: 100%;
-  height: auto;
+.imagen img {
+  width: 400px;
+  height: 400px;
   margin-top: 10px;
+  margin-right: 20px;
 }
 
 .tarjeta-producto p {
