@@ -21,4 +21,4 @@ exports.User = connection_1.default.define('usuario', {
     timestamps: false,
     freezeTableName: true
 });
-exports.User.belongsTo(rol_1.Rol, { foreignKey: 'id_rol' });
+exports.User.belongsTo(rol_1.Rol, { foreignKey: 'id_rol', onDelete: 'SET NULL' });

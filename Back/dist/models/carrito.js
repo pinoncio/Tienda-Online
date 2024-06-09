@@ -15,4 +15,4 @@ exports.Carrito = connection_1.default.define('carrito', {
     freezeTableName: true,
     timestamps: false,
 });
-exports.Carrito.belongsTo(user_1.User, { foreignKey: 'id_usuario' });
+exports.Carrito.belongsTo(user_1.User, { foreignKey: 'id_usuario', onDelete: 'CASCADE' });

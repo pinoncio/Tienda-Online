@@ -10,7 +10,8 @@ export const newCarrito = async (req: Request, res: Response) => {
 
     try {
 
-        let carrito = await Carrito.findOne({ where: { id_usuario}});
+
+        let carrito = await Carrito.findOne({ where: { id_usuario:id_usuario}});
 
         if (!carrito){
             carrito = await Carrito.create({
@@ -19,22 +20,21 @@ export const newCarrito = async (req: Request, res: Response) => {
             });
         }
 
+
         const pkCarrito = carrito.dataValues.id_carro
 
-        for ( const [index, producto] of cod_producto.entries()){
-            const cant = cantidad[index]
-            const cantidadInt = parseInt(cant, 10);
-            const productoInt = parseInt(producto, 10);
 
-            if (cantidadInt > 0 || cantidadInt){
-                const idProducto = await Productos.findOne({ attributes: ['precio_producto','cantidad_disponible','cantidad_total'], where: { cod_producto: productoInt}});
+
+
+            if (cantidad > 0 ){
+                const idProducto = await Productos.findOne({ attributes: ['precio_producto','cantidad_disponible','cantidad_total'], where: { cod_producto: cod_producto}});
                 if (!idProducto) {
                     return res.status(400).json({
                         msg: "El producto ingresado no existe",
                     })
                 }
 
-                const cantidadDisponible = idProducto?.dataValues.cantidad_disponible - cantidadInt
+                const cantidadDisponible = idProducto?.dataValues.cantidad_disponible - cantidad
                 if (cantidadDisponible < 0) {
                     return res.status(400).json({
                         msg: "No hay stock suficiente"
@@ -42,15 +42,16 @@ export const newCarrito = async (req: Request, res: Response) => {
                 } 
                 
                 const precioProducto = idProducto?.dataValues.precio_producto;
-                const subTotal = precioProducto * cantidadInt
+                console.log(precioProducto)
+                const subTotal = precioProducto * cantidad
                 const idCarro = await Carrito.findOne({attributes: ['total'], where: {id_carro: pkCarrito}})
                 const totals = idCarro?.dataValues.total
 
                 try {
                     await Carrito_productos.create({
                         id_carro: pkCarrito,
-                        cod_producto: productoInt,
-                        cantidad: cantidadInt,
+                        cod_producto: cod_producto,
+                        cantidad: cantidad,
                         subtotal: subTotal,
                     });
 
@@ -63,24 +64,24 @@ export const newCarrito = async (req: Request, res: Response) => {
                     await Productos.update({
                         cantidad_disponible: cantidadDisponible
                     },
-                        { where: { cod_producto: productoInt}
+                        { where: { cod_producto: cod_producto}
                     })
-                } catch (innerError){
+                } catch (error){
                     res.status(400).json({
                         msg: "Ha ocurrido un error al hacer el pedido",
-                        innerError
+                        error
                     })
                 }
+                return res.status(201).json({
+                    msg: "Producto ingresado correctamente al carrito"
+            })
             }
-        }
-        res.status(201).json({
-            msg: "Producto ingresado correctamente al carrito"
-        })
-    } catch (outterError) {
-        console.error("Error al procesar el carrito", outterError)
-        res.status(400).json({
+
+    } catch (error) {
+        console.error("Error al procesar el carrito", error)
+        return res.status(400).json({
             msg: "Ha ocurrido un error al ingresar el producto al carrito",
-            outterError
+            error
         })
     }
 };

@@ -35,16 +35,24 @@ const DetalleProduct = () => {
 
   const imageUrl = new URL(producto.imagen, SERVER_BASE_URL).href;
 
+  const addToCart = () => {
+    console.log(`Añadir ${producto.nombre_producto} al carrito`);
+  };
+
   return (
     <div className="detalle-producto">
-      <div className='titulo'>
-        <h2>{producto.nombre_producto}</h2>
-      </div>
-      <div className='body'>
+
+      <div className='imagen'>
         <img src={imageUrl} alt={producto.nombre_producto} />
-        <p>Precio: {producto.precio_producto}</p>
-        <p>Descripción: {producto.descripcion_producto}</p>
       </div>
+
+      <div className='body'> 
+        <h2>{producto.nombre_producto}</h2>
+        <p className='precio'>Precio: {producto.precio_producto}</p>
+        <p className='descripcion'>Descripción: {producto.descripcion_producto}</p>
+        <button onClick={addToCart}>Añadir al carrito</button>
+      </div>
+      
     </div>
   );
 };

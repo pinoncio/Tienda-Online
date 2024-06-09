@@ -2,15 +2,31 @@ import { Request, Response } from "express";
 import { Carrito_productos } from "../models/carrito_productos";
 import { Carrito } from "../models/carrito";
 import { Productos } from "../models/producto";
+import { User } from "../models/user";
 
 export const getCarritosProductos = async (req: Request, res: Response) => {
     try {
+        const {id_usuario} = req.params;
+        let carrito = await Carrito.findOne({where: {id_usuario: id_usuario}});
+        const idUser = await User.findOne({where:{id_usuario: id_usuario}});
+        if (!idUser){
+            return res.status(400).json({
+                msg: "El usuario no existe"
+            })
+        }
+        if (!carrito){
+            carrito = await Carrito.create({
+                "id_usuario": id_usuario,
+                "total": 0
+            })
+
+        }
         const carritoProductos = await Carrito_productos.findAll({
             include: [
                 { model: Carrito, attributes: ['id_carro'] },
                 { model: Productos, attributes: ['nombre_producto'] }
             ],
-            attributes: ['id_carro_productos', 'cantidad', 'subtotal']
+            attributes: ['id_carro_productos', 'cantidad', 'subtotal'],where:{id_carro: carrito?.dataValues.id_carro}
         });
         res.json(carritoProductos);
     } catch (error) {
