@@ -1,6 +1,7 @@
 import express, { Application } from 'express';
 import path from 'path';
 import cors from 'cors';
+import webpayRoutes from '../routes/webpayRoutes';
 import { User } from './user';
 import { Rol } from './rol';
 import { Categorias } from './categoria';
@@ -41,6 +42,7 @@ class Server {
     }
 
     routes() {
+        this.app.use('/webpay_plus', webpayRoutes);
         this.app.use('/api/users', routesUsers);
         this.app.use('/api/rol', routesRol);
         this.app.use('/api/categoria',  routesCategoria);

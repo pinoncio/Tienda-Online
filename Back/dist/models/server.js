@@ -15,6 +15,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const path_1 = __importDefault(require("path"));
 const cors_1 = __importDefault(require("cors"));
+const webpayRoutes_1 = __importDefault(require("../routes/webpayRoutes"));
 const user_1 = require("./user");
 const rol_1 = require("./rol");
 const categoria_1 = require("./categoria");
@@ -44,6 +45,7 @@ class Server {
         });
     }
     routes() {
+        this.app.use('/webpay_plus', webpayRoutes_1.default);
         this.app.use('/api/users', user_2.default);
         this.app.use('/api/rol', rol_2.default);
         this.app.use('/api/categoria', categoria_2.default);
