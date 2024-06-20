@@ -1,4 +1,4 @@
-import { DataTypes, STRING } from "sequelize";
+import { DataTypes} from "sequelize";
 import sequelize from "../db/connection";
 import { Categorias } from "./categoria";
 

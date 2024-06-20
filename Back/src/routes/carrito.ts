@@ -1,6 +1,6 @@
 import {Router} from 'express';
 import { getCarrito, getCarritos, newCarrito, updateCarrito, deleteCarrito} from '../controllers/carrito';
-import auth from './auth';
+
 
 const router = Router();
 

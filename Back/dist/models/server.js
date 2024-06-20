@@ -29,6 +29,8 @@ const producto_2 = __importDefault(require("../routes/producto"));
 const mailer_1 = __importDefault(require("../routes/mailer"));
 const carrito_productos_2 = __importDefault(require("../routes/carrito_productos"));
 const carrito_2 = __importDefault(require("../routes/carrito"));
+const ventas_1 = __importDefault(require("../routes/ventas"));
+const ventas_2 = require("./ventas");
 class Server {
     constructor() {
         this.app = (0, express_1.default)();
@@ -53,6 +55,7 @@ class Server {
         this.app.use('/api/mail', mailer_1.default);
         this.app.use('/api/carro_productos', carrito_productos_2.default);
         this.app.use('/api/carro', carrito_2.default);
+        this.app.use('/api/venta', ventas_1.default);
     }
     midlewares() {
         this.app.use('/public', express_1.default.static(path_1.default.join(__dirname, '..', '..', 'public')));
@@ -68,6 +71,7 @@ class Server {
                 yield producto_1.Productos.sync();
                 yield carrito_1.Carrito.sync();
                 yield carrito_productos_1.Carrito_productos.sync();
+                yield ventas_2.Ventas.sync();
             }
             catch (error) {
                 console.error('No se ha podido conectar a la base de datos');

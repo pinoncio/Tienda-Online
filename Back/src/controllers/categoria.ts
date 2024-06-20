@@ -57,7 +57,6 @@ export const updateCategoria = async(req: Request, res: Response) => {
 }
 export const getOneCategoria = async(req: Request, res: Response) =>{
     const { id_categoria} =  req.params;
-    console.log(id_categoria)
     const idCategoria = await Categorias.findOne({where: {id_categoria: id_categoria}})
     if (!idCategoria) {
         return res.status(404).json({

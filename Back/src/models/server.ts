@@ -15,6 +15,8 @@ import routesProducto from '../routes/producto';
 import routesMail from '../routes/mailer';
 import routesCarritoProductos from '../routes/carrito_productos';
 import routesCarrito from '../routes/carrito';
+import routesVenta from '../routes/ventas';
+import { Ventas } from './ventas';
  
 
 class Server {
@@ -50,6 +52,7 @@ class Server {
         this.app.use('/api/mail',routesMail);
         this.app.use('/api/carro_productos', routesCarritoProductos);
         this.app.use('/api/carro', routesCarrito);
+        this.app.use('/api/venta', routesVenta);
     }
 
     midlewares() {
@@ -66,6 +69,7 @@ class Server {
             await Productos.sync()
             await Carrito.sync()
             await Carrito_productos.sync()
+            await Ventas.sync();
 
         } catch (error) {
             console.error('No se ha podido conectar a la base de datos');

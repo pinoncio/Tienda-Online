@@ -69,7 +69,6 @@ const updateCategoria = (req, res) => __awaiter(void 0, void 0, void 0, function
 exports.updateCategoria = updateCategoria;
 const getOneCategoria = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { id_categoria } = req.params;
-    console.log(id_categoria);
     const idCategoria = yield categoria_1.Categorias.findOne({ where: { id_categoria: id_categoria } });
     if (!idCategoria) {
         return res.status(404).json({

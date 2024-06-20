@@ -2,8 +2,6 @@ import { Request, Response } from "express";
 import { Carrito } from "../models/carrito";
 import { Carrito_productos } from "../models/carrito_productos";
 import { Productos } from "../models/producto";
-import { User } from "../models/user";
-import sequelize from "../db/connection";
 
 export const newCarrito = async (req: Request, res: Response) => {
     const { id_usuario, cantidad, cod_producto } = req.body;
@@ -42,7 +40,6 @@ export const newCarrito = async (req: Request, res: Response) => {
                 } 
                 
                 const precioProducto = idProducto?.dataValues.precio_producto;
-                console.log(precioProducto)
                 const subTotal = precioProducto * cantidad
                 const idCarro = await Carrito.findOne({attributes: ['total'], where: {id_carro: pkCarrito}})
                 const totals = idCarro?.dataValues.total
@@ -61,11 +58,6 @@ export const newCarrito = async (req: Request, res: Response) => {
                         {where: {id_carro: pkCarrito}
                     });
 
-                    await Productos.update({
-                        cantidad_disponible: cantidadDisponible
-                    },
-                        { where: { cod_producto: cod_producto}
-                    })
                 } catch (error){
                     res.status(400).json({
                         msg: "Ha ocurrido un error al hacer el pedido",

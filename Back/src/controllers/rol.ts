@@ -55,7 +55,6 @@ export const updateRol = async(req: Request, res: Response) => {
 }
 export const getOneRol = async(req: Request, res: Response) =>{
     const { id_rol} =  req.params;
-    console.log(id_rol)
     const idRol = await Rol.findOne({where: {id_rol: id_rol}})
     if (!idRol) {
         return res.status(404).json({

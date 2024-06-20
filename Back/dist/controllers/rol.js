@@ -67,7 +67,6 @@ const updateRol = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
 exports.updateRol = updateRol;
 const getOneRol = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { id_rol } = req.params;
-    console.log(id_rol);
     const idRol = yield rol_1.Rol.findOne({ where: { id_rol: id_rol } });
     if (!idRol) {
         return res.status(404).json({

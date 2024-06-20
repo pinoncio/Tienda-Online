@@ -1,6 +1,6 @@
 import {Router} from 'express';
 import {getCategoria,newCategoria,updateCategoria,deleteCategoria,getOneCategoria} from '../controllers/categoria';
-import auth from './auth';
+
 
 const router = Router();
 

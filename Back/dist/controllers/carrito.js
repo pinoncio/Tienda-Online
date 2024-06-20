@@ -38,7 +38,6 @@ const newCarrito = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
                 });
             }
             const precioProducto = idProducto === null || idProducto === void 0 ? void 0 : idProducto.dataValues.precio_producto;
-            console.log(precioProducto);
             const subTotal = precioProducto * cantidad;
             const idCarro = yield carrito_1.Carrito.findOne({ attributes: ['total'], where: { id_carro: pkCarrito } });
             const totals = idCarro === null || idCarro === void 0 ? void 0 : idCarro.dataValues.total;
@@ -52,10 +51,6 @@ const newCarrito = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
                 yield carrito_1.Carrito.update({
                     total: totals + subTotal
                 }, { where: { id_carro: pkCarrito }
-                });
-                yield producto_1.Productos.update({
-                    cantidad_disponible: cantidadDisponible
-                }, { where: { cod_producto: cod_producto }
                 });
             }
             catch (error) {
