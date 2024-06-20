@@ -2,4 +2,3 @@ dist/db/connection.js
 src/db/connection.ts
 node_modules
 uploads
-dist/

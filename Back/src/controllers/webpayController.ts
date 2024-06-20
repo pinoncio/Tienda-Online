@@ -24,6 +24,7 @@ export const createTransaction = async (req: Request, res: Response) => {
         token_ws: createResponse.token
     });
     
+    
 
   } catch (error) {
     if (error instanceof Error) {
