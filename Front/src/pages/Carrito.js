@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { getCarritosProductos } from '../services/carritoproducto'; 
+import { getCarritosProductos, deleteCarritoProducto } from '../services/carritoproducto'; 
 import '../styles/Carrito.css';
 
 const Carrito = () => {
@@ -13,9 +13,7 @@ const Carrito = () => {
 
   const fetchCarritosProductos = async () => {
     try {
-      // Obtener el id del usuario del localStorage
       const idUser = localStorage.getItem('idUser');
-      // Hacer una solicitud para obtener los productos del carrito para el usuario específico
       const response = await getCarritosProductos(idUser);
       setCarritosProductos(response.data); 
     } catch (error) {
@@ -29,6 +27,15 @@ const Carrito = () => {
 
   const handleContinueShopping = () => {
     navigate('/catalogo');
+  };
+
+  const handleDeleteProducto = async (idCarroProducto) => {
+    try {
+      await deleteCarritoProducto(idCarroProducto);
+      fetchCarritosProductos(); // Actualizar la lista de productos después de eliminar
+    } catch (error) {
+      console.error('Error al eliminar el producto del carrito:', error);
+    }
   };
 
   return (
@@ -54,7 +61,7 @@ const Carrito = () => {
               </td>
               <td>${carritoProducto.subtotal}</td>
               <td>
-                <button className="delete-button">🗑️</button>
+                <button className="delete-button" onClick={() => handleDeleteProducto(carritoProducto.id_carro_productos)}>Eliminar</button>
               </td>
             </tr>
           ))}
