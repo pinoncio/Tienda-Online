@@ -1,21 +1,22 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { getCarritosProductos, deleteCarritoProducto } from '../services/carritoproducto'; 
+import { getCarritosProductos, deleteCarritoProducto, updateCarritoProducto } from '../services/carritoproducto';
 import '../styles/Carrito.css';
 
 const Carrito = () => {
   const [carritosProductos, setCarritosProductos] = useState([]);
+  const [cantidadModificada, setCantidadModificada] = useState({});
   const navigate = useNavigate();
 
   useEffect(() => {
-    fetchCarritosProductos(); 
+    fetchCarritosProductos();
   }, []);
 
   const fetchCarritosProductos = async () => {
     try {
       const idUser = localStorage.getItem('idUser');
       const response = await getCarritosProductos(idUser);
-      setCarritosProductos(response.data); 
+      setCarritosProductos(response.data);
     } catch (error) {
       console.error('Error fetching carritos de productos:', error);
     }
@@ -32,9 +33,24 @@ const Carrito = () => {
   const handleDeleteProducto = async (idCarroProducto) => {
     try {
       await deleteCarritoProducto(idCarroProducto);
-      fetchCarritosProductos(); // Actualizar la lista de productos después de eliminar
+      fetchCarritosProductos();
     } catch (error) {
       console.error('Error al eliminar el producto del carrito:', error);
+    }
+  };
+
+  const handleModificarCantidad = (idCarroProducto) => {
+    const productoAModificar = carritosProductos.find(producto => producto.id_carro_productos === idCarroProducto);
+    setCantidadModificada({ ...cantidadModificada, [idCarroProducto]: productoAModificar.cantidad });
+  };
+
+  const handleConfirmUpdateCantidad = async (idCarroProducto) => {
+    try {
+      await updateCarritoProducto(idCarroProducto, { cantidad: cantidadModificada[idCarroProducto] });
+      fetchCarritosProductos();
+      setCantidadModificada({ ...cantidadModificada, [idCarroProducto]: undefined });
+    } catch (error) {
+      console.error('Error al actualizar la cantidad del producto:', error);
     }
   };
 
@@ -47,7 +63,7 @@ const Carrito = () => {
             <th>Producto</th>
             <th>Cantidad</th>
             <th>Precio</th>
-            <th>Acción</th>
+            <th>Acciones</th>
           </tr>
         </thead>
         <tbody>
@@ -55,10 +71,23 @@ const Carrito = () => {
             <tr key={carritoProducto.id_carro_productos}>
               <td>{carritoProducto.producto.nombre_producto}</td>
               <td>
-         
+                {cantidadModificada[carritoProducto.id_carro_productos] !== undefined ? (
+                  <input
+                    type="number"
+                    value={cantidadModificada[carritoProducto.id_carro_productos]}
+                    onChange={(e) => setCantidadModificada({ ...cantidadModificada, [carritoProducto.id_carro_productos]: parseInt(e.target.value) })}
+                  />
+                ) : (
+                  carritoProducto.cantidad
+                )}
               </td>
               <td>${carritoProducto.subtotal}</td>
               <td>
+                {cantidadModificada[carritoProducto.id_carro_productos] !== undefined ? (
+                  <button className="update-button" onClick={() => handleConfirmUpdateCantidad(carritoProducto.id_carro_productos)}>Confirmar</button>
+                ) : (
+                  <button className="modify-button" onClick={() => handleModificarCantidad(carritoProducto.id_carro_productos)}>Modificar</button>
+                )}
                 <button className="delete-button" onClick={() => handleDeleteProducto(carritoProducto.id_carro_productos)}>Eliminar</button>
               </td>
             </tr>
