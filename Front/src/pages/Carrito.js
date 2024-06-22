@@ -55,9 +55,7 @@ const Carrito = () => {
             <tr key={carritoProducto.id_carro_productos}>
               <td>{carritoProducto.producto.nombre_producto}</td>
               <td>
-                <button>-</button>
-                {carritoProducto.cantidad}
-                <button>+</button>
+         
               </td>
               <td>${carritoProducto.subtotal}</td>
               <td>

@@ -1,6 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { createCarrito } from '../services/carrito'; // Importa la función para crear un carrito
+import { createCarrito } from '../services/carrito';
+import { ToastContainer, toast } from 'react-toastify'; 
+import 'react-toastify/dist/ReactToastify.css'; 
 import '../styles/catalogo.css';
 
 const SERVER_BASE_URL = 'http://localhost:3000/';
@@ -10,24 +12,26 @@ const ProductoCard = ({ producto }) => {
 
   const addToCart = async () => {
     try {
-      // Obtener el id del usuario del localStorage (suponiendo que lo guardaste previamente)
       const idUsuario = localStorage.getItem('idUser');
 
-      // Crear el objeto de carrito a enviar al backend
       const carrito = {
         id_usuario: idUsuario,
-        cantidad: 1, // Puedes ajustar la cantidad según sea necesario
+        cantidad: 1,
         cod_producto: producto.cod_producto,
       };
 
-      // Realizar la solicitud POST para agregar el producto al carrito
       await createCarrito(carrito);
 
-      // Opcional: mostrar algún mensaje de éxito al usuario
-      console.log(`Producto ${producto.nombre_producto} agregado al carrito.`);
+      // mensaje de producto agregado al carrito
+      toast.success(`Producto ${producto.nombre_producto} agregado al carrito`, {
+        position: "top-center",
+        autoClose: 2000, 
+        hideProgressBar: false,
+        progress: undefined,
+      });
     } catch (error) {
       console.error('Error al agregar el producto al carrito:', error);
-      // Manejar el error apropiadamente, por ejemplo, mostrando un mensaje al usuario
+      toast.error('Error al agregar el producto al carrito');
     }
   };
 
@@ -45,8 +49,11 @@ const ProductoCard = ({ producto }) => {
         <p>Precio: {producto.precio_producto}</p>
         <button onClick={addToCart}>Añadir al carrito</button>
       </div>
+      <ToastContainer />
     </div>
   );
 };
 
 export default ProductoCard;
+
+

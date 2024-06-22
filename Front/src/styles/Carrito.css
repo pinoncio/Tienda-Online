@@ -28,10 +28,14 @@
   }
   
   .delete-button {
-    background-color: red;
+    background-color:#fa8fb1;;
     color: white;
     border: none;
     cursor: pointer;
+  }
+
+  .delete-button:hover {
+    background-color: #d3d3d3;
   }
   
   .total {
@@ -52,11 +56,19 @@
   }
   
   .continue-shopping {
-    background-color: #f44336;
+    background-color:#fa8fb1;;
     color: white;
+  }
+
+  .continue-shopping:hover {
+    background-color: #d3d3d3; 
   }
   
   .place-order {
-    background-color: #4CAF50;
+    background-color: #fa8fb1;;
     color: white;
+  }
+
+  .place-order:hover {
+    background-color: #d3d3d3; 
   }

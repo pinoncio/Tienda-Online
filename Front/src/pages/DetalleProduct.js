@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { getProducto } from '../services/producto';
+import { createCarrito } from '../services/carrito';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import '../styles/detalleProducto.css';
 
 const SERVER_BASE_URL = 'http://localhost:3000/';
@@ -17,13 +20,44 @@ const DetalleProduct = () => {
         setProducto(response.data);
         setLoading(false);
       } catch (error) {
-        console.error('Error :', error);
+        console.error('Error fetching product:', error);
         setLoading(false);
       }
     };
 
     fetchProducto();
   }, [cod_producto]);
+
+  const addToCart = async () => {
+    try {
+      const idUsuario = localStorage.getItem('idUser');
+      if (!idUsuario) {
+        throw new Error('ID de usuario no encontrado en el almacenamiento local.');
+      }
+
+      const carrito = {
+        id_usuario: idUsuario,
+        cantidad: 1,
+        cod_producto: producto.cod_producto,
+      };
+
+      await createCarrito(carrito);
+      
+      //mensaje de producto agregado al carrito 
+      toast.success(`Producto ${producto.nombre_producto} agregado al carrito`, {
+        position: "top-center",
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+    } catch (error) {
+      console.error('Error adding product to cart:', error);
+      toast.error('Error al agregar el producto al carrito');
+    }
+  };
 
   if (loading) {
     return <div>Cargando producto...</div>;
@@ -35,24 +69,18 @@ const DetalleProduct = () => {
 
   const imageUrl = new URL(producto.imagen, SERVER_BASE_URL).href;
 
-  const addToCart = () => {
-    console.log(`Añadir ${producto.nombre_producto} al carrito`);
-  };
-
   return (
     <div className="detalle-producto">
-
+      <ToastContainer />
       <div className='imagen'>
         <img src={imageUrl} alt={producto.nombre_producto} />
       </div>
-
       <div className='body'> 
         <h2>{producto.nombre_producto}</h2>
         <p className='precio'>Precio: {producto.precio_producto}</p>
         <p className='descripcion'>Descripción: {producto.descripcion_producto}</p>
         <button onClick={addToCart}>Añadir al carrito</button>
       </div>
-      
     </div>
   );
 };
