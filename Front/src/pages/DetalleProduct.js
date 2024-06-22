@@ -43,21 +43,23 @@ const DetalleProduct = () => {
 
       await createCarrito(carrito);
       
-      //mensaje de producto agregado al carrito 
-      toast.success(`Producto ${producto.nombre_producto} agregado al carrito`, {
-        position: "top-center",
-        autoClose: 2000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-      });
-    } catch (error) {
-      console.error('Error adding product to cart:', error);
-      toast.error('Error al agregar el producto al carrito');
-    }
-  };
+     // mensaje de producto agregado al carrito
+     toast.success(`Producto ${producto.nombre_producto} agregado al carrito`, {
+      position: "top-center",
+      autoClose: 1000,
+      hideProgressBar: false,
+      closeButton: false, 
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+    });
+  } catch (error) {
+    console.error('Error al agregar el producto al carrito:', error);
+    toast.error('Error al agregar el producto al carrito', {
+      closeButton: false, 
+    });
+  }
+};
 
   if (loading) {
     return <div>Cargando producto...</div>;
