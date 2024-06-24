@@ -12,6 +12,7 @@ const DetalleProduct = () => {
   const { cod_producto } = useParams();
   const [producto, setProducto] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [cantidad, setCantidad] = useState(1); // Estado para la cantidad
 
   useEffect(() => {
     const fetchProducto = async () => {
@@ -37,16 +38,14 @@ const DetalleProduct = () => {
 
       const carrito = {
         id_usuario: idUsuario,
-        cantidad: 1,
+        cantidad: cantidad, // Enviar la cantidad seleccionada
         cod_producto: producto.cod_producto,
       };
 
-      //muestra el nombre del producto que se agrego al carrito 
       console.log(`${producto.nombre_producto} agregado al carrito`);
       console.log('Carrito:', carrito);
       await createCarrito(carrito);
       
-      // Mensaje de éxito con toast
       toast.success(`Producto ${producto.nombre_producto} agregado al carrito`, {
         position: "top-center",
         autoClose: 1000,
@@ -84,6 +83,15 @@ const DetalleProduct = () => {
         <h2>{producto.nombre_producto}</h2>
         <p className='precio'>Precio: {producto.precio_producto}</p>
         <p className='descripcion'>Descripción: {producto.descripcion_producto}</p>
+        <div>
+          <label>Cantidad: </label>
+          <input 
+            type="number" 
+            value={cantidad} 
+            onChange={(e) => setCantidad(parseInt(e.target.value) || 1)} 
+            min="1" 
+          />
+        </div>
         <button onClick={addToCart}>Añadir al carrito</button>
       </div>
     </div>

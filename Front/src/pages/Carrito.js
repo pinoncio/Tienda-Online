@@ -54,9 +54,7 @@ const Carrito = () => {
           {carritosProductos.map((carritoProducto) => (
             <tr key={carritoProducto.id_carro_productos}>
               <td>{carritoProducto.producto.nombre_producto}</td>
-              <td>
-         
-              </td>
+              <td>{carritoProducto.cantidad}</td> {/* Mostrar la cantidad */}
               <td>${carritoProducto.subtotal}</td>
               <td>
                 <button className="delete-button" onClick={() => handleDeleteProducto(carritoProducto.id_carro_productos)}>Eliminar</button>
