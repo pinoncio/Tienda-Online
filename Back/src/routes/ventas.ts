@@ -1,12 +1,12 @@
 import {Router} from 'express';
-import {getVenta, getVentas} from '../controllers/ventas';
+import {getVenta, getVentas,newVenta,deleteVenta,updateVenta} from '../controllers/ventas';
 
 const router = Router();
 
 router.get('/list',getVentas);
-// router.post('/',newVenta);
+router.post('/:id_usuario',newVenta);
 router.get('/:id_venta',getVenta);
-// router.delete('/:id_venta',deleteVenta);
-// router.put('/:id_venta',updateVenta);
+router.delete('/:id_venta',deleteVenta);
+router.put('/:id_venta',updateVenta);
 
 export default router;

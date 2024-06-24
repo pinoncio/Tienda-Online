@@ -22,6 +22,8 @@ const categoria_1 = require("./categoria");
 const producto_1 = require("./producto");
 const carrito_productos_1 = require("./carrito_productos");
 const carrito_1 = require("./carrito");
+const ventas_1 = require("./ventas");
+const ventas_producto_1 = require("./ventas_producto");
 const user_2 = __importDefault(require("../routes/user"));
 const rol_2 = __importDefault(require("../routes/rol"));
 const categoria_2 = __importDefault(require("../routes/categoria"));
@@ -29,8 +31,8 @@ const producto_2 = __importDefault(require("../routes/producto"));
 const mailer_1 = __importDefault(require("../routes/mailer"));
 const carrito_productos_2 = __importDefault(require("../routes/carrito_productos"));
 const carrito_2 = __importDefault(require("../routes/carrito"));
-const ventas_1 = __importDefault(require("../routes/ventas"));
-const ventas_2 = require("./ventas");
+const ventas_2 = __importDefault(require("../routes/ventas"));
+const ventas_producto_2 = __importDefault(require("../routes/ventas_producto"));
 class Server {
     constructor() {
         this.app = (0, express_1.default)();
@@ -47,7 +49,7 @@ class Server {
         });
     }
     routes() {
-        this.app.use('/webpay_plus', webpayRoutes_1.default);
+        this.app.use('/api/webpay_plus', webpayRoutes_1.default);
         this.app.use('/api/users', user_2.default);
         this.app.use('/api/rol', rol_2.default);
         this.app.use('/api/categoria', categoria_2.default);
@@ -55,7 +57,8 @@ class Server {
         this.app.use('/api/mail', mailer_1.default);
         this.app.use('/api/carro_productos', carrito_productos_2.default);
         this.app.use('/api/carro', carrito_2.default);
-        this.app.use('/api/venta', ventas_1.default);
+        this.app.use('/api/venta', ventas_2.default);
+        this.app.use('/api/venta_producto', ventas_producto_2.default);
     }
     midlewares() {
         this.app.use('/public', express_1.default.static(path_1.default.join(__dirname, '..', '..', 'public')));
@@ -71,7 +74,8 @@ class Server {
                 yield producto_1.Productos.sync();
                 yield carrito_1.Carrito.sync();
                 yield carrito_productos_1.Carrito_productos.sync();
-                yield ventas_2.Ventas.sync();
+                yield ventas_1.Ventas.sync();
+                yield ventas_producto_1.Ventas_Producto.sync();
             }
             catch (error) {
                 console.error('No se ha podido conectar a la base de datos');

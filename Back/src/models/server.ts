@@ -8,6 +8,8 @@ import { Categorias } from './categoria';
 import { Productos } from './producto';
 import { Carrito_productos } from './carrito_productos';
 import { Carrito } from './carrito';
+import { Ventas } from './ventas';
+import { Ventas_Producto } from './ventas_producto';
 import routesUsers from '../routes/user';
 import routesRol from '../routes/rol';
 import routesCategoria from '../routes/categoria';
@@ -16,7 +18,7 @@ import routesMail from '../routes/mailer';
 import routesCarritoProductos from '../routes/carrito_productos';
 import routesCarrito from '../routes/carrito';
 import routesVenta from '../routes/ventas';
-import { Ventas } from './ventas';
+import routesVentaProducto from '../routes/ventas_producto'
  
 
 class Server {
@@ -44,7 +46,7 @@ class Server {
     }
 
     routes() {
-        this.app.use('/webpay_plus', webpayRoutes);
+        this.app.use('/api/webpay_plus', webpayRoutes);
         this.app.use('/api/users', routesUsers);
         this.app.use('/api/rol', routesRol);
         this.app.use('/api/categoria',  routesCategoria);
@@ -53,12 +55,14 @@ class Server {
         this.app.use('/api/carro_productos', routesCarritoProductos);
         this.app.use('/api/carro', routesCarrito);
         this.app.use('/api/venta', routesVenta);
+        this.app.use('/api/venta_producto',routesVentaProducto);
     }
 
     midlewares() {
         this.app.use('/public', express.static(path.join(__dirname, '..', '..', 'public')));
         this.app.use(express.json());
         this.app.use(cors());
+    
     }
 
     async dbConnect() {
@@ -70,6 +74,7 @@ class Server {
             await Carrito.sync()
             await Carrito_productos.sync()
             await Ventas.sync();
+            await Ventas_Producto.sync();
 
         } catch (error) {
             console.error('No se ha podido conectar a la base de datos');

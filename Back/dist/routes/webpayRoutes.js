@@ -7,5 +7,5 @@ const express_1 = __importDefault(require("express"));
 const webpayController_1 = require("../controllers/webpayController");
 const router = express_1.default.Router();
 router.post('/create', webpayController_1.createTransaction);
-router.get('/commit', webpayController_1.commitTransaction);
+router.post('/commit', webpayController_1.commitTransaction);
 exports.default = router;
