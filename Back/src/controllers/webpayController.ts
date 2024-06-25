@@ -47,6 +47,7 @@ export const commitTransaction = async (req: Request, res: Response) => {
     if (commitResponse.vci === 'TSY' && commitResponse.status === 'AUTHORIZED') {
 
         // aqui falta hacer algo en la base de datos si se aprueba el pago
+        res.redirect('http://localhost:3000/procesar-pago')
 
         res.status(200).json({ 
           message: 'Pago exitoso', 
