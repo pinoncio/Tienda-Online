@@ -79,6 +79,8 @@ const NavBar = () => {
     localStorage.removeItem('token');
     localStorage.removeItem('rol');
     localStorage.removeItem('idUser');
+    // Limpiar carrito local
+    localStorage.removeItem('carritoLocal');
     // Llamar a la función de logout del contexto de autenticación
     logout();
   };
