@@ -16,6 +16,9 @@ const ReturnUrlHandler = () => {
           throw new Error('No se encontró token_ws en la URL');
         }
 
+        // Almacena el token_ws en localStorage
+        localStorage.setItem('token_ws', token_ws);
+
         const response = await commitTransaction(token_ws);
         console.log('Respuesta de commitTransaction:', response);
 
