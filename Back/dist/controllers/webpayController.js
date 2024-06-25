@@ -47,12 +47,13 @@ const commitTransaction = (req, res) => __awaiter(void 0, void 0, void 0, functi
         const commitResponse = yield transaction.commit(token_ws.toString());
         if (commitResponse.vci === 'TSY' && commitResponse.status === 'AUTHORIZED') {
             // aqui falta hacer algo en la base de datos si se aprueba el pago
-            return res.redirect('http://localhost:3000/procesar-pago');
+            return res.redirect('http://localhost:3000/exito');
         }
         else {
             // Transacción rechazada o con errores
-            const errorMessage = getWebpayErrorMessage(commitResponse); //capturamos el error segun el if de la funcion de abajo
-            res.status(400).json({ error: errorMessage });
+            // const errorMessage = getWebpayErrorMessage(commitResponse);  //capturamos el error segun el if de la funcion de abajo
+            // res.status(400).json({ error: errorMessage });
+            return res.redirect('http://localhost:3000/fracaso');
         }
     }
     catch (error) {
