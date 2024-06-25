@@ -11,6 +11,10 @@ import { DetalleProduct } from './pages/DetalleProduct';
 import { CrearCuenta } from './pages/CrearCuenta';
 import { IniciarSesion } from './pages/IniciarSesion';
 import { Carrito } from './pages/Carrito';
+import ReturnUrlHandler from './components/ReturnUrlHandler';
+import ProcesandoPago from './components/ProcesandoPago';
+import Exito  from './pages/exito';
+import Fracaso from './pages/fracaso'
 import Users from './pages/user';
 import Roles from './pages/rol';
 import Categoria from './pages/categoria';
@@ -43,7 +47,11 @@ function App() {
             <Route path="/categoria" element={<Categoria />} />
             <Route path="/producto" element={<Producto />} />
             <Route path="/venta" element={<Venta />} />
-            <Route path="/carrito" element={<Carrito />} /> 
+            <Route path="/carrito" element={<Carrito />} />
+            <Route path="/exito" element={<Exito />} />
+            <Route path="/fracaso" element={<Fracaso />} />
+            <Route path="/retorno-webpay" element={<ReturnUrlHandler />} />
+            <Route path="/procesar-pago" element={<ProcesandoPago />} />
           </Routes>
           <br></br>
           <br></br>
@@ -79,6 +87,8 @@ const NavBar = () => {
     localStorage.removeItem('token');
     localStorage.removeItem('rol');
     localStorage.removeItem('idUser');
+    // Limpiar carrito local
+    localStorage.removeItem('carritoLocal');
     // Llamar a la función de logout del contexto de autenticación
     logout();
   };

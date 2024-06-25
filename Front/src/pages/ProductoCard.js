@@ -13,9 +13,7 @@ const ProductoCard = ({ producto }) => {
         <h3>{producto.nombre_producto}</h3>
         <Link to={`/detalle-producto/${producto.cod_producto}`}>
           <img
-            src={imageUrl}
-            alt={producto.nombre_producto}
-          />
+            src={imageUrl} alt={producto.nombre_producto}/>
         </Link>
         <p>Precio: {producto.precio_producto}</p>
       </div>
