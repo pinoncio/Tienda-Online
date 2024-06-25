@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { getCarritosProductos, deleteCarritoProducto } from '../services/carritoproducto'; 
+import { getCarritosProductos, deleteCarritoProducto, updateCarritoProducto } from '../services/carritoproducto'; 
 import '../styles/Carrito.css';
 
 const Carrito = () => {
   const [carritosProductos, setCarritosProductos] = useState([]);
+  const [editIndex, setEditIndex] = useState(null);
+  const [editCantidad, setEditCantidad] = useState(1);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -38,6 +40,25 @@ const Carrito = () => {
     }
   };
 
+  const handleEditProducto = (index, cantidad) => {
+    setEditIndex(index);
+    setEditCantidad(cantidad);
+  };
+
+  const handleUpdateProducto = async (carritoProducto) => {
+    try {
+      await updateCarritoProducto(carritoProducto.id_carro_productos, {
+        ...carritoProducto,
+        cantidad: editCantidad,
+        subtotal: carritoProducto.producto.precio_producto * editCantidad,
+      });
+      setEditIndex(null);
+      fetchCarritosProductos(); // Actualizar la lista de productos después de actualizar
+    } catch (error) {
+      console.error('Error al actualizar el producto del carrito:', error);
+    }
+  };
+
   return (
     <div className="carrito-container">
       <h2>Resumen de mi Pedido</h2>
@@ -51,12 +72,28 @@ const Carrito = () => {
           </tr>
         </thead>
         <tbody>
-          {carritosProductos.map((carritoProducto) => (
+          {carritosProductos.map((carritoProducto, index) => (
             <tr key={carritoProducto.id_carro_productos}>
               <td>{carritoProducto.producto.nombre_producto}</td>
-              <td>{carritoProducto.cantidad}</td> {/* Mostrar la cantidad */}
+              <td>
+                {editIndex === index ? (
+                  <input
+                    type="number"
+                    value={editCantidad}
+                    onChange={(e) => setEditCantidad(Number(e.target.value))}
+                    min="1"
+                  />
+                ) : (
+                  carritoProducto.cantidad
+                )}
+              </td>
               <td>${carritoProducto.subtotal}</td>
               <td>
+                {editIndex === index ? (
+                  <button onClick={() => handleUpdateProducto(carritoProducto)}>Guardar</button>
+                ) : (
+                  <button onClick={() => handleEditProducto(index, carritoProducto.cantidad)}>Editar</button>
+                )}
                 <button className="delete-button" onClick={() => handleDeleteProducto(carritoProducto.id_carro_productos)}>Eliminar</button>
               </td>
             </tr>
