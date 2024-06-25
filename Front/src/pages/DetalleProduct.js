@@ -12,15 +12,15 @@ const DetalleProduct = () => {
   const { cod_producto } = useParams();
   const [producto, setProducto] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [cantidad, setCantidad] = useState(1); // Estado para la cantidad
-  const [stockDisponible, setStockDisponible] = useState(0); // Estado para el stock disponible
+  const [cantidad, setCantidad] = useState(1); 
+  const [stockDisponible, setStockDisponible] = useState(0);
 
   useEffect(() => {
     const fetchProducto = async () => {
       try {
         const response = await getProducto(cod_producto);
         setProducto(response.data);
-        setStockDisponible(response.data.cantidad_disponible); // Establecer el stock disponible
+        setStockDisponible(response.data.cantidad_disponible);
         setLoading(false);
       } catch (error) {
         console.error('Error fetching product:', error);
@@ -33,40 +33,68 @@ const DetalleProduct = () => {
 
   const addToCart = async () => {
     try {
-      const idUsuario = localStorage.getItem('idUser');
-      if (!idUsuario) {
-        throw new Error('ID de usuario no encontrado en el almacenamiento local.');
-      }
+      const idUsuario = localStorage.getItem('id_usuario');
 
       if (cantidad <= 0 || cantidad > stockDisponible) {
         throw new Error('Cantidad inválida. Por favor, selecciona una cantidad válida.');
       }
 
-      const carrito = {
-        id_usuario: idUsuario,
-        cantidad: cantidad, // Enviar la cantidad seleccionada
-        cod_producto: producto.cod_producto,
-      };
+      if (idUsuario) {
+        const carrito = {
+          id_usuario: idUsuario,
+          cantidad: cantidad,
+          cod_producto: producto.cod_producto,
+        };
 
-      // Aquí envías la solicitud para agregar al carrito
-      await createCarrito(carrito);
+        await createCarrito(carrito);
 
-      // Actualizar el stock disponible restando la cantidad seleccionada
-      setStockDisponible(stockDisponible - cantidad);
+        setStockDisponible(stockDisponible - cantidad);
 
-      // Notificar al usuario
-      toast.success(`Producto ${producto.nombre_producto} agregado al carrito`, {
-        position: "top-center",
-        autoClose: 1000,
-        hideProgressBar: false,
-        closeButton: false,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-      });
-      
-      // Reiniciar la cantidad a 1 después de agregar al carrito
-      setCantidad(1);
+        toast.success(`Producto ${producto.nombre_producto} agregado al carrito`, {
+          position: "top-center",
+          autoClose: 1000,
+          hideProgressBar: false,
+          closeButton: false,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        });
+        
+        setCantidad(1);
+      } else {
+        let carritoLocal = JSON.parse(localStorage.getItem('carritoLocal')) || [];
+        const productoEnCarrito = carritoLocal.find(item => item.cod_producto === producto.cod_producto);
+
+        if (productoEnCarrito) {
+          productoEnCarrito.cantidad += cantidad;
+          productoEnCarrito.subtotal += producto.precio_producto * cantidad;
+        } else {
+          carritoLocal.push({
+            id_carro_productos: new Date().getTime(), // ID temporal
+            producto: {
+              nombre_producto: producto.nombre_producto,
+              precio_producto: producto.precio_producto
+            },
+            cantidad: cantidad,
+            subtotal: producto.precio_producto * cantidad
+          });
+        }
+
+        localStorage.setItem('carritoLocal', JSON.stringify(carritoLocal));
+        setStockDisponible(stockDisponible - cantidad);
+
+        toast.success(`Producto ${producto.nombre_producto} agregado al carrito`, {
+          position: "top-center",
+          autoClose: 1000,
+          hideProgressBar: false,
+          closeButton: false,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        });
+
+        setCantidad(1);
+      }
 
     } catch (error) {
       console.error('Error al agregar el producto al carrito:', error);
@@ -92,25 +120,22 @@ const DetalleProduct = () => {
       <div className='imagen'>
         <img src={imageUrl} alt={producto.nombre_producto} />
       </div>
-      <div className='body'> 
+      <div className='detalles'>
         <h2>{producto.nombre_producto}</h2>
-        <p className='precio'>Precio: {producto.precio_producto}</p>
-        <p className='descripcion'>Descripción: {producto.descripcion_producto}</p>
-        <div>
-          <label>Cantidad: </label>
-          <input 
-            type="number" 
-            value={cantidad} 
-            onChange={(e) => {
-              const newValue = parseInt(e.target.value) || 1;
-              setCantidad(Math.min(newValue, stockDisponible));
-            }} 
-            min="1" 
-            max={stockDisponible} // Establecer el máximo permitido
+        <p>{producto.descripcion_producto}</p>
+        <p>Precio: ${producto.precio_producto}</p>
+        <p>Disponibles: {stockDisponible}</p>
+        <label>
+          Cantidad:
+          <input
+            type="number"
+            value={cantidad}
+            onChange={(e) => setCantidad(Number(e.target.value))}
+            min="1"
+            max={stockDisponible}
           />
-          <p>Stock disponible: {stockDisponible}</p> {/* Mostrar el stock disponible */}
-        </div>
-        <button onClick={addToCart}>Añadir al carrito</button>
+        </label>
+        <button onClick={addToCart}>Agregar al Carrito</button>
       </div>
     </div>
   );
