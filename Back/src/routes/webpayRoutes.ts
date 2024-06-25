@@ -4,7 +4,7 @@ import { createTransaction, commitTransaction } from '../controllers/webpayContr
 const router = express.Router();
 
 router.post('/create', createTransaction);
-router.post('/commit', commitTransaction);
+router.get('/commit', commitTransaction);
 
 
 export default router;
