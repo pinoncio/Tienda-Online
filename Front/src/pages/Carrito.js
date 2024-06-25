@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { getCarritosProductos, deleteCarritoProducto, updateCarritoProducto } from '../services/carritoproducto'; 
+import { getCarritosProductos, deleteCarritoProducto, updateCarritoProducto } from '../services/carritoproducto';
+import { createTransaction } from '../services/pago'; 
 import '../styles/Carrito.css';
 
 const Carrito = () => {
@@ -10,14 +11,14 @@ const Carrito = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    fetchCarritosProductos(); 
+    fetchCarritosProductos();
   }, []);
 
   const fetchCarritosProductos = async () => {
     try {
       const idUser = localStorage.getItem('idUser');
       const response = await getCarritosProductos(idUser);
-      setCarritosProductos(response.data); 
+      setCarritosProductos(response.data);
     } catch (error) {
       console.error('Error fetching carritos de productos:', error);
     }
@@ -34,7 +35,7 @@ const Carrito = () => {
   const handleDeleteProducto = async (idCarroProducto) => {
     try {
       await deleteCarritoProducto(idCarroProducto);
-      fetchCarritosProductos(); // Actualizar la lista de productos después de eliminar
+      fetchCarritosProductos(); 
     } catch (error) {
       console.error('Error al eliminar el producto del carrito:', error);
     }
@@ -58,6 +59,23 @@ const Carrito = () => {
       console.error('Error al actualizar el producto del carrito:', error);
     }
   };
+
+  const handlePlaceOrder = async () => {
+    try {
+      const idUser = localStorage.getItem('idUser');
+      const amount = calculateTotal();
+      const sessionId = idUser; 
+      const buyOrder = 'orden' + new Date().getTime(); 
+      const returnUrl = 'http://localhost:3000/procesar-pago'; 
+  
+      const { url, token_ws } = await createTransaction(amount, sessionId, buyOrder, returnUrl);
+  
+      window.location.href = `${url}?token_ws=${token_ws}`;
+    } catch (error) {
+      console.error('Error al crear la transacción', error);
+    }
+  };
+  
 
   return (
     <div className="carrito-container">
@@ -105,7 +123,7 @@ const Carrito = () => {
       </div>
       <div className="buttons">
         <button className="continue-shopping" onClick={handleContinueShopping}>Continuar Comprando</button>
-        <button className="place-order">Solicitar Pedido</button>
+        <button className="place-order" onClick={handlePlaceOrder}>Solicitar Pedido</button>
       </div>
     </div>
   );
