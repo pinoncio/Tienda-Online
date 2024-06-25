@@ -48,6 +48,7 @@ const Carrito = () => {
         localStorage.setItem('carritoLocal', JSON.stringify(carritoLocal));
         setCarritosProductos(carritoLocal);
       }
+
     } catch (error) {
       console.error('Error al eliminar el producto del carrito:', error);
     }
@@ -90,7 +91,7 @@ const Carrito = () => {
       const amount = calculateTotal();
       const sessionId = idUser; 
       const buyOrder = 'orden' + new Date().getTime(); 
-      const returnUrl = 'http://localhost:3000/procesar-pago'; 
+      const returnUrl = 'http://localhost:3000/api/webpay_plus/commit'; 
   
       const { url, token_ws } = await createTransaction(amount, sessionId, buyOrder, returnUrl);
   

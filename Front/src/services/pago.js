@@ -26,7 +26,7 @@ export const createTransaction = async (amount, sessionId, buyOrder, returnUrl) 
 // Función para confirmar una transacción
 export const commitTransaction = async (token_ws) => {
     try {
-      const response = await axios.post('/api/webpay_plus/commit', { token_ws });
+      const response = await axios.get('/api/webpay_plus/commit', { token_ws });
       return response.data;
     } catch (error) {
       throw new Error('Error al confirmar la transacción: ' + error.message);
