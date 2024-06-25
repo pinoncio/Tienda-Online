@@ -47,12 +47,8 @@ export const commitTransaction = async (req: Request, res: Response) => {
     if (commitResponse.vci === 'TSY' && commitResponse.status === 'AUTHORIZED') {
 
         // aqui falta hacer algo en la base de datos si se aprueba el pago
-        res.redirect('http://localhost:3000/procesar-pago')
+        return res.redirect('http://localhost:3000/procesar-pago')
 
-        res.status(200).json({ 
-          message: 'Pago exitoso', 
-          details: commitResponse 
-        });
       } else {
         // Transacción rechazada o con errores
         const errorMessage = getWebpayErrorMessage(commitResponse);  //capturamos el error segun el if de la funcion de abajo
