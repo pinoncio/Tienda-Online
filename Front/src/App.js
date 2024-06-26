@@ -12,7 +12,6 @@ import { CrearCuenta } from './pages/CrearCuenta';
 import { IniciarSesion } from './pages/IniciarSesion';
 import { Carrito } from './pages/Carrito';
 import ReturnUrlHandler from './components/ReturnUrlHandler';
-import ProcesandoPago from './components/ProcesandoPago';
 import Exito  from './pages/exito';
 import Fracaso from './pages/fracaso'
 import Users from './pages/user';
@@ -51,7 +50,6 @@ function App() {
             <Route path="/exito" element={<Exito />} />
             <Route path="/fracaso" element={<Fracaso />} />
             <Route path="/retorno-webpay" element={<ReturnUrlHandler />} />
-            <Route path="/procesar-pago" element={<ProcesandoPago />} />
           </Routes>
           <br></br>
           <br></br>
