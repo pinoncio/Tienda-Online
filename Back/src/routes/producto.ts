@@ -20,7 +20,7 @@ router.patch('/:cod_producto/updateImagen', upload.single('imagen'), updateImage
 router.get('/list',getProductos);
 router.get('/:cod_producto',getProducto);
 router.delete('/:cod_producto',deleteProducto);
-router.put('/:cod_producto',updateProducto);
+router.put('/:cod_producto',upload.single('imagen'),updateProducto);
 router.patch('/stock',updateStock);
 
 

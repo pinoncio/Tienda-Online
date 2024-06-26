@@ -22,6 +22,6 @@ router.patch('/:cod_producto/updateImagen', upload.single('imagen'), producto_1.
 router.get('/list', producto_1.getProductos);
 router.get('/:cod_producto', producto_1.getProducto);
 router.delete('/:cod_producto', producto_1.deleteProducto);
-router.put('/:cod_producto', producto_1.updateProducto);
+router.put('/:cod_producto', upload.single('imagen'), producto_1.updateProducto);
 router.patch('/stock', producto_1.updateStock);
 exports.default = router;

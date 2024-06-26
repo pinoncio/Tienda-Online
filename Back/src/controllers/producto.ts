@@ -101,6 +101,7 @@ export const deleteProducto = async(req: Request,res: Response) =>{
 export const updateProducto = async(req:Request, res: Response) =>{
     const {cod_producto} = req.params;
     const {nombre_producto, precio_producto,descripcion_producto,categoria_producto} = req.body;
+    const imagen = req.file ? req.file.path : null;
     const idProducto = await Productos.findOne({where: {cod_producto: cod_producto}})
     if (!idProducto) {
         return res.status(404).json({
@@ -108,17 +109,32 @@ export const updateProducto = async(req:Request, res: Response) =>{
         })
     }
     try{
-        await Productos.update({
-            nombre_producto: nombre_producto,
-            precio_producto: precio_producto,
-            descripcion_producto: descripcion_producto,
-            categoria_producto: categoria_producto
-            },
-            {where: {cod_producto: cod_producto}}
-        )
-        return res.json({
-            msg:'Producto ' + cod_producto + ' actualizado correctamente'
-        })
+        if(imagen != null){
+            await Productos.update({
+                nombre_producto: nombre_producto,
+                precio_producto: precio_producto,
+                descripcion_producto: descripcion_producto,
+                categoria_producto: categoria_producto,
+                imagen: imagen
+                },
+                {where: {cod_producto: cod_producto}}
+            )
+            return res.json({
+                msg:'Producto ' + cod_producto + ' actualizado correctamente'
+            })
+        }else{
+            await Productos.update({
+                nombre_producto: nombre_producto,
+                precio_producto: precio_producto,
+                descripcion_producto: descripcion_producto,
+                categoria_producto: categoria_producto
+                },
+                {where: {cod_producto: cod_producto}}
+            )
+            return res.json({
+                msg:'Producto ' + cod_producto + ' actualizado correctamente'
+            })
+        }
         }catch (error){
             return res.status(400).json({
                 msg: 'Ha ocurrido un error al actualizar el producto: '+cod_producto,

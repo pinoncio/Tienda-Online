@@ -113,6 +113,7 @@ exports.deleteProducto = deleteProducto;
 const updateProducto = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { cod_producto } = req.params;
     const { nombre_producto, precio_producto, descripcion_producto, categoria_producto } = req.body;
+    const imagen = req.file ? req.file.path : null;
     const idProducto = yield producto_1.Productos.findOne({ where: { cod_producto: cod_producto } });
     if (!idProducto) {
         return res.status(404).json({
@@ -120,15 +121,29 @@ const updateProducto = (req, res) => __awaiter(void 0, void 0, void 0, function*
         });
     }
     try {
-        yield producto_1.Productos.update({
-            nombre_producto: nombre_producto,
-            precio_producto: precio_producto,
-            descripcion_producto: descripcion_producto,
-            categoria_producto: categoria_producto
-        }, { where: { cod_producto: cod_producto } });
-        return res.json({
-            msg: 'Producto ' + cod_producto + ' actualizado correctamente'
-        });
+        if (imagen != null) {
+            yield producto_1.Productos.update({
+                nombre_producto: nombre_producto,
+                precio_producto: precio_producto,
+                descripcion_producto: descripcion_producto,
+                categoria_producto: categoria_producto,
+                imagen: imagen
+            }, { where: { cod_producto: cod_producto } });
+            return res.json({
+                msg: 'Producto ' + cod_producto + ' actualizado correctamente'
+            });
+        }
+        else {
+            yield producto_1.Productos.update({
+                nombre_producto: nombre_producto,
+                precio_producto: precio_producto,
+                descripcion_producto: descripcion_producto,
+                categoria_producto: categoria_producto
+            }, { where: { cod_producto: cod_producto } });
+            return res.json({
+                msg: 'Producto ' + cod_producto + ' actualizado correctamente'
+            });
+        }
     }
     catch (error) {
         return res.status(400).json({
