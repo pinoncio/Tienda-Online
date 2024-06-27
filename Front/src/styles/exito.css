@@ -1,0 +1,11 @@
+.exito-container {
+    display: flex; /* Activa Flexbox */
+    flex-direction: column; /* Alinea los elementos en columna */
+    justify-content: center; /* Centra verticalmente */
+    align-items: center; /* Centra horizontalmente */
+    min-height: 100vh; /* Asegura que el contenedor ocupe toda la altura de la ventana */
+  }
+  
+  h2, p {
+    text-align: center; /* Centra el texto de los títulos y párrafos */
+  }

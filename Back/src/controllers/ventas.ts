@@ -38,7 +38,6 @@ export const getVenta = async(req: Request, res: Response) =>{
 export const newVenta = async(req: Request, res: Response) =>{
     const {id_usuario} = req.params;
 
-
     const idUser = await User.findOne({where: {id_usuario: id_usuario}});
     if (!idUser){
         return res.status(400).json({
@@ -72,7 +71,7 @@ export const newVenta = async(req: Request, res: Response) =>{
 
 
         const listCarritoProductos = await Carrito_productos.findAll({where:{id_carro: idCarritoUser}});
-        if(listCarritoProductos.length == 0){
+        if(listCarritoProductos.length == 0 || !listCarritoProductos){
             return res.status(400).json({
                 msg: "El carrito esta vacio"
             })

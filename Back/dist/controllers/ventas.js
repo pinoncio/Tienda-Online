@@ -76,7 +76,7 @@ const newVenta = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         const CarritoUser = yield carrito_1.Carrito.findOne({ where: { id_usuario: id_usuario } });
         const idCarritoUser = CarritoUser === null || CarritoUser === void 0 ? void 0 : CarritoUser.dataValues.id_carro;
         const listCarritoProductos = yield carrito_productos_1.Carrito_productos.findAll({ where: { id_carro: idCarritoUser } });
-        if (listCarritoProductos.length == 0) {
+        if (listCarritoProductos.length == 0 || !listCarritoProductos) {
             return res.status(400).json({
                 msg: "El carrito esta vacio"
             });
