@@ -42,16 +42,36 @@ const newCarrito = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
             const idCarro = yield carrito_1.Carrito.findOne({ attributes: ['total'], where: { id_carro: pkCarrito } });
             const totals = idCarro === null || idCarro === void 0 ? void 0 : idCarro.dataValues.total;
             try {
-                yield carrito_productos_1.Carrito_productos.create({
-                    id_carro: pkCarrito,
-                    cod_producto: cod_producto,
-                    cantidad: cantidad,
-                    subtotal: subTotal,
+                let carritoProducto = yield carrito_productos_1.Carrito_productos.findOne({
+                    where: { id_carro: carrito === null || carrito === void 0 ? void 0 : carrito.dataValues.id_carro, cod_producto: cod_producto },
                 });
-                yield carrito_1.Carrito.update({
-                    total: totals + subTotal
-                }, { where: { id_carro: pkCarrito }
-                });
+                // si ya existe una relacion entre ese carro y ese producto solo actualizamos la cantidad en esa relacion
+                if (carritoProducto) {
+                    let cantidadCarritoActual = carritoProducto === null || carritoProducto === void 0 ? void 0 : carritoProducto.dataValues.cantidad;
+                    let subtotalCarritoActual = carritoProducto === null || carritoProducto === void 0 ? void 0 : carritoProducto.dataValues.subtotal;
+                    yield carritoProducto.update({
+                        "cod_producto": cod_producto,
+                        "cantidad": cantidad + cantidadCarritoActual,
+                        "subtotal": subtotalCarritoActual + (subTotal)
+                    });
+                    yield carritoProducto.save();
+                    yield carrito_1.Carrito.update({
+                        total: totals + subtotalCarritoActual + (subTotal)
+                    }, { where: { id_carro: pkCarrito }
+                    });
+                }
+                else {
+                    yield carrito_productos_1.Carrito_productos.create({
+                        id_carro: pkCarrito,
+                        cod_producto: cod_producto,
+                        cantidad: cantidad,
+                        subtotal: subTotal,
+                    });
+                    yield carrito_1.Carrito.update({
+                        total: totals + subTotal
+                    }, { where: { id_carro: pkCarrito }
+                    });
+                }
             }
             catch (error) {
                 res.status(400).json({

@@ -9,3 +9,5 @@ export const getCarritoProducto = (id_carro_productos) => axios.get(`${API_URL}/
 export const updateCarritoProducto = (id_carro_productos, carritoProducto) => axios.put(`${API_URL}/${id_carro_productos}`, carritoProducto);
 
 export const deleteCarritoProducto = (id_carro_productos) => axios.delete(`${API_URL}/${id_carro_productos}`);
+
+export const copiarCarritoProductoLocal = (idUser, productos) => axios.post(`${API_URL}/llenar`, { id_usuario: idUser, productos });

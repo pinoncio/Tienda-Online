@@ -112,6 +112,7 @@ const deleteCarritoProductos = (req, res) => __awaiter(void 0, void 0, void 0, f
 exports.deleteCarritoProductos = deleteCarritoProductos;
 const carritoLocal = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { id_usuario, productos } = req.body;
+    console.log(productos);
     if (!productos || !Array.isArray(productos)) {
         return res.status(400).json({ error: 'Los productos deben ser un array' });
     }
@@ -121,7 +122,6 @@ const carritoLocal = (req, res) => __awaiter(void 0, void 0, void 0, function* (
             carrito = yield carrito_1.Carrito.create({ id_usuario });
         }
         for (const producto of productos) {
-            // verificar si el producto ya existe en el carrito del usuario
             let carritoProducto = yield carrito_productos_1.Carrito_productos.findOne({
                 where: { id_carro: carrito === null || carrito === void 0 ? void 0 : carrito.dataValues.id_carro, cod_producto: producto.cod_producto },
             });
@@ -129,8 +129,8 @@ const carritoLocal = (req, res) => __awaiter(void 0, void 0, void 0, function* (
             if (carritoProducto) {
                 let cantidadCarritoActual = carritoProducto === null || carritoProducto === void 0 ? void 0 : carritoProducto.dataValues.cantidad;
                 let subtotalCarritoActual = carritoProducto === null || carritoProducto === void 0 ? void 0 : carritoProducto.dataValues.subtotal;
-                // Si existe, actualizar la cantidad
                 yield carritoProducto.update({
+                    "cod_producto": producto.cod_producto,
                     "cantidad": producto.cantidad + cantidadCarritoActual,
                     "subtotal": subtotalCarritoActual + ((idProducto === null || idProducto === void 0 ? void 0 : idProducto.dataValues.precio_producto) * producto.cantidad)
                 });
@@ -139,7 +139,7 @@ const carritoLocal = (req, res) => __awaiter(void 0, void 0, void 0, function* (
             else {
                 yield carrito_productos_1.Carrito_productos.create({
                     id_carro: carrito === null || carrito === void 0 ? void 0 : carrito.dataValues.id_carro,
-                    codd_producto: producto.cod_producto,
+                    cod_producto: producto.cod_producto,
                     cantidad: producto.cantidad,
                     subtotal: producto.cantidad * (idProducto === null || idProducto === void 0 ? void 0 : idProducto.dataValues.precio_producto)
                 });

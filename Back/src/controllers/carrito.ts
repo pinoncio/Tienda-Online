@@ -8,7 +8,6 @@ export const newCarrito = async (req: Request, res: Response) => {
 
     try {
 
-
         let carrito = await Carrito.findOne({ where: { id_usuario:id_usuario}});
 
         if (!carrito){
@@ -45,18 +44,39 @@ export const newCarrito = async (req: Request, res: Response) => {
                 const totals = idCarro?.dataValues.total
 
                 try {
-                    await Carrito_productos.create({
-                        id_carro: pkCarrito,
-                        cod_producto: cod_producto,
-                        cantidad: cantidad,
-                        subtotal: subTotal,
-                    });
+                    let carritoProducto = await Carrito_productos.findOne({
+                        where: { id_carro: carrito?.dataValues.id_carro, cod_producto: cod_producto },
+                      });
+                    // si ya existe una relacion entre ese carro y ese producto solo actualizamos la cantidad en esa relacion
+                    if (carritoProducto) {
+                        let cantidadCarritoActual = carritoProducto?.dataValues.cantidad
+                        let subtotalCarritoActual = carritoProducto?.dataValues.subtotal
+                
+                        await carritoProducto.update({
+                            "cod_producto":cod_producto,
+                            "cantidad": cantidad + cantidadCarritoActual,
+                            "subtotal": subtotalCarritoActual + (subTotal)
+                        })
+                        await carritoProducto.save();
+                        await Carrito.update({
+                            total: totals + subtotalCarritoActual + (subTotal)
+                            },
+                            {where: {id_carro: pkCarrito}
+                        });
+                    }else{
+                        await Carrito_productos.create({
+                            id_carro: pkCarrito,
+                            cod_producto: cod_producto,
+                            cantidad: cantidad,
+                            subtotal: subTotal,
+                        });
 
-                    await Carrito.update({
-                        total: totals + subTotal
-                        },
-                        {where: {id_carro: pkCarrito}
-                    });
+                        await Carrito.update({
+                            total: totals + subTotal
+                            },
+                            {where: {id_carro: pkCarrito}
+                        });
+                    }
 
                 } catch (error){
                     res.status(400).json({

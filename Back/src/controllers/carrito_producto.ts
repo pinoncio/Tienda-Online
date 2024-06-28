@@ -97,6 +97,7 @@ export const deleteCarritoProductos = async (req: Request, res: Response) => {
 
 export const carritoLocal = async (req: Request, res: Response) => {
     const { id_usuario, productos } = req.body;
+    console.log(productos)
     if (!productos || !Array.isArray(productos)) {
         return res.status(400).json({ error: 'Los productos deben ser un array' });
       }
@@ -107,7 +108,7 @@ export const carritoLocal = async (req: Request, res: Response) => {
       carrito = await Carrito.create({ id_usuario });
     }
     for (const producto of productos) {
-      // verificar si el producto ya existe en el carrito del usuario
+
       let carritoProducto = await Carrito_productos.findOne({
         where: { id_carro: carrito?.dataValues.id_carro, cod_producto: producto.cod_producto },
       });
@@ -115,9 +116,10 @@ export const carritoLocal = async (req: Request, res: Response) => {
       if (carritoProducto) {
         let cantidadCarritoActual = carritoProducto?.dataValues.cantidad
         let subtotalCarritoActual = carritoProducto?.dataValues.subtotal
-        // Si existe, actualizar la cantidad
+
 
         await carritoProducto.update({
+            "cod_producto":producto.cod_producto,
             "cantidad": producto.cantidad + cantidadCarritoActual,
             "subtotal": subtotalCarritoActual + (idProducto?.dataValues.precio_producto *producto.cantidad)
         })
@@ -126,7 +128,7 @@ export const carritoLocal = async (req: Request, res: Response) => {
 
         await Carrito_productos.create({
           id_carro: carrito?.dataValues.id_carro,
-          codd_producto: producto.cod_producto,
+          cod_producto: producto.cod_producto,
           cantidad: producto.cantidad,
           subtotal: producto.cantidad * idProducto?.dataValues.precio_producto
         });
