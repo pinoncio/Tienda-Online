@@ -9,7 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.deleteCarritoProductos = exports.updateCarritoProductos = exports.getCarritoProductos = exports.getCarritosProductos = void 0;
+exports.carritoLocal = exports.deleteCarritoProductos = exports.updateCarritoProductos = exports.getCarritoProductos = exports.getCarritosProductos = void 0;
 const carrito_productos_1 = require("../models/carrito_productos");
 const carrito_1 = require("../models/carrito");
 const producto_1 = require("../models/producto");
@@ -33,7 +33,8 @@ const getCarritosProductos = (req, res) => __awaiter(void 0, void 0, void 0, fun
         const carritoProductos = yield carrito_productos_1.Carrito_productos.findAll({
             include: [
                 { model: carrito_1.Carrito, attributes: ['id_carro'] },
-                { model: producto_1.Productos, attributes: ['nombre_producto'] }
+                { model: producto_1.Productos, attributes: ['nombre_producto'] },
+                { model: producto_1.Productos, attributes: ['precio_producto'] }
             ],
             attributes: ['id_carro_productos', 'cantidad', 'subtotal'], where: { id_carro: carrito === null || carrito === void 0 ? void 0 : carrito.dataValues.id_carro }
         });
@@ -109,3 +110,48 @@ const deleteCarritoProductos = (req, res) => __awaiter(void 0, void 0, void 0, f
     }
 });
 exports.deleteCarritoProductos = deleteCarritoProductos;
+const carritoLocal = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const { id_usuario, productos } = req.body;
+    if (!productos || !Array.isArray(productos)) {
+        return res.status(400).json({ error: 'Los productos deben ser un array' });
+    }
+    try {
+        let carrito = yield carrito_1.Carrito.findOne({ where: { id_usuario } });
+        if (!carrito) {
+            carrito = yield carrito_1.Carrito.create({ id_usuario });
+        }
+        for (const producto of productos) {
+            // verificar si el producto ya existe en el carrito del usuario
+            let carritoProducto = yield carrito_productos_1.Carrito_productos.findOne({
+                where: { id_carro: carrito === null || carrito === void 0 ? void 0 : carrito.dataValues.id_carro, cod_producto: producto.cod_producto },
+            });
+            let idProducto = yield producto_1.Productos.findOne({ where: { cod_producto: producto.cod_producto } });
+            if (carritoProducto) {
+                let cantidadCarritoActual = carritoProducto === null || carritoProducto === void 0 ? void 0 : carritoProducto.dataValues.cantidad;
+                let subtotalCarritoActual = carritoProducto === null || carritoProducto === void 0 ? void 0 : carritoProducto.dataValues.subtotal;
+                // Si existe, actualizar la cantidad
+                yield carritoProducto.update({
+                    "cantidad": producto.cantidad + cantidadCarritoActual,
+                    "subtotal": subtotalCarritoActual + ((idProducto === null || idProducto === void 0 ? void 0 : idProducto.dataValues.precio_producto) * producto.cantidad)
+                });
+                yield carritoProducto.save();
+            }
+            else {
+                yield carrito_productos_1.Carrito_productos.create({
+                    id_carro: carrito === null || carrito === void 0 ? void 0 : carrito.dataValues.id_carro,
+                    codd_producto: producto.cod_producto,
+                    cantidad: producto.cantidad,
+                    subtotal: producto.cantidad * (idProducto === null || idProducto === void 0 ? void 0 : idProducto.dataValues.precio_producto)
+                });
+            }
+        }
+        res.json({
+            msg: 'Carrito actualizado exitosamente'
+        });
+    }
+    catch (error) {
+        console.error('Error al actualizar el carrito:', error);
+        res.status(500).json({ error: 'Error al actualizar el carrito' });
+    }
+});
+exports.carritoLocal = carritoLocal;

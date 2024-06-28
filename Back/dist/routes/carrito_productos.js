@@ -7,4 +7,5 @@ router.get('/list/:id_usuario', carrito_producto_1.getCarritosProductos);
 router.get('/:id_carro_productos', carrito_producto_1.getCarritoProductos);
 router.delete('/:id_carro_productos', carrito_producto_1.deleteCarritoProductos);
 router.put('/:id_carro_productos', carrito_producto_1.updateCarritoProductos);
+router.post('/llenar', carrito_producto_1.carritoLocal);
 exports.default = router;
