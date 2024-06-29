@@ -35,7 +35,7 @@ const getVentasUsuario = (req, res) => __awaiter(void 0, void 0, void 0, functio
     }
     catch (error) {
         console.error(error);
-        res.status(500).json({ error: 'Error al obtener las Ventas.' });
+        res.status(500).json({ error: 'Error al obtener las Ventas de este usuario.' });
     }
 });
 exports.getVentasUsuario = getVentasUsuario;

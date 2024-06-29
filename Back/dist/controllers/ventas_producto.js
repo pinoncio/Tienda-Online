@@ -9,7 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.updateVenta_Producto = exports.deleteVenta_Producto = exports.getVenta_Producto = exports.getVentas_Producto = void 0;
+exports.updateVenta_Producto = exports.deleteVenta_Producto = exports.getVenta_Producto = exports.getVentas_ProductoVenta = exports.getVentas_Producto = void 0;
 const ventas_producto_1 = require("../models/ventas_producto");
 const getVentas_Producto = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
@@ -22,6 +22,18 @@ const getVentas_Producto = (req, res) => __awaiter(void 0, void 0, void 0, funct
     }
 });
 exports.getVentas_Producto = getVentas_Producto;
+const getVentas_ProductoVenta = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const { id_venta } = req.params;
+    try {
+        const listVentasProductos = yield ventas_producto_1.Ventas_Producto.findAll({ where: { id_venta: id_venta } });
+        res.json(listVentasProductos);
+    }
+    catch (error) {
+        console.error(error);
+        res.status(500).json({ error: 'Error al obtener los detalles de Ventas de esa venta.' });
+    }
+});
+exports.getVentas_ProductoVenta = getVentas_ProductoVenta;
 const getVenta_Producto = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { id_venta_producto } = req.params;
     try {

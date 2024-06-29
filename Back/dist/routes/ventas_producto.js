@@ -7,4 +7,5 @@ router.get('/list', ventas_producto_1.getVentas_Producto);
 router.get('/:id_venta_producto', ventas_producto_1.getVentas_Producto);
 router.delete('/:id_venta_producto', ventas_producto_1.deleteVenta_Producto);
 router.put('/:id_venta_producto', ventas_producto_1.updateVenta_Producto);
+router.get('/list/:id_venta', ventas_producto_1.getVentas_ProductoVenta);
 exports.default = router;

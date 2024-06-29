@@ -22,7 +22,7 @@ export const getVentasUsuario = async(req: Request, res: Response) =>{
         res.json(listVentas)
     }catch (error) {
         console.error(error);
-        res.status(500).json({ error: 'Error al obtener las Ventas.' });
+        res.status(500).json({ error: 'Error al obtener las Ventas de este usuario.' });
     }
 };
 
