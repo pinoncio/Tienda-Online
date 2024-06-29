@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { getVentasByUserId } from '../services/ventas';
-import '../styles/vent.css';
+import '../styles/venta.css';
 
 const VentaId = () => {
   const [ventas, setVentas] = useState([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchVentas = async () => {
@@ -24,6 +26,10 @@ const VentaId = () => {
     fetchVentas();
   }, []);
 
+  const handleVerDetalle = (idVenta) => {
+    navigate(`/detalleVenta/${idVenta}`);
+  };
+
   return (
     <div className="venta-container">
       <h2>Mis Ventas</h2>
@@ -31,7 +37,7 @@ const VentaId = () => {
         <table>
           <thead>
             <tr>
-              <th>Numero Venta</th>
+              <th>Número Venta</th>
               <th>Fecha</th>
               <th>Total</th>
               <th>Visualizar</th>
@@ -43,7 +49,11 @@ const VentaId = () => {
                 <td>{venta.id_venta}</td>
                 <td>{venta.fecha_venta}</td>
                 <td>{venta.total}</td>
-                <td>Total</td>
+                <td>
+                  <button onClick={() => handleVerDetalle(venta.id_venta)}>
+                    👁️
+                  </button>
+                </td>
               </tr>
             ))}
           </tbody>

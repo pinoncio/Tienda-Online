@@ -14,6 +14,16 @@ export const getVentasProducto = async () => {
   }
 };
 
+export const getVentasProductoByIdVenta = async (idVenta) => {
+    try {
+      const response = await axios.get(`${API_URL}/list/${idVenta}`);
+      return response.data;
+    } catch (error) {
+      console.error('Error al obtener detalles de venta por ID:', error);
+      throw error;
+    }
+  };
+
 // Obtiene un detalle de venta por ID
 export const getVentaProducto = async (idVentaProducto) => {
   try {

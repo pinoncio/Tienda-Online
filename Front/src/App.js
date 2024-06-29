@@ -20,6 +20,7 @@ import Categoria from './pages/categoria';
 import Producto from './pages/producto';
 import Venta from './pages/ventas';
 import VentaId from './pages/venta';
+import DetalleVenta from './pages/detalleVenta'
 import { AuthProvider, AuthContext } from './AuthContext';
 
 function App() {
@@ -52,6 +53,7 @@ function App() {
             <Route path="/exito" element={<Exito />} />
             <Route path="/fracaso" element={<Fracaso />} />
             <Route path="/retorno-webpay" element={<ReturnUrlHandler />} />
+            <Route path="/detalleVenta/:idVenta" element={<DetalleVenta />} />
           </Routes>
           <br></br>
           <br></br>

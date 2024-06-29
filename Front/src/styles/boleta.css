@@ -1,0 +1,34 @@
+.detalle-venta {
+    padding: 20px;
+    font-family: Arial, sans-serif;
+  }
+  
+  .boleta {
+    border: 1px solid #ccc;
+    padding: 20px;
+    border-radius: 5px;
+    max-width: 600px;
+    margin: 0 auto;
+    background: #f9f9f9;
+  }
+  
+  .boleta-info p {
+    margin: 5px 0;
+  }
+  
+  .productos {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+  }
+  
+  .productos th,
+  .productos td {
+    border: 1px solid #ddd;
+    padding: 8px;
+  }
+  
+  .productos th {
+    background-color: #f2f2f2;
+    text-align: left;
+  }

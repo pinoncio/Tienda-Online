@@ -22,3 +22,48 @@
     background-color: #f2f2f2;
   }
   
+
+  .venta-container {
+    padding: 20px;
+  }
+  
+  .venta-container table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  .venta-container table th,
+  .venta-container table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+  }
+  
+  .venta-container table th {
+    background-color: #f2f2f2;
+    text-align: left;
+  }
+  
+  .detalle-venta {
+    margin-top: 20px;
+  }
+  
+  .detalle-venta h3 {
+    margin-bottom: 10px;
+  }
+  
+  .detalle-venta table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+  }
+  
+  .detalle-venta table th,
+  .detalle-venta table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+  }
+  
+  .detalle-venta table th {
+    background-color: #f2f2f2;
+    text-align: left;
+  }
