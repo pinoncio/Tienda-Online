@@ -19,7 +19,6 @@ const Carrito = () => {
       const idUser = localStorage.getItem('idUser');
       if (idUser) {
         const response = await getCarritosProductos(idUser);
-        console.log(response)
         setCarritosProductos(response.data);
       } else {
         const carritoLocal = JSON.parse(localStorage.getItem('carritoLocal')) || [];
