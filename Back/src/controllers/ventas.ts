@@ -15,6 +15,16 @@ export const getVentas = async(req: Request, res: Response) =>{
         res.status(500).json({ error: 'Error al obtener las Ventas.' });
     }
 };
+export const getVentasUsuario = async(req: Request, res: Response) =>{
+    const { id_usuario} =  req.params;
+    try {
+        const listVentas = await Ventas.findAll({where:{id_usuario: id_usuario}});
+        res.json(listVentas)
+    }catch (error) {
+        console.error(error);
+        res.status(500).json({ error: 'Error al obtener las Ventas.' });
+    }
+};
 
 export const getVenta = async(req: Request, res: Response) =>{
     const { id_venta} =  req.params;

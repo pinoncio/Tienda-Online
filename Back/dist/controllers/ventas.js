@@ -9,7 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.updateVenta = exports.deleteVenta = exports.newVenta = exports.getVenta = exports.getVentas = void 0;
+exports.updateVenta = exports.deleteVenta = exports.newVenta = exports.getVenta = exports.getVentasUsuario = exports.getVentas = void 0;
 const ventas_1 = require("../models/ventas");
 const carrito_1 = require("../models/carrito");
 const ventas_producto_1 = require("../models/ventas_producto");
@@ -27,6 +27,18 @@ const getVentas = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     }
 });
 exports.getVentas = getVentas;
+const getVentasUsuario = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const { id_usuario } = req.params;
+    try {
+        const listVentas = yield ventas_1.Ventas.findAll({ where: { id_usuario: id_usuario } });
+        res.json(listVentas);
+    }
+    catch (error) {
+        console.error(error);
+        res.status(500).json({ error: 'Error al obtener las Ventas.' });
+    }
+});
+exports.getVentasUsuario = getVentasUsuario;
 const getVenta = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { id_venta } = req.params;
     try {

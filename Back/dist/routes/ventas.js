@@ -8,4 +8,5 @@ router.post('/:id_usuario', ventas_1.newVenta);
 router.get('/:id_venta', ventas_1.getVenta);
 router.delete('/:id_venta', ventas_1.deleteVenta);
 router.put('/:id_venta', ventas_1.updateVenta);
+router.get('/list/:id_usuario', ventas_1.getVentasUsuario);
 exports.default = router;
