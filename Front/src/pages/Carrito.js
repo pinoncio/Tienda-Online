@@ -16,9 +16,10 @@ const Carrito = () => {
 
   const fetchCarritosProductos = async () => {
     try {
-      const idUser = localStorage.getItem('id_usuario');
+      const idUser = localStorage.getItem('idUser');
       if (idUser) {
         const response = await getCarritosProductos(idUser);
+        console.log(response)
         setCarritosProductos(response.data);
       } else {
         const carritoLocal = JSON.parse(localStorage.getItem('carritoLocal')) || [];
@@ -39,7 +40,7 @@ const Carrito = () => {
 
   const handleDeleteProducto = async (idCarroProducto) => {
     try {
-      const idUser = localStorage.getItem('id_usuario');
+      const idUser = localStorage.getItem('idUser');
       if (idUser) {
         await deleteCarritoProducto(idCarroProducto);
         fetchCarritosProductos(); // Actualizar la lista de productos después de eliminar
@@ -61,7 +62,7 @@ const Carrito = () => {
 
   const handleUpdateProducto = async (carritoProducto) => {
     try {
-      const idUser = localStorage.getItem('id_usuario');
+      const idUser = localStorage.getItem('idUser');
       if (idUser) {
         await updateCarritoProducto(carritoProducto.id_carro_productos, {
           ...carritoProducto,

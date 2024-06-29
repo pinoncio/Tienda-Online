@@ -3,6 +3,7 @@ import { loginUser } from '../services/iniciarsesion';
 import { useNavigate } from 'react-router-dom';
 import '../styles/iniciarsesion.css';
 import { AuthContext } from '../AuthContext';
+import { copiarCarritoProductoLocal } from '../services/carritoproducto';
 
 const IniciarSesion = () => {
   const [errors, setErrors] = useState({
@@ -28,6 +29,24 @@ const IniciarSesion = () => {
       const response = await loginUser({ correo: email.value, contrasena: contraseña.value });
       if (response.data.token) {
         login(response.data.token);
+        if (response.data.idUser) {
+          const idUser = response.data.idUser;
+          
+          const carritoLocal = JSON.parse(localStorage.getItem('carritoLocal')) || [];
+
+          if (carritoLocal.length > 0) {
+            try {
+              await copiarCarritoProductoLocal(idUser, carritoLocal);
+              localStorage.removeItem('carritoLocal');
+
+            } catch (error) {
+              console.error('Error al enviar carritoLocal:', error);
+            }
+          }
+        } else {
+          console.error('No se recibió el idUser del backend');
+        }
+
         navigate('/');
       } else {
         setErrors({

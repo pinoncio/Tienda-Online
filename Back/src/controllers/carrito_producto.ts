@@ -3,6 +3,7 @@ import { Carrito_productos } from "../models/carrito_productos";
 import { Carrito } from "../models/carrito";
 import { Productos } from "../models/producto";
 import { User } from "../models/user";
+import { where } from "sequelize";
 
 export const getCarritosProductos = async (req: Request, res: Response) => {
     try {
@@ -24,7 +25,8 @@ export const getCarritosProductos = async (req: Request, res: Response) => {
         const carritoProductos = await Carrito_productos.findAll({
             include: [
                 { model: Carrito, attributes: ['id_carro'] },
-                { model: Productos, attributes: ['nombre_producto'] }
+                { model: Productos, attributes: ['nombre_producto'] },
+                { model: Productos, attributes: ['precio_producto'] }
             ],
             attributes: ['id_carro_productos', 'cantidad', 'subtotal'],where:{id_carro: carrito?.dataValues.id_carro}
         });
@@ -92,3 +94,52 @@ export const deleteCarritoProductos = async (req: Request, res: Response) => {
         res.status(500).json({ error: 'Error al eliminar producto del carrito' });
     }
 }
+
+export const carritoLocal = async (req: Request, res: Response) => {
+    const { id_usuario, productos } = req.body;
+    console.log(productos)
+    if (!productos || !Array.isArray(productos)) {
+        return res.status(400).json({ error: 'Los productos deben ser un array' });
+      }
+
+  try {
+    let carrito = await Carrito.findOne({ where: { id_usuario } });
+    if (!carrito) {
+      carrito = await Carrito.create({ id_usuario });
+    }
+    for (const producto of productos) {
+
+      let carritoProducto = await Carrito_productos.findOne({
+        where: { id_carro: carrito?.dataValues.id_carro, cod_producto: producto.cod_producto },
+      });
+      let idProducto = await Productos.findOne({where: {cod_producto: producto.cod_producto}});
+      if (carritoProducto) {
+        let cantidadCarritoActual = carritoProducto?.dataValues.cantidad
+        let subtotalCarritoActual = carritoProducto?.dataValues.subtotal
+
+
+        await carritoProducto.update({
+            "cod_producto":producto.cod_producto,
+            "cantidad": producto.cantidad + cantidadCarritoActual,
+            "subtotal": subtotalCarritoActual + (idProducto?.dataValues.precio_producto *producto.cantidad)
+        })
+        await carritoProducto.save();
+      } else {
+
+        await Carrito_productos.create({
+          id_carro: carrito?.dataValues.id_carro,
+          cod_producto: producto.cod_producto,
+          cantidad: producto.cantidad,
+          subtotal: producto.cantidad * idProducto?.dataValues.precio_producto
+        });
+      }
+    }
+
+    res.json({
+        msg: 'Carrito actualizado exitosamente' 
+    });
+  } catch (error) {
+    console.error('Error al actualizar el carrito:', error);
+    res.status(500).json({ error: 'Error al actualizar el carrito' });
+  }
+};

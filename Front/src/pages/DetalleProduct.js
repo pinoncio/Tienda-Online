@@ -33,7 +33,7 @@ const DetalleProduct = () => {
 
   const addToCart = async () => {
     try {
-      const idUsuario = localStorage.getItem('id_usuario');
+      const idUsuario = localStorage.getItem('idUser');
 
       if (cantidad <= 0 || cantidad > stockDisponible) {
         throw new Error('Cantidad inválida. Por favor, selecciona una cantidad válida.');
@@ -76,7 +76,8 @@ const DetalleProduct = () => {
               precio_producto: producto.precio_producto
             },
             cantidad: cantidad,
-            subtotal: producto.precio_producto * cantidad
+            subtotal: producto.precio_producto * cantidad,
+            cod_producto: producto.cod_producto
           });
         }
 

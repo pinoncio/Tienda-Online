@@ -49,7 +49,7 @@ const getProducto = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
                 msg: "el producto no existe"
             });
         }
-        const producto = yield producto_1.Productos.findOne({ attributes: ['cod_producto', 'nombre_producto', 'precio_producto', 'descripcion_producto', [sequelize_1.default.col('categoria.nombre_categoria'), 'nombre_categoria'], 'cantidad_disponible', 'cantidad_total', 'imagen'],
+        const producto = yield producto_1.Productos.findOne({ attributes: ['cod_producto', 'nombre_producto', 'precio_producto', 'descripcion_producto', [sequelize_1.default.col('categoria.nombre_categoria'), 'nombre_categoria'], 'cantidad_disponible', 'cantidad_total', 'imagen', 'cod_producto'],
             include: [
                 {
                     model: categoria_1.Categorias,
@@ -71,7 +71,7 @@ const getProducto = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
 exports.getProducto = getProducto;
 const getProductos = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const listaProductos = yield producto_1.Productos.findAll({ attributes: ['cod_producto', 'nombre_producto', 'precio_producto', 'descripcion_producto', [sequelize_1.default.col('categoria.nombre_categoria'), 'nombre_categoria'], 'cantidad_disponible', 'cantidad_total', 'imagen'],
+        const listaProductos = yield producto_1.Productos.findAll({ attributes: ['cod_producto', 'nombre_producto', 'precio_producto', 'descripcion_producto', [sequelize_1.default.col('categoria.nombre_categoria'), 'nombre_categoria'], 'cantidad_disponible', 'cantidad_total', 'imagen', 'cod_producto'],
             include: [
                 {
                     model: categoria_1.Categorias,
