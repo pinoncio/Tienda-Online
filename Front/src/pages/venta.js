@@ -31,12 +31,10 @@ const VentaId = () => {
         <table>
           <thead>
             <tr>
-              <th>ID Venta</th>
+              <th>Numero Venta</th>
               <th>Fecha</th>
-              <th>Subtotal</th>
-              <th>Impuestos</th>
-              <th>Descuentos</th>
               <th>Total</th>
+              <th>Visualizar</th>
             </tr>
           </thead>
           <tbody>
@@ -44,10 +42,8 @@ const VentaId = () => {
               <tr key={venta.id_venta}>
                 <td>{venta.id_venta}</td>
                 <td>{venta.fecha_venta}</td>
-                <td>{venta.subtotal}</td>
-                <td>{venta.impuestos}</td>
-                <td>{venta.descuentos}</td>
                 <td>{venta.total}</td>
+                <td>Total</td>
               </tr>
             ))}
           </tbody>
