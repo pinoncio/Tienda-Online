@@ -10,6 +10,16 @@ export const getVentas_Producto = async(req: Request, res: Response) =>{
         res.status(500).json({ error: 'Error al obtener los detalles de Ventas.' });
     }
 };
+export const getVentas_ProductoVenta = async(req: Request, res: Response) =>{  
+    const { id_venta} =  req.params;
+    try {
+        const listVentasProductos = await Ventas_Producto.findAll({where:{id_venta: id_venta}});
+        res.json(listVentasProductos)
+    }catch (error) {
+        console.error(error);
+        res.status(500).json({ error: 'Error al obtener los detalles de Ventas de esa venta.' });
+    }
+};
 
 export const getVenta_Producto = async(req: Request, res: Response) =>{
     const { id_venta_producto} =  req.params;
