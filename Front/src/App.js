@@ -19,6 +19,7 @@ import Roles from './pages/rol';
 import Categoria from './pages/categoria';
 import Producto from './pages/producto';
 import Venta from './pages/ventas';
+import VentaId from './pages/venta';
 import { AuthProvider, AuthContext } from './AuthContext';
 
 function App() {
@@ -46,6 +47,7 @@ function App() {
             <Route path="/categoria" element={<Categoria />} />
             <Route path="/producto" element={<Producto />} />
             <Route path="/venta" element={<Venta />} />
+            <Route path="/ventaId" element={<VentaId/>} />
             <Route path="/carrito" element={<Carrito />} />
             <Route path="/exito" element={<Exito />} />
             <Route path="/fracaso" element={<Fracaso />} />
@@ -106,7 +108,7 @@ const NavBar = () => {
         ) : (
           <>
             <li className="user-container">
-              <a href="#perfil"><i className="fas fa-user user-icon"></i></a>
+              <a href="#ventaId"><i className="fas fa-user user-icon"></i></a>
               <i className="fas fa-sign-out-alt logout-icon" onClick={handleLogout}></i>
             </li>
           </>
