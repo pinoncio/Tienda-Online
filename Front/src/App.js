@@ -18,7 +18,7 @@ import Users from './pages/user';
 import Roles from './pages/rol';
 import Categoria from './pages/categoria';
 import Producto from './pages/producto';
-import Venta from './pages/venta';
+import Venta from './pages/ventas';
 import { AuthProvider, AuthContext } from './AuthContext';
 
 function App() {
