@@ -21,6 +21,7 @@ import Producto from './pages/producto';
 import VentaAdmin from './pages/ventasAdmin';
 import VentaId from './pages/venta';
 import DetalleVenta from './pages/detalleVenta'
+import PerfilUsuario from './pages/perfil';
 import { AuthProvider, AuthContext } from './AuthContext';
 
 function App() {
@@ -54,6 +55,7 @@ function App() {
             <Route path="/fracaso" element={<Fracaso />} />
             <Route path="/retorno-webpay" element={<ReturnUrlHandler />} />
             <Route path="/detalleVenta/:idVenta" element={<DetalleVenta />} />
+            <Route path="/perfil" element={<PerfilUsuario />} />
           </Routes>
           <br></br>
           <br></br>
@@ -101,6 +103,7 @@ const NavBar = () => {
         <li><a href="/">Inicio</a></li>
         <li><a href="#catalogo">Catálogo</a></li>
         {isAuthenticated && rol === '1' && <li><a href="#admin">Admin</a></li>}
+        {isAuthenticated && rol !== '1' && <li><a href="#ventaId">Historial</a></li>}
         {!isAuthenticated ? (
           <>
             <li className="login"><a href="#crear-cuenta">Crear Cuenta</a></li>
@@ -109,7 +112,7 @@ const NavBar = () => {
         ) : (
           <>
             <li className="user-container">
-              <a href="#ventaId"><i className="fas fa-user user-icon"></i></a>
+              <a href="#perfil"><i className="fas fa-user user-icon"></i></a>
               <i className="fas fa-sign-out-alt logout-icon" onClick={handleLogout}></i>
             </li>
           </>

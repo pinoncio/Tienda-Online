@@ -40,7 +40,7 @@ const DetalleVenta = () => {
 
     fetchDetalleVenta();
   }, [idVenta]);
-
+console.log(userData)
   if (!ventaData || !productosData || !userData || productosDetalle.length !== productosData.length) {
     return <p>Cargando detalle de la venta...</p>;
   }
