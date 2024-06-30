@@ -101,7 +101,6 @@ const NavBar = () => {
         <li><a href="/">Inicio</a></li>
         <li><a href="#catalogo">Catálogo</a></li>
         {isAuthenticated && rol === '1' && <li><a href="#admin">Admin</a></li>}
-        <li><a href="#contacto">Contacto</a></li>
         {!isAuthenticated ? (
           <>
             <li className="login"><a href="#crear-cuenta">Crear Cuenta</a></li>

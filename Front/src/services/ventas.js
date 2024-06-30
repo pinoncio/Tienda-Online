@@ -12,7 +12,15 @@ export const getVentas = async () => {
   }
 };
 
-export const getVentaById = async(idVenta) => axios.get(`${API_URL}/${idVenta}`)
+export const getVentaById = async (idVenta) => {
+    try {
+      const response = await axios.get(`${API_URL}/${idVenta}`);
+      return response.data;
+    } catch (error) {
+      console.error('Error al obtener ventas del usuario:', error);
+      throw error;
+    }
+  };
 
 export const createVenta = (venta) => axios.post(API_URL, venta);
 
