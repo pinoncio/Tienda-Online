@@ -9,8 +9,11 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.updateVenta_Producto = exports.deleteVenta_Producto = exports.getVenta_Producto = exports.getVentas_ProductoVenta = exports.getVentas_Producto = void 0;
+exports.getMasVendido = exports.updateVenta_Producto = exports.deleteVenta_Producto = exports.getVenta_Producto = exports.getVentas_ProductoVenta = exports.getVentas_Producto = void 0;
 const ventas_producto_1 = require("../models/ventas_producto");
+const ventas_1 = require("../models/ventas");
+const sequelize_1 = require("sequelize");
+const producto_1 = require("../models/producto");
 const getVentas_Producto = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const listVentasProductos = yield ventas_producto_1.Ventas_Producto.findAll();
@@ -102,3 +105,72 @@ const updateVenta_Producto = (req, res) => __awaiter(void 0, void 0, void 0, fun
     }
 });
 exports.updateVenta_Producto = updateVenta_Producto;
+const getMasVendido = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const { fecha_inicio, fecha_final } = req.body;
+    // productos = {centidad,productos:{nombre_producto},venta:{fecha}}
+    const productos = yield ventas_producto_1.Ventas_Producto.findAll({ attributes: ['cantidad'],
+        include: [
+            {
+                model: producto_1.Productos,
+                attributes: ['nombre_producto'],
+            },
+            {
+                model: ventas_1.Ventas,
+                where: { fecha_venta: { [sequelize_1.Op.between]: [fecha_inicio, fecha_final] } }
+            }
+        ]
+    });
+    if (!productos || productos.length == 0) {
+        res.status(400).json({
+            msg: 'No se han encontrado ventas en ese periodo de tiempo',
+        });
+    }
+    const productosPorNombre = new Map();
+    for (const detalleVenta of productos) {
+        const nombreProducto = detalleVenta === null || detalleVenta === void 0 ? void 0 : detalleVenta.dataValues.producto.nombre_producto;
+        const cantidad = detalleVenta === null || detalleVenta === void 0 ? void 0 : detalleVenta.dataValues.cantidad;
+        if (productosPorNombre.has(nombreProducto)) {
+            productosPorNombre.get(nombreProducto).push(cantidad);
+        }
+        else {
+            productosPorNombre.set(nombreProducto, [cantidad]);
+        }
+    }
+    try {
+        const productosOrdenados = Array.from(productosPorNombre.entries())
+            .map(([nombreProducto, cantidades]) => ({
+            nombreProducto,
+            cantidadTotal: cantidades.reduce((acc, curr) => acc + curr, 0),
+        }))
+            .sort((a, b) => b.cantidadTotal - a.cantidadTotal);
+        // 3 productos mas vendidos
+        const top3Productos = productosOrdenados.slice(0, 3);
+        let resultado = [];
+        if (top3Productos[0]) {
+            const producto1 = yield producto_1.Productos.findOne({
+                where: { nombre_producto: top3Productos[0].nombreProducto },
+            });
+            resultado.push(producto1);
+        }
+        if (top3Productos[1]) {
+            const producto2 = yield producto_1.Productos.findOne({
+                where: { nombre_producto: top3Productos[1].nombreProducto },
+            });
+            resultado.push(producto2);
+        }
+        if (top3Productos[2]) {
+            const producto3 = yield producto_1.Productos.findOne({
+                where: { nombre_producto: top3Productos[2].nombreProducto },
+            });
+            resultado.push(producto3);
+        }
+        res.json(resultado);
+    }
+    catch (error) {
+        res.status(400).json({
+            msg: 'Ha ocurrido un error al obtener el reporte',
+            error
+        });
+    }
+});
+exports.getMasVendido = getMasVendido;

@@ -2,7 +2,15 @@ import axios from 'axios';
 
 const API_URL = 'http://localhost:3000/api/venta';
 
-export const getVentas = () => axios.get(`${API_URL}/list`);
+export const getVentas = async () => {
+  try {
+    const response = await axios.get(`${API_URL}/list`);
+    return response.data;
+  } catch (error) {
+    console.error('Error al obtener ventas del usuario:', error);
+    throw error;
+  }
+};
 
 export const getVentaById = async(idVenta) => axios.get(`${API_URL}/${idVenta}`)
 

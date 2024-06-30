@@ -18,8 +18,8 @@ const carrito_productos_1 = require("../models/carrito_productos");
 const producto_1 = require("../models/producto");
 const getVentas = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const listVentas = yield ventas_1.Ventas.findAll();
-        res.json(listVentas);
+        const listaVentas = yield ventas_1.Ventas.findAll();
+        res.json(listaVentas);
     }
     catch (error) {
         console.error(error);

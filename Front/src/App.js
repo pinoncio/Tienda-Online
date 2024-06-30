@@ -18,7 +18,7 @@ import Users from './pages/user';
 import Roles from './pages/rol';
 import Categoria from './pages/categoria';
 import Producto from './pages/producto';
-import Venta from './pages/ventas';
+import VentaAdmin from './pages/ventasAdmin';
 import VentaId from './pages/venta';
 import DetalleVenta from './pages/detalleVenta'
 import { AuthProvider, AuthContext } from './AuthContext';
@@ -47,7 +47,7 @@ function App() {
             <Route path="/roles" element={<Roles />} />
             <Route path="/categoria" element={<Categoria />} />
             <Route path="/producto" element={<Producto />} />
-            <Route path="/venta" element={<Venta />} />
+            <Route path="/ventaAdmin" element={<VentaAdmin />} />
             <Route path="/ventaId" element={<VentaId/>} />
             <Route path="/carrito" element={<Carrito />} />
             <Route path="/exito" element={<Exito />} />

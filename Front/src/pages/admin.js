@@ -38,7 +38,7 @@ function Admin() {
               <FontAwesomeIcon icon={faTags} size="3x" className="icon"/>
               <p>Categorías</p>
             </div>
-            <div className="admin-card" onClick={() => handleNavigation('/venta')}>
+            <div className="admin-card" onClick={() => handleNavigation('/ventaAdmin')}>
               <FontAwesomeIcon icon={faShoppingCart} size="3x" className="icon"/>
               <p>Ventas</p>
             </div>

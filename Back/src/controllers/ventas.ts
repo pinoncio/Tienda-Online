@@ -8,8 +8,8 @@ import { Productos } from '../models/producto';
 
 export const getVentas = async(req: Request, res: Response) =>{  
     try {
-        const listVentas = await Ventas.findAll();
-        res.json(listVentas)
+        const listaVentas = await Ventas.findAll();
+        res.json(listaVentas)
     }catch (error) {
         console.error(error);
         res.status(500).json({ error: 'Error al obtener las Ventas.' });
