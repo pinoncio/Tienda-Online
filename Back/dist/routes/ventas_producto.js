@@ -8,5 +8,6 @@ router.get('/:id_venta_producto', ventas_producto_1.getVentas_Producto);
 router.delete('/:id_venta_producto', ventas_producto_1.deleteVenta_Producto);
 router.put('/:id_venta_producto', ventas_producto_1.updateVenta_Producto);
 router.get('/list/:id_venta', ventas_producto_1.getVentas_ProductoVenta);
-router.get('/reporte/masVendido', ventas_producto_1.getMasVendido);
+router.get('/reporte/masVendido', ventas_producto_1.get3MasVendido);
+router.get('/reporte/desempeno', ventas_producto_1.getDesempeno);
 exports.default = router;

@@ -97,7 +97,7 @@ export const updateVenta_Producto = async(req: Request, res: Response) => {
 }
 
 
-export const getMasVendido = async (req: Request, res: Response) => {
+export const get3MasVendido = async (req: Request, res: Response) => {
 
     // productos = {centidad,productos:{nombre_producto},venta:{fecha}}
 
@@ -168,3 +168,43 @@ export const getMasVendido = async (req: Request, res: Response) => {
     }
 
 }
+
+export const getDesempeno = async (req:Request, res: Response) =>{
+    try{
+        const productos = await Ventas_Producto.findAll({attributes:['cantidad'],
+            include: [
+              {
+                model: Productos,
+                attributes: ['nombre_producto'],
+              },
+            ]
+          })
+        if(!productos || productos.length == 0){
+            res.status(400).json({
+                msg:'No se han encontrado ventas de productos',
+            })
+        }
+        const productosPorNombre: Map<string, number[]> = new Map();
+    
+        for (const detalleVenta of productos) { 
+            const nombreProducto = detalleVenta?.dataValues.producto.nombre_producto; 
+            const cantidad = detalleVenta?.dataValues.cantidad; 
+          
+            if (productosPorNombre.has(nombreProducto)) {
+              productosPorNombre.get(nombreProducto)!.push(cantidad);
+            } else {
+              productosPorNombre.set(nombreProducto, [cantidad]);
+            }
+          }
+        const productosOrdenados = Array.from(productosPorNombre.entries())
+          .map(([nombreProducto, cantidades]) => ({
+            nombreProducto,
+            cantidadTotal: cantidades.reduce((acc, curr) => acc + curr, 0),
+          }))
+          .sort((a, b) => b.cantidadTotal - a.cantidadTotal);
+        return res.json(productosOrdenados);
+
+    }catch(error){
+
+    }
+};

@@ -9,7 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getMasVendido = exports.updateVenta_Producto = exports.deleteVenta_Producto = exports.getVenta_Producto = exports.getVentas_ProductoVenta = exports.getVentas_Producto = void 0;
+exports.getDesempeno = exports.get3MasVendido = exports.updateVenta_Producto = exports.deleteVenta_Producto = exports.getVenta_Producto = exports.getVentas_ProductoVenta = exports.getVentas_Producto = void 0;
 const ventas_producto_1 = require("../models/ventas_producto");
 const producto_1 = require("../models/producto");
 const getVentas_Producto = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
@@ -103,7 +103,7 @@ const updateVenta_Producto = (req, res) => __awaiter(void 0, void 0, void 0, fun
     }
 });
 exports.updateVenta_Producto = updateVenta_Producto;
-const getMasVendido = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+const get3MasVendido = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     // productos = {centidad,productos:{nombre_producto},venta:{fecha}}
     const productos = yield ventas_producto_1.Ventas_Producto.findAll({ attributes: ['cantidad'],
         include: [
@@ -166,4 +166,42 @@ const getMasVendido = (req, res) => __awaiter(void 0, void 0, void 0, function* 
         });
     }
 });
-exports.getMasVendido = getMasVendido;
+exports.get3MasVendido = get3MasVendido;
+const getDesempeno = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const productos = yield ventas_producto_1.Ventas_Producto.findAll({ attributes: ['cantidad'],
+            include: [
+                {
+                    model: producto_1.Productos,
+                    attributes: ['nombre_producto'],
+                },
+            ]
+        });
+        if (!productos || productos.length == 0) {
+            res.status(400).json({
+                msg: 'No se han encontrado ventas de productos',
+            });
+        }
+        const productosPorNombre = new Map();
+        for (const detalleVenta of productos) {
+            const nombreProducto = detalleVenta === null || detalleVenta === void 0 ? void 0 : detalleVenta.dataValues.producto.nombre_producto;
+            const cantidad = detalleVenta === null || detalleVenta === void 0 ? void 0 : detalleVenta.dataValues.cantidad;
+            if (productosPorNombre.has(nombreProducto)) {
+                productosPorNombre.get(nombreProducto).push(cantidad);
+            }
+            else {
+                productosPorNombre.set(nombreProducto, [cantidad]);
+            }
+        }
+        const productosOrdenados = Array.from(productosPorNombre.entries())
+            .map(([nombreProducto, cantidades]) => ({
+            nombreProducto,
+            cantidadTotal: cantidades.reduce((acc, curr) => acc + curr, 0),
+        }))
+            .sort((a, b) => b.cantidadTotal - a.cantidadTotal);
+        return res.json(productosOrdenados);
+    }
+    catch (error) {
+    }
+});
+exports.getDesempeno = getDesempeno;
