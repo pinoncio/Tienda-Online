@@ -114,7 +114,7 @@ const get3MasVendido = (req, res) => __awaiter(void 0, void 0, void 0, function*
         ]
     });
     if (!productos || productos.length == 0) {
-        res.status(400).json({
+        return res.status(400).json({
             msg: 'No se han encontrado ventas en ese periodo de tiempo',
         });
     }
@@ -157,7 +157,7 @@ const get3MasVendido = (req, res) => __awaiter(void 0, void 0, void 0, function*
             });
             resultado.push(producto3);
         }
-        res.json(resultado);
+        return res.json(resultado);
     }
     catch (error) {
         res.status(400).json({

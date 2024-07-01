@@ -110,7 +110,7 @@ export const get3MasVendido = async (req: Request, res: Response) => {
         ]
       })
     if(!productos || productos.length == 0){
-        res.status(400).json({
+        return res.status(400).json({
             msg:'No se han encontrado ventas en ese periodo de tiempo',
         })
     }
@@ -158,7 +158,7 @@ export const get3MasVendido = async (req: Request, res: Response) => {
           });
           resultado.push(producto3)
       }
-      res.json(resultado);
+    return res.json(resultado);
     }catch(error){
         res.status(400).json({
             msg: 'Ha ocurrido un error al obtener el reporte',
