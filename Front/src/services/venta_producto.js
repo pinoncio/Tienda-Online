@@ -56,3 +56,15 @@ export const updateVentaProducto = async (idVentaProducto, data) => {
     throw error;
   }
 };
+
+export const top3Ventas = async () => {
+  try {
+    const response = await axios.get(`${API_URL}/reporte/masVendido`);
+    return response.data;
+  } catch (error) {
+    console.error('Error al obtener el reporte:', error);
+    throw error;
+  }
+};
+
+

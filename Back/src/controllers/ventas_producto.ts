@@ -99,8 +99,6 @@ export const updateVenta_Producto = async(req: Request, res: Response) => {
 
 export const getMasVendido = async (req: Request, res: Response) => {
 
-    const {fecha_inicio, fecha_final} = req.body;
-
     // productos = {centidad,productos:{nombre_producto},venta:{fecha}}
 
     const productos = await Ventas_Producto.findAll({attributes:['cantidad'],
@@ -109,10 +107,6 @@ export const getMasVendido = async (req: Request, res: Response) => {
             model: Productos,
             attributes: ['nombre_producto'],
           },
-          {
-            model: Ventas,
-            where:{fecha_venta:{[Op.between]: [fecha_inicio,fecha_final]}}
-          }
         ]
       })
     if(!productos || productos.length == 0){

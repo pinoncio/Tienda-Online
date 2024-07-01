@@ -11,8 +11,6 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.getMasVendido = exports.updateVenta_Producto = exports.deleteVenta_Producto = exports.getVenta_Producto = exports.getVentas_ProductoVenta = exports.getVentas_Producto = void 0;
 const ventas_producto_1 = require("../models/ventas_producto");
-const ventas_1 = require("../models/ventas");
-const sequelize_1 = require("sequelize");
 const producto_1 = require("../models/producto");
 const getVentas_Producto = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
@@ -106,7 +104,6 @@ const updateVenta_Producto = (req, res) => __awaiter(void 0, void 0, void 0, fun
 });
 exports.updateVenta_Producto = updateVenta_Producto;
 const getMasVendido = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const { fecha_inicio, fecha_final } = req.body;
     // productos = {centidad,productos:{nombre_producto},venta:{fecha}}
     const productos = yield ventas_producto_1.Ventas_Producto.findAll({ attributes: ['cantidad'],
         include: [
@@ -114,10 +111,6 @@ const getMasVendido = (req, res) => __awaiter(void 0, void 0, void 0, function* 
                 model: producto_1.Productos,
                 attributes: ['nombre_producto'],
             },
-            {
-                model: ventas_1.Ventas,
-                where: { fecha_venta: { [sequelize_1.Op.between]: [fecha_inicio, fecha_final] } }
-            }
         ]
     });
     if (!productos || productos.length == 0) {

@@ -23,6 +23,8 @@ import VentaId from './pages/venta';
 import DetalleVenta from './pages/detalleVenta'
 import PerfilUsuario from './pages/perfil';
 import { AuthProvider, AuthContext } from './AuthContext';
+import { useNavigate } from 'react-router-dom';
+
 
 function App() {
   return (
@@ -83,6 +85,7 @@ function App() {
 }
 
 const NavBar = () => {
+  const navigate = useNavigate();
   const { isAuthenticated, logout } = React.useContext(AuthContext);
   const rol = localStorage.getItem('rol');
 
@@ -95,6 +98,7 @@ const NavBar = () => {
     localStorage.removeItem('carritoLocal');
     // Llamar a la función de logout del contexto de autenticación
     logout();
+    navigate('/');
   };
 
   return (
