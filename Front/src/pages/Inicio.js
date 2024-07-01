@@ -20,7 +20,6 @@ function Inicio() {
 
     fetchProductosMasVendidos();
   }, []);
-  console.log(productosMasVendidos)
 
   return (
     <main>
