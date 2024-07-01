@@ -58,7 +58,7 @@ export const commitTransaction = async (req: Request, res: Response) => {
         // Transacción rechazada o con errores
         // const errorMessage = getWebpayErrorMessage(commitResponse);  //capturamos el error segun el if de la funcion de abajo
         // res.status(400).json({ error: errorMessage });
-        res.redirect(`http://localhost:3001/#/fallo`);
+        res.redirect(`http://localhost:3001/#/fracaso`);
       }
   } catch (error) {
     if (error instanceof Error) {
