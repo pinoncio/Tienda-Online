@@ -1,0 +1,21 @@
+/* src/styles/reporte.css */
+
+.reporte-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: calc(100vh - 200px);
+    flex-direction: column;
+    text-align: center;
+}
+
+.reporte-title {
+    margin-bottom: 20px;
+}
+
+.reporte-chart {
+    width: 90%; 
+    max-width: 600px; 
+    display: flex;
+    justify-content: center;
+}

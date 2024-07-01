@@ -22,6 +22,7 @@ import VentaAdmin from './pages/ventasAdmin';
 import VentaId from './pages/venta';
 import DetalleVenta from './pages/detalleVenta'
 import PerfilUsuario from './pages/perfil';
+import Reporte from './pages/reporte';
 import { AuthProvider, AuthContext } from './AuthContext';
 import { useNavigate } from 'react-router-dom';
 
@@ -58,6 +59,7 @@ function App() {
             <Route path="/retorno-webpay" element={<ReturnUrlHandler />} />
             <Route path="/detalleVenta/:idVenta" element={<DetalleVenta />} />
             <Route path="/perfil" element={<PerfilUsuario />} />
+            <Route path="/reporte" element={<Reporte />} />
           </Routes>
           <br></br>
           <br></br>

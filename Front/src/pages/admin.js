@@ -1,7 +1,7 @@
 // src/pages/Admin.js
 import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faUsers, faClipboardList, faBox, faTags, faShoppingCart, faCogs } from '@fortawesome/free-solid-svg-icons';
+import { faUsers, faChartPie, faBox, faTags, faShoppingCart, faCogs } from '@fortawesome/free-solid-svg-icons';
 import { useNavigate } from 'react-router-dom';
 import '../styles/admin.css'; 
 
@@ -30,10 +30,10 @@ function Admin() {
               <FontAwesomeIcon icon={faBox} size="3x" className="icon"/>
               <p>Productos</p>
             </div>
-            <div className="admin-card" onClick={() => handleNavigation('/orders')}>
-              <FontAwesomeIcon icon={faClipboardList} size="3x" className="icon"/>
-              <p>Pedidos</p>
-            </div>
+            <div className="admin-card" onClick={() => handleNavigation('/reporte')}>
+            <FontAwesomeIcon icon={faChartPie} size="3x" className="icon"/>
+            <p>Reporte</p>
+          </div>
             <div className="admin-card" onClick={() => handleNavigation('/categoria')}>
               <FontAwesomeIcon icon={faTags} size="3x" className="icon"/>
               <p>Categorías</p>
