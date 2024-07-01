@@ -14,5 +14,5 @@ export const Carrito_productos = sequelize.define('carrito_productos', {
     freezeTableName: true
 });
 
-Carrito_productos.belongsTo(Productos, {foreignKey: "cod_producto"});
+Carrito_productos.belongsTo(Productos, {foreignKey: "cod_producto", onDelete: "CASCADE"});
 Carrito_productos.belongsTo(Carrito, {foreignKey: "id_carro", onDelete: "CASCADE"});

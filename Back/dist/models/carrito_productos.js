@@ -18,5 +18,5 @@ exports.Carrito_productos = connection_1.default.define('carrito_productos', {
     timestamps: false,
     freezeTableName: true
 });
-exports.Carrito_productos.belongsTo(producto_1.Productos, { foreignKey: "cod_producto" });
+exports.Carrito_productos.belongsTo(producto_1.Productos, { foreignKey: "cod_producto", onDelete: "CASCADE" });
 exports.Carrito_productos.belongsTo(carrito_1.Carrito, { foreignKey: "id_carro", onDelete: "CASCADE" });
