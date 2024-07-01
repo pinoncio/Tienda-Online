@@ -178,7 +178,8 @@ const updateUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
     }
     try {
         const { nombre_usuario, apellido1_usuario, apellido2_usuario, contrasena, direccion, correo, id_rol } = req.body;
-        if (contrasena != null) {
+        // controlamos error del front cuando le damos editar yno cambiamos la contraseña
+        if (contrasena != (idUser === null || idUser === void 0 ? void 0 : idUser.dataValues.contrasena)) {
             const hashedpassword = yield bcrypt_1.default.hash(contrasena, 10);
             yield user_1.User.update({
                 nombre_usuario: nombre_usuario,

@@ -181,7 +181,9 @@ export const updateUser = async(req: Request, res: Response)=>{
     }
     try{
         const {nombre_usuario,apellido1_usuario,apellido2_usuario,contrasena,direccion,correo,id_rol} = req.body;
-        if (contrasena != null){
+
+        // controlamos error del front cuando le damos editar yno cambiamos la contraseña
+        if (contrasena != idUser?.dataValues.contrasena){
             const hashedpassword = await bcrypt.hash(contrasena, 10)
             await User.update({
                 nombre_usuario: nombre_usuario,
