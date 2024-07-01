@@ -1,3 +1,5 @@
+// src/App.js
+
 import React from 'react';
 import { HashRouter, Route, Routes } from 'react-router-dom';
 import './styles.css';
@@ -12,20 +14,19 @@ import { CrearCuenta } from './pages/CrearCuenta';
 import { IniciarSesion } from './pages/IniciarSesion';
 import { Carrito } from './pages/Carrito';
 import ReturnUrlHandler from './components/ReturnUrlHandler';
-import Exito  from './pages/exito';
-import Fracaso from './pages/fracaso'
+import Exito from './pages/exito';
+import Fracaso from './pages/fracaso';
 import Users from './pages/user';
 import Roles from './pages/rol';
 import Categoria from './pages/categoria';
 import Producto from './pages/producto';
 import VentaAdmin from './pages/ventasAdmin';
 import VentaId from './pages/venta';
-import DetalleVenta from './pages/detalleVenta'
+import DetalleVenta from './pages/detalleVenta';
 import PerfilUsuario from './pages/perfil';
 import Reporte from './pages/reporte';
 import { AuthProvider, AuthContext } from './AuthContext';
 import { useNavigate } from 'react-router-dom';
-
 
 function App() {
   return (
@@ -34,16 +35,16 @@ function App() {
         <div className="App">
           <header>
             <div className="logo">
-              <a href="/inicio"> 
-                <img src={logo} alt=""/>
+              <a href="/inicio">
+                <img src={logo} alt="" />
               </a>
             </div>
-            <NavBar /> 
+            <NavBar />
           </header>
           <Routes>
             <Route path="/" element={<Inicio />} />
             <Route path="/catalogo" element={<Catalogo />} />
-            <Route path="/detalle-producto/:cod_producto" element={<DetalleProduct/>} />
+            <Route path="/detalle-producto/:cod_producto" element={<DetalleProduct />} />
             <Route path="/admin" element={<Admin />} />
             <Route path="/crear-cuenta" element={<CrearCuenta />} />
             <Route path="/iniciar-sesion" element={<IniciarSesion />} />
@@ -52,7 +53,7 @@ function App() {
             <Route path="/categoria" element={<Categoria />} />
             <Route path="/producto" element={<Producto />} />
             <Route path="/ventaAdmin" element={<VentaAdmin />} />
-            <Route path="/ventaId" element={<VentaId/>} />
+            <Route path="/ventaId" element={<VentaId />} />
             <Route path="/carrito" element={<Carrito />} />
             <Route path="/exito" element={<Exito />} />
             <Route path="/fracaso" element={<Fracaso />} />
@@ -61,8 +62,8 @@ function App() {
             <Route path="/perfil" element={<PerfilUsuario />} />
             <Route path="/reporte" element={<Reporte />} />
           </Routes>
-          <br></br>
-          <br></br>
+          <br />
+          <br />
           <footer>
             <p>&copy; 2024 Creaciones con Amor. Todos los derechos reservados.</p>
             <div className="social-icons">
@@ -109,6 +110,7 @@ const NavBar = () => {
         <li><a href="/">Inicio</a></li>
         <li><a href="#catalogo">Catálogo</a></li>
         {isAuthenticated && rol === '1' && <li><a href="#admin">Admin</a></li>}
+        {isAuthenticated && rol === '2' && <li><a href="#admin">Logística</a></li>}
         {isAuthenticated && rol !== '1' && <li><a href="#ventaId">Historial</a></li>}
         {!isAuthenticated ? (
           <>
@@ -128,6 +130,5 @@ const NavBar = () => {
     </nav>
   );
 };
-
 
 export default App;
