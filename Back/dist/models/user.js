@@ -17,7 +17,7 @@ exports.User = connection_1.default.define('usuario', {
     "direccion": { type: sequelize_1.DataTypes.STRING },
     "correo": { type: sequelize_1.DataTypes.STRING },
     "id_rol": { type: sequelize_1.DataTypes.INTEGER },
-    "estado_pago": { type: sequelize_1.DataTypes.BOOLEAN }
+    "estado_pago": { type: sequelize_1.DataTypes.BOOLEAN, defaultValue: false }
 }, {
     timestamps: false,
     freezeTableName: true
