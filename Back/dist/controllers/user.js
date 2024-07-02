@@ -42,7 +42,8 @@ const newUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
             "apellido2_usuario": apellido2_usuario,
             "direccion": direccion,
             "correo": correo,
-            "id_rol": id_rol
+            "id_rol": id_rol,
+            "estado_pago": false
         });
         return res.status(201).json({
             msg: 'Usuario creado correctamente'
@@ -69,7 +70,8 @@ const getUsers = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
                 'contrasena',
                 'correo',
                 'id_rol',
-                [sequelize_1.default.col('rol.nombre_rol'), 'nombre_rol']
+                [sequelize_1.default.col('rol.nombre_rol'), 'nombre_rol'],
+                'estado_pago'
             ],
             include: {
                 model: rol_1.Rol,
@@ -123,7 +125,8 @@ const getUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
             'contrasena',
             'correo',
             'id_rol',
-            [sequelize_1.default.col('rol.nombre_rol'), 'nombre_rol']
+            [sequelize_1.default.col('rol.nombre_rol'), 'nombre_rol'],
+            'estado_pago'
         ],
         include: {
             model: rol_1.Rol,
@@ -177,7 +180,16 @@ const updateUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
         });
     }
     try {
-        const { nombre_usuario, apellido1_usuario, apellido2_usuario, contrasena, direccion, correo, id_rol } = req.body;
+        const { nombre_usuario, apellido1_usuario, apellido2_usuario, contrasena, direccion, correo, id_rol, estado_pago } = req.body;
+        if (!contrasena && !nombre_usuario && !apellido1_usuario && !apellido2_usuario && !contrasena && !direccion && !correo && !id_rol) {
+            yield user_1.User.update({
+                estado_pago: estado_pago
+            }, { where: { id_usuario: id_usuario }
+            });
+            return res.json({
+                msg: "Se ha actualizado al usuario: " + id_usuario
+            });
+        }
         // controlamos error del front cuando le damos editar yno cambiamos la contraseña
         if (contrasena != (idUser === null || idUser === void 0 ? void 0 : idUser.dataValues.contrasena)) {
             const hashedpassword = yield bcrypt_1.default.hash(contrasena, 10);
@@ -191,7 +203,7 @@ const updateUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
                 id_rol: id_rol
             }, { where: { id_usuario: id_usuario }
             });
-            res.json({
+            return res.json({
                 msg: "Se ha actualizado al usuario: " + id_usuario
             });
         }
@@ -206,13 +218,13 @@ const updateUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
                 id_rol: id_rol
             }, { where: { id_usuario: id_usuario }
             });
-            res.json({
+            return res.json({
                 msg: "Se ha actualizado al usuario: " + id_usuario
             });
         }
     }
     catch (error) {
-        res.status(400).json({
+        return res.status(400).json({
             msg: "No se ha podido actualizar el usuario con id: " + id_usuario,
             error
         });

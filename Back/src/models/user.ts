@@ -11,7 +11,8 @@ export const User = sequelize.define('usuario',{
     "apellido2_usuario": {type: DataTypes.STRING},
     "direccion": {type: DataTypes.STRING},
     "correo": {type: DataTypes.STRING},
-    "id_rol": {type: DataTypes.INTEGER}
+    "id_rol": {type: DataTypes.INTEGER},
+    "estado_pago": {type: DataTypes.BOOLEAN}
         
 
 },

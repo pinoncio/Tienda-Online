@@ -67,6 +67,12 @@ const newVenta = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
             msg: "El usuario " + id_usuario + " no existe"
         });
     }
+    const estado_del_pago = idUser === null || idUser === void 0 ? void 0 : idUser.dataValues.estado_pago;
+    if (estado_del_pago == false) {
+        return res.json({
+            msg: "Debes realizar el pago del carrito primero"
+        });
+    }
     const fechaActual = new Date();
     const dia = fechaActual.getDate();
     const mes = fechaActual.getMonth() + 1;

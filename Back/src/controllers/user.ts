@@ -34,7 +34,8 @@ export const newUser = async(req: Request, res: Response) =>{
             "apellido2_usuario":apellido2_usuario,
             "direccion":direccion,
             "correo":correo,
-            "id_rol":id_rol
+            "id_rol":id_rol,
+            "estado_pago": false
         })
         return res.status(201).json({
             msg: 'Usuario creado correctamente'
@@ -64,7 +65,8 @@ export const getUsers = async(req: Request, res: Response) =>{
             'contrasena',
             'correo',
             'id_rol',
-            [sequelize.col('rol.nombre_rol'), 'nombre_rol']
+            [sequelize.col('rol.nombre_rol'), 'nombre_rol'],
+            'estado_pago'
         ],
         include: {
             model: Rol,
@@ -125,7 +127,8 @@ export const getUser = async(req: Request, res: Response) =>{
             'contrasena',
             'correo',
             'id_rol',
-            [sequelize.col('rol.nombre_rol'), 'nombre_rol']
+            [sequelize.col('rol.nombre_rol'), 'nombre_rol'],
+            'estado_pago'
         ],
         include: {
             model: Rol,
@@ -180,7 +183,22 @@ export const updateUser = async(req: Request, res: Response)=>{
         })
     }
     try{
-        const {nombre_usuario,apellido1_usuario,apellido2_usuario,contrasena,direccion,correo,id_rol} = req.body;
+        const {nombre_usuario,apellido1_usuario,apellido2_usuario,contrasena,direccion,correo,id_rol,estado_pago} = req.body;
+
+        if(!contrasena && !nombre_usuario && !apellido1_usuario && !apellido2_usuario && !contrasena && !direccion && !correo && !id_rol){
+            await User.update({
+                estado_pago: estado_pago
+    
+            },{where: {id_usuario: id_usuario}
+
+        })
+        return res.json({
+            msg: "Se ha actualizado al usuario: "+id_usuario
+        })
+
+    }
+
+
 
         // controlamos error del front cuando le damos editar yno cambiamos la contraseña
         if (contrasena != idUser?.dataValues.contrasena){
@@ -196,7 +214,7 @@ export const updateUser = async(req: Request, res: Response)=>{
     
             },{where: {id_usuario: id_usuario}
         })
-            res.json({
+            return res.json({
                 msg: "Se ha actualizado al usuario: "+id_usuario
             })
         } else{
@@ -211,13 +229,13 @@ export const updateUser = async(req: Request, res: Response)=>{
     
             },{where: {id_usuario: id_usuario}
         })
-            res.json({
+            return res.json({
                 msg: "Se ha actualizado al usuario: "+id_usuario
             })
 
         }
     }catch (error){
-        res.status(400).json({
+        return res.status(400).json({
             msg: "No se ha podido actualizar el usuario con id: "+id_usuario,
             error
         })

@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { getCarritosProductos, deleteCarritoProducto, updateCarritoProducto } from '../services/carritoproducto';
 import { createTransaction } from '../services/pago'; 
 import '../styles/Carrito.css';
+import { updateUser } from '../services/user';
 
 const Carrito = () => {
   const [carritosProductos, setCarritosProductos] = useState([]);
@@ -88,6 +89,7 @@ const Carrito = () => {
   const handlePlaceOrder = async () => {
     try {
       const idUser = localStorage.getItem('idUser');
+      await updateUser(idUser, { estado_pago: true })
       const amount = calculateTotal();
       const sessionId = idUser; 
       const buyOrder = 'orden' + new Date().getTime(); 

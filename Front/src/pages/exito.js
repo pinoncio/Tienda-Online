@@ -1,5 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import { updateUser } from '../services/user';
 import  {newVenta}  from '../services/exito';
 import '../styles/exito.css';
 
@@ -15,7 +16,8 @@ const Exito = () => {
     }
 
     try {
-      await newVenta(idUser); 
+      await newVenta(idUser);
+      await updateUser(idUser, { estado_pago: false })
       navigate('/'); 
     } catch (error) {
       console.error('Error al enviar datos de venta:', error);
