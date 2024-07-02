@@ -79,7 +79,6 @@ export const newVenta = async(req: Request, res: Response) =>{
         const CarritoUser = await Carrito.findOne({where:{id_usuario: id_usuario}});
         const idCarritoUser = CarritoUser?.dataValues.id_carro;
 
-
         const listCarritoProductos = await Carrito_productos.findAll({where:{id_carro: idCarritoUser}});
         if(listCarritoProductos.length == 0 || !listCarritoProductos){
             return res.status(400).json({
@@ -87,9 +86,9 @@ export const newVenta = async(req: Request, res: Response) =>{
             })
         }
 
+
         //**recorro la lista con todos los carritos obteniendo sus valores */
         //**para cada carrito recorrido copio los datos y creo un ventas productos */
-
         for (const CarritoProducto of  listCarritoProductos){
             let SubTotal = CarritoProducto?.dataValues.subtotal;
             let idProducto = CarritoProducto?.dataValues.cod_producto;
@@ -158,7 +157,7 @@ export const newVenta = async(req: Request, res: Response) =>{
             "subtotal": aux,
             "impuestos": impuestos,
             "total": aux + impuestos
-        })
+        },{where:{id_usuario: id_usuario}})
 
         return res.status(201).json({
             msg: "Venta Hecha correctamente"

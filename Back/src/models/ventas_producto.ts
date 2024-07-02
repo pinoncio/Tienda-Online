@@ -18,5 +18,5 @@ export const Ventas_Producto = sequelize.define('ventas_productos',{
     }
 );
 
-Ventas_Producto.belongsTo(Ventas,{foreignKey: 'id_venta', onDelete: 'CASCADE'});
+Ventas_Producto.belongsTo(Ventas,{foreignKey: 'id_venta', onDelete: 'SET NULL'});
 Ventas_Producto.belongsTo(Productos,{foreignKey: 'cod_producto', onDelete: 'SET NULL'});

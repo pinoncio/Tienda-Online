@@ -21,4 +21,4 @@ export const Ventas = sequelize.define('ventas',{
     }
 );
 
-Ventas.belongsTo(User,{foreignKey: 'id_usuario', onDelete: 'CASCADE'});
+Ventas.belongsTo(User,{foreignKey: 'id_usuario', onDelete: 'SET NULL'});

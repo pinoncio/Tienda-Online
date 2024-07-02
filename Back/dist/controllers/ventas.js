@@ -157,7 +157,7 @@ const newVenta = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
             "subtotal": aux,
             "impuestos": impuestos,
             "total": aux + impuestos
-        });
+        }, { where: { id_usuario: id_usuario } });
         return res.status(201).json({
             msg: "Venta Hecha correctamente"
         });

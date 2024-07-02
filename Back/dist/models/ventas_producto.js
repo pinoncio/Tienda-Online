@@ -18,5 +18,5 @@ exports.Ventas_Producto = connection_1.default.define('ventas_productos', {
     freezeTableName: true,
     timestamps: false
 });
-exports.Ventas_Producto.belongsTo(ventas_1.Ventas, { foreignKey: 'id_venta', onDelete: 'CASCADE' });
+exports.Ventas_Producto.belongsTo(ventas_1.Ventas, { foreignKey: 'id_venta', onDelete: 'SET NULL' });
 exports.Ventas_Producto.belongsTo(producto_1.Productos, { foreignKey: 'cod_producto', onDelete: 'SET NULL' });

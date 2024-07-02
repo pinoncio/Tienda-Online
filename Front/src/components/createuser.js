@@ -50,8 +50,6 @@ export const useCreateUserForm = () => {
       id_rol: 3
     };
 
-    console.log("Datos enviados al backend:", formDataWithRole);
-
     const formErrors = Object.keys(formDataWithRole).reduce((acc, key) => {
       if (formDataWithRole[key] === '') {
         acc[key] = true;

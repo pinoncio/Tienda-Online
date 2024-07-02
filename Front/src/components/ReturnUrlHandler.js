@@ -20,7 +20,6 @@ const ReturnUrlHandler = () => {
         localStorage.setItem('token_ws', token_ws);
 
         const response = await commitTransaction(token_ws);
-        console.log('Respuesta de commitTransaction:', response);
 
         // Maneja la respuesta según el estado de la transacción
         if (response.details.status === 'AUTHORIZED') {

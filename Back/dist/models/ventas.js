@@ -21,4 +21,4 @@ exports.Ventas = connection_1.default.define('ventas', {
     freezeTableName: true,
     timestamps: false
 });
-exports.Ventas.belongsTo(user_1.User, { foreignKey: 'id_usuario', onDelete: 'CASCADE' });
+exports.Ventas.belongsTo(user_1.User, { foreignKey: 'id_usuario', onDelete: 'SET NULL' });
