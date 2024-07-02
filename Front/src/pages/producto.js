@@ -52,7 +52,6 @@ const Producto = () => {
       cod_producto: '',
       nombre_producto: '',
       precio_producto: '',
-      cantidad_total: '',
       cantidad_disponible: '',
       descripcion_producto: '',
       imagen: null, 
@@ -65,7 +64,6 @@ const Producto = () => {
     const formData = new FormData();
     formData.append('nombre_producto', editedProducto.nombre_producto);
     formData.append('precio_producto', editedProducto.precio_producto);
-    formData.append('cantidad_total', editedProducto.cantidad_total);
     formData.append('cantidad_disponible', editedProducto.cantidad_disponible);
     formData.append('descripcion_producto', editedProducto.descripcion_producto);
     formData.append('id_categoria', editedProducto.id_categoria);
@@ -112,7 +110,6 @@ const Producto = () => {
             <th>Código</th>
             <th>Nombre</th>
             <th>Precio</th>
-            <th>Cantidad Total</th>
             <th>Cantidad Disponible</th>
             <th>Descripción</th>
             <th>Imagen</th>
@@ -128,7 +125,6 @@ const Producto = () => {
                 <td>{producto.cod_producto}</td>
                 <td>{producto.nombre_producto}</td>
                 <td>{producto.precio_producto}</td>
-                <td>{producto.cantidad_total}</td>
                 <td>{producto.cantidad_disponible}</td>
                 <td>{producto.descripcion_producto}</td>
 
@@ -151,7 +147,6 @@ const Producto = () => {
         <form onSubmit={handleSubmit}>
           <input type="text" name="nombre_producto" value={editedProducto.nombre_producto} onChange={handleChange} placeholder="Nombre del Producto" />
           <input type="text" name="precio_producto" value={editedProducto.precio_producto} onChange={handleChange} placeholder="Precio del Producto" />
-          <input type="text" name="cantidad_total" value={editedProducto.cantidad_total} onChange={handleChange} placeholder="Cantidad Total" />
           <input type="text" name="cantidad_disponible" value={editedProducto.cantidad_disponible} onChange={handleChange} placeholder="Cantidad Disponible" />
           <textarea name="descripcion_producto" value={editedProducto.descripcion_producto} onChange={handleChange} placeholder="Descripción del Producto"></textarea>
           <input type="file" name="imagen" onChange={handleFileChange} />
