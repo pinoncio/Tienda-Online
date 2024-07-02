@@ -38,7 +38,6 @@
   height: 30px;
   border-radius: 8px;
   box-shadow: 5px 5px 10px rgb(128, 0, 73);
-  margin: 10px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -47,6 +46,7 @@
 .detalle-producto .detalles button:hover {
   background-color: #fc6998;
 }
+
 
 .precio-destacado {
   color: #ff0080;

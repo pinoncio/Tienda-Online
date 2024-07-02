@@ -104,7 +104,7 @@ const Carrito = () => {
 
   return (
     <div className="carrito-container">
-      <h2>Resumen de mi Pedido</h2>
+      <h2>Carrito de Compra</h2>
       <table>
         <thead>
           <tr>

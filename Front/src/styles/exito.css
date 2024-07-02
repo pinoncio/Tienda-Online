@@ -6,6 +6,6 @@
     min-height: 100vh; /* Asegura que el contenedor ocupe toda la altura de la ventana */
   }
   
-  h2, p {
+  .h2, .p {
     text-align: center; /* Centra el texto de los títulos y párrafos */
   }

@@ -1,26 +1,28 @@
-/* src/styles/crearcuenta.css */
-
+/* Centrar el formulario y adaptarlo a cualquier dispositivo */
 .form-container {
-  max-width: 37%;
-  margin-top: 0%;
+  max-width: 30%; /* Reducir el ancho máximo */
+  margin: 0 auto; /* Centrar horizontalmente */
+  padding: 2%; /* Agregar padding para un mejor diseño */
   border: 1px solid #ccc;
   border-radius: 8px;
   box-sizing: border-box; 
 }
 
 .form-group {
-  margin-bottom: 5%;
+  margin-bottom: 4%; /* Reducir el margen inferior */
 }
 
-label {
+.form-group label {
   display: block;
   margin-bottom: 2%;
 }
 
-input[type="text"],
-input[type="password"] {
+.form-group input[type="text"],
+.form-group input[type="password"],
+.form-group input[type="email"],
+.form-group input[type="number"] {
   width: 100%;
-  padding: 2%;
+  padding: 2%; 
   font-size: 1rem;
   border-radius: 5px;
   border: 1px solid #ccc;
@@ -28,9 +30,9 @@ input[type="password"] {
 }
 
 input[type="submit"] {
-  width: 95%;
-  padding: 2.5%;
-  font-size: 1.125rem;
+  width: 100%;
+  padding: 2.5%; 
+  font-size: 1rem; /* Reducir el tamaño de fuente */
   background-color: #007bff;
   color: #fff;
   border: none;
@@ -48,36 +50,55 @@ input[type="submit"]:hover {
   font-size: 0.75rem;
 }
 
-/* Media Queries */
+/* Media Queries para mejorar la adaptabilidad */
+@media (max-width: 1200px) {
+  .form-container {
+    max-width: 40%; 
+  }
+}
+
+@media (max-width: 992px) {
+  .form-container {
+    max-width: 50%; 
+  }
+}
+
+@media (max-width: 768px) {
+  .form-container {
+    max-width: 60%; 
+  }
+}
+
 @media (max-width: 600px) {
   .form-container {
-    max-width: 95%; 
+    max-width: 90%; 
     padding: 4%;
   }
 
-  input[type="text"],
-  input[type="password"] {
+  .form-group input[type="text"],
+  .form-group input[type="password"] {
     font-size: 0.875rem;
   }
 
   input[type="submit"] {
     padding: 2%;
-    font-size: 1rem; 
+    font-size: 0.875rem; /* Reducir el tamaño de fuente */
   }
 }
 
 @media (max-width: 400px) {
   .form-container {
-    max-width: 100%; 
+    max-width: 95%; 
     margin: 5% auto 0;
   }
 
   .form-group {
-    margin-bottom: 4%; 
+    margin-bottom: 3%; 
   }
 }
 
-.h2 {
+h2 {
   margin: 0;
-  margin-bottom: 2.5%;
+  margin-bottom: 2%;
+  text-align: center; /* Centrar el título */
 }

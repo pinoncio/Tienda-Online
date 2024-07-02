@@ -5,6 +5,9 @@ import '../styles/venta.css';
 
 const VentaId = () => {
   const [ventas, setVentas] = useState([]);
+  const [filteredVentas, setFilteredVentas] = useState([]);
+  const [searchTerm, setSearchTerm] = useState('');
+  const [sortOrder, setSortOrder] = useState('asc');
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -18,6 +21,7 @@ const VentaId = () => {
       try {
         const ventasData = await getVentasByUserId(idUser);
         setVentas(ventasData);
+        setFilteredVentas(ventasData);
       } catch (error) {
         console.error('Error al cargar las ventas del usuario:', error);
       }
@@ -26,14 +30,48 @@ const VentaId = () => {
     fetchVentas();
   }, []);
 
+  useEffect(() => {
+    const filtered = ventas.filter(venta => 
+      venta.id_venta.toString().startsWith(searchTerm)
+    );
+    setFilteredVentas(filtered);
+  }, [searchTerm, ventas]);
+
   const handleVerDetalle = (idVenta) => {
     navigate(`/detalleVenta/${idVenta}`);
+  };
+
+  const handleSearch = (e) => {
+    setSearchTerm(e.target.value);
+  };
+
+  const handleSort = () => {
+    const sorted = [...filteredVentas].sort((a, b) => {
+      if (sortOrder === 'asc') {
+        return new Date(a.fecha_venta) - new Date(b.fecha_venta);
+      } else {
+        return new Date(b.fecha_venta) - new Date(a.fecha_venta);
+      }
+    });
+    setFilteredVentas(sorted);
+    setSortOrder(sortOrder === 'asc' ? 'desc' : 'asc');
   };
 
   return (
     <div className="venta-container">
       <h2>Mis Ventas</h2>
-      {ventas.length > 0 ? (
+      <div className="search-sort">
+        <input
+          type="text"
+          placeholder="Buscar por ID de venta"
+          value={searchTerm}
+          onChange={handleSearch}
+        />
+        <button onClick={handleSort}>
+          Ordenar por fecha {sortOrder === 'asc' ? '↑' : '↓'}
+        </button>
+      </div>
+      {filteredVentas.length > 0 ? (
         <table>
           <thead>
             <tr>
@@ -44,7 +82,7 @@ const VentaId = () => {
             </tr>
           </thead>
           <tbody>
-            {ventas.map((venta) => (
+            {filteredVentas.map((venta) => (
               <tr key={venta.id_venta}>
                 <td>{venta.id_venta}</td>
                 <td>{venta.fecha_venta}</td>
@@ -63,6 +101,8 @@ const VentaId = () => {
       )}
     </div>
   );
+  
+
 };
 
 export default VentaId;

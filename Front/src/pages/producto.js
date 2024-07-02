@@ -116,7 +116,6 @@ const Producto = () => {
             <th>Cantidad Disponible</th>
             <th>Descripción</th>
             <th>Imagen</th>
-            <th>ID Categoría</th>
             <th>Acciones</th>
           </tr>
         </thead>
@@ -138,9 +137,6 @@ const Producto = () => {
                     <img src={imageUrl} alt={producto.nombre_producto} style={{ maxWidth: '100px', maxHeight: '100px' }} />
                   )}
                 </td>
-
-
-                <td>{producto.id_categoria}</td>
                 <td>
                   <button onClick={() => handleEdit(producto)}>Editar Producto</button>
                   <button onClick={() => handleDelete(producto.cod_producto)}>Eliminar Producto</button>
