@@ -50,7 +50,6 @@ const User = () => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    console.log("Datos enviados:", editedUser);
     await updateUserHandler(editedUser, editMode, createMode, () => loadUsers(setUsers), setEditMode, setCreateMode);
   };
 

@@ -119,7 +119,6 @@ const Producto = () => {
         <tbody>
           {productos.map((producto) => {
               const imageUrl = new URL(producto.imagen, SERVER_BASE_URL).href;
-              console.log("URL de la imagen:", imageUrl);
               return (
               <tr key={producto.cod_producto}>
                 <td>{producto.cod_producto}</td>
