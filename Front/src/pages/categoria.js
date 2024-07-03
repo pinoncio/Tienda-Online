@@ -100,19 +100,19 @@ const Categoria = () => {
                 </label>
               </td>
               <td>
-                <button onClick={() => handleEdit(categoria)}>Editar</button>
-                <button onClick={() => handleDelete(categoria.id_categoria)}>Eliminar</button>
+                <button id ="editar" onClick={() => handleEdit(categoria)}>Editar</button>
+                <button id ="eliminar" onClick={() => handleDelete(categoria.id_categoria)}>Eliminar</button>
               </td>
             </tr>
           ))}
         </tbody>
       </table>
-      <button onClick={handleCreate}>Crear Categoría</button>
+      <button id ="crear" onClick={handleCreate}>Crear Categoría</button>
       {editMode && (
         <form onSubmit={handleSubmit}>
           <input type="text" name="nombre_categoria" value={editedCategoria.nombre_categoria} onChange={handleChange} placeholder="Nombre de la Categoría" />
-          <button type="submit">Guardar</button>
-          <button type="button" onClick={() => setEditMode(false)}>Cancelar</button>
+          <button id ="guardar" type="submit">Guardar</button>
+          <button type="button" id ="cancelar" onClick={() => setEditMode(false)}>Cancelar</button>
         </form>
       )}
     </div>

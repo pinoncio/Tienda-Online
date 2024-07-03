@@ -89,7 +89,7 @@ const IniciarSesion = () => {
           {errors.contraseña && <span className="error-message">El campo es obligatorio o incorrecto</span>}
         </div>
         <div className="form-group">
-          <input type="submit" value="Iniciar Sesión" className="submit-button" />
+          <input type="submit" value="Iniciar Sesión" className="submit-button" id="boton"/>
         </div>
       </form>
     </div>

@@ -21,30 +21,30 @@ function Admin() {
                 <div className="admin-options">
                     {userRole === '1' && (
                         <>
-                            <div className="admin-card" onClick={() => handleNavigation('/users')}>
+                            <div id="usuarios" className="admin-card" onClick={() => handleNavigation('/users')}>
                                 <FontAwesomeIcon icon={faUsers} size="3x" className="icon" />
                                 <p>Usuarios</p>
                             </div>
-                            <div className="admin-card" onClick={() => handleNavigation('/roles')}>
+                            <div id="roles" className="admin-card" onClick={() => handleNavigation('/roles')}>
                                 <FontAwesomeIcon icon={faCogs} size="3x" className="icon" />
                                 <p>Roles</p>
                             </div>
                         </>
                     )}
-                    <div className="admin-card" onClick={() => handleNavigation('/producto')}>
+                    <div id="productos" className="admin-card" onClick={() => handleNavigation('/producto')}>
                         <FontAwesomeIcon icon={faBox} size="3x" className="icon" />
                         <p>Productos</p>
                     </div>
-                    <div className="admin-card" onClick={() => handleNavigation('/reporte')}>
+                    <div id="reportes" className="admin-card" onClick={() => handleNavigation('/reporte')}>
                         <FontAwesomeIcon icon={faChartPie} size="3x" className="icon" />
                         <p>Reporte</p>
                     </div>
-                    <div className="admin-card" onClick={() => handleNavigation('/categoria')}>
+                    <div id="categorias" className="admin-card" onClick={() => handleNavigation('/categoria')}>
                         <FontAwesomeIcon icon={faTags} size="3x" className="icon" />
                         <p>Categorías</p>
                     </div>
                     {userRole === '1' && (
-                        <div className="admin-card" onClick={() => handleNavigation('/ventaAdmin')}>
+                        <div id="ventasAdmin" className="admin-card" onClick={() => handleNavigation('/ventaAdmin')}>
                             <FontAwesomeIcon icon={faShoppingCart} size="3x" className="icon" />
                             <p>Ventas</p>
                         </div>

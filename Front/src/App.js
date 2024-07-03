@@ -107,7 +107,7 @@ const NavBar = () => {
       <ul>
         <li><a href="/">Inicio</a></li>
         <li><a href="#catalogo">Catálogo</a></li>
-        {isAuthenticated && rol === '1' && <li><a href="#admin">Admin</a></li>}
+        {isAuthenticated && rol === '1' && <li><a id = "botonAdmin" href="#admin">Admin</a></li>}
         {isAuthenticated && rol === '2' && <li><a href="#admin">Logística</a></li>}
         {isAuthenticated && rol !== '1' && <li><a href="#ventaId">Historial</a></li>}
         {!isAuthenticated ? (
@@ -119,7 +119,7 @@ const NavBar = () => {
           <>
             <li className="user-container">
               <a href="#perfil"><i className="fas fa-user user-icon"></i></a>
-              <i className="fas fa-sign-out-alt logout-icon" onClick={handleLogout}></i>
+              <i className="fas fa-sign-out-alt logout-icon" onClick={handleLogout} id = "logOut"></i>
             </li>
           </>
         )}
